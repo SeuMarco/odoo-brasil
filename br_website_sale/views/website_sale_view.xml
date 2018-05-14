@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<openerp>
+<odoo>
     <data>
         <template id="assets_frontend" inherit_id="website.assets_frontend" name="Shop BR">
             <xpath expr="." position="inside">
@@ -119,4 +119,4 @@
 
         </template>
     </data>
-</openerp>
+</odoo>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<openerp>
+<odoo>
     <data>
 
         <template id="br_website_portal_my_account" inherit_id="portal.portal_my_details"
@@ -110,4 +110,4 @@
 
         </template>
     </data>
-</openerp>
+</odoo>

@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<openerp>
+<odoo>
     <data>
 
         <template id="account_cash_flow_template_html_report">
@@ -100,4 +100,4 @@
             <field name="name">Cash Flow</field>
         </record>
     </data>
-</openerp>
+</odoo>

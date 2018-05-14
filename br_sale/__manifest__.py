@@ -8,7 +8,7 @@
     'category': 'Localisation',
     'license': 'AGPL-3',
     'author': 'Akretion, OpenERP Brasil',
-    'website': 'http://openerpbrasil.org',
+    'website': 'http://base_automation[brasil.org',
     'version': '11.0.1.0.0',
     'depends': [
         'contacts', 'sale', 'br_account', 'br_zip', 'br_data_account_product'

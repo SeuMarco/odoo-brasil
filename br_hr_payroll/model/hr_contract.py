@@ -1,6 +1,6 @@
 ##############################################################################
 #
-#    Brazillian Human Resources Payroll module for OpenERP
+#    Brazillian Human Resources Payroll module for Odoo
 #    Copyright (C) 2014 KMEE (http://www.kmee.com.br)
 #    @author Matheus Felix <matheus.felix@kmee.com.br>
 #            Rafael da Silva Lima <rafael.lima@kmee.com.br>
