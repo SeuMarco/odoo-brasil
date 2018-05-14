@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -30,7 +29,7 @@ class Sicredi240(Cnab240):
         if not line.payment_mode_id.bank_account_id.codigo_convenio or \
            not line.payment_mode_id.bank_account_id.bra_number:
             raise UserError(
-                u'Código do beneficiario ou número da agência em branco')
+                'Código do beneficiario ou número da agência em branco')
         digito = self.dv_nosso_numero(
             line.payment_mode_id.bank_account_id.bra_number,
             re.sub('[^0-9]', '',

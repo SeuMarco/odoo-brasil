@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2009 Gabriel C. Stabel
 # © 2009 Renato Lima (Akretion)
 # © 2012 Raphaël Valyi (Akretion)
@@ -33,16 +32,16 @@ class ResPartner(models.Model):
     inscr_mun = fields.Char('Municipal Inscription', size=18)
     suframa = fields.Char('Suframa', size=18)
     legal_name = fields.Char(
-        u'Legal Name', size=60, help="Name used in fiscal documents")
+        'Legal Name', size=60, help="Name used in fiscal documents")
     city_id = fields.Many2one(
-        'res.state.city', u'City',
+        'res.state.city', 'City',
         domain="[('state_id','=',state_id)]")
     district = fields.Char('District', size=32)
-    number = fields.Char(u'Number', size=10)
+    number = fields.Char('Number', size=10)
 
     _sql_constraints = [
         ('res_partner_cnpj_cpf_uniq', 'unique (cnpj_cpf)',
-         _(u'This CPF/CNPJ number is already being used by another partner!'))
+         _('This CPF/CNPJ number is already being used by another partner!'))
     ]
 
     @api.v8
@@ -88,9 +87,9 @@ class ResPartner(models.Model):
             if item.cnpj_cpf and country_code.upper() == 'BR':
                 if item.is_company:
                     if not fiscal.validate_cnpj(item.cnpj_cpf):
-                        raise UserError(_(u'Invalid CNPJ Number!'))
+                        raise UserError(_('Invalid CNPJ Number!'))
                 elif not fiscal.validate_cpf(item.cnpj_cpf):
-                    raise UserError(_(u'Invalid CPF Number!'))
+                    raise UserError(_('Invalid CPF Number!'))
         return True
 
     def _validate_ie_param(self, uf, inscr_est):
@@ -120,7 +119,7 @@ class ResPartner(models.Model):
         uf = self.state_id and self.state_id.code.lower() or ''
         res = self._validate_ie_param(uf, self.inscr_est)
         if not res:
-            raise UserError(_(u'Invalid State Inscription!'))
+            raise UserError(_('Invalid State Inscription!'))
         return True
 
     @api.one
@@ -134,8 +133,8 @@ class ResPartner(models.Model):
             ['&', ('inscr_est', '=', self.inscr_est), ('id', '!=', self.id)])
 
         if len(partner_ids) > 0:
-            raise UserError(_(u'This State Inscription/RG number '
-                              u'is already being used by another partner!'))
+            raise UserError(_('This State Inscription/RG number '
+                              'is already being used by another partner!'))
         return True
 
     @api.onchange('cnpj_cpf')
@@ -152,7 +151,7 @@ class ResPartner(models.Model):
                     % (val[0:3], val[3:6], val[6:9], val[9:11])
                 self.cnpj_cpf = cnpj_cpf
             else:
-                raise UserError(_(u'Verify CNPJ/CPF number'))
+                raise UserError(_('Verify CNPJ/CPF number'))
 
     @api.onchange('city_id')
     def _onchange_city_id(self):
@@ -184,14 +183,14 @@ class ResPartner(models.Model):
     def action_check_sefaz(self):
         if self.cnpj_cpf and self.state_id:
             if self.state_id.code == 'AL':
-                raise UserError(_(u'Alagoas doesn\'t have this service'))
+                raise UserError(_('Alagoas doesn\'t have this service'))
             if self.state_id.code == 'RJ':
                 raise UserError(_(
-                    u'Rio de Janeiro doesn\'t have this service'))
+                    'Rio de Janeiro doesn\'t have this service'))
             company = self.env.user.company_id
             if not company.nfe_a1_file and not company.nfe_a1_password:
                 raise UserError(_(
-                    u'Configure the company\'s certificate and password'))
+                    'Configure the company\'s certificate and password'))
             cert = company.with_context({'bin_size': False}).nfe_a1_file
             cert_pfx = base64.decodestring(cert)
             certificado = Certificado(cert_pfx, company.nfe_a1_password)
@@ -241,7 +240,7 @@ class ResPartner(models.Model):
                     raise UserError(msg)
             else:
                 raise UserError(_(
-                    u"No answer - did you verify if your "
-                    u"certificate is valid?"))
+                    "No answer - did you verify if your "
+                    "certificate is valid?"))
         else:
-            raise UserError(_(u'Fill the State and CNPJ fields to search'))
+            raise UserError(_('Fill the State and CNPJ fields to search'))

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Fernandes Martini, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -46,10 +45,10 @@ class TestCnabSicoob(TestCnab):
         cnab = cnab.decode('utf-8').split('\r\n')
         cnab.pop()
 
-        self.assertEquals(len(cnab), 7)  # 8 linhas
+        self.assertEqual(len(cnab), 7)  # 8 linhas
 
         for line in cnab:
-            self.assertEquals(len(line), 240)  # 8 linhas
+            self.assertEqual(len(line), 240)  # 8 linhas
 
         # TODO Descomentar e implementar teste
 

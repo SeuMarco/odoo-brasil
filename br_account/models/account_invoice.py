@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2009 Renato Lima - Akretion
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -108,7 +107,7 @@ class AccountInvoice(models.Model):
         compute='_compute_payables')
 
     product_serie_id = fields.Many2one(
-        'br_account.document.serie', string=u'Série produtos',
+        'br_account.document.serie', string='Série produtos',
         domain="[('fiscal_document_id', '=', product_document_id),\
         ('company_id','=',company_id)]", readonly=True,
         states={'draft': [('readonly', False)]})
@@ -116,7 +115,7 @@ class AccountInvoice(models.Model):
         'br_account.fiscal.document', string='Documento produtos',
         readonly=True, states={'draft': [('readonly', False)]})
     service_serie_id = fields.Many2one(
-        'br_account.document.serie', string=u'Série serviços',
+        'br_account.document.serie', string='Série serviços',
         domain="[('fiscal_document_id', '=', service_document_id),\
         ('company_id','=',company_id)]", readonly=True,
         states={'draft': [('readonly', False)]})
@@ -128,10 +127,10 @@ class AccountInvoice(models.Model):
         'Documento Fiscal Relacionado', readonly=True,
         states={'draft': [('readonly', False)]})
     fiscal_observation_ids = fields.Many2many(
-        'br_account.fiscal.observation', string=u"Observações Fiscais",
+        'br_account.fiscal.observation', string="Observações Fiscais",
         readonly=True, states={'draft': [('readonly', False)]})
     fiscal_comment = fields.Text(
-        u'Observação Fiscal', readonly=True,
+        'Observação Fiscal', readonly=True,
         states={'draft': [('readonly', False)]})
 
     total_bruto = fields.Float(
@@ -155,7 +154,7 @@ class AccountInvoice(models.Model):
         digits=dp.get_precision('Account'))
     valor_icms_fcp_uf_dest = fields.Float(
         string="Total ICMS FCP", store=True, compute='_compute_amount',
-        help=u'Total total do ICMS relativo Fundo de Combate à Pobreza (FCP) \
+        help='Total total do ICMS relativo Fundo de Combate à Pobreza (FCP) \
         da UF de destino')
     valor_icms_uf_dest = fields.Float(
         string="ICMS Destino", store=True, compute='_compute_amount',

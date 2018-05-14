@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Fernandes Martini <alessandrofmartini@gmail.com>, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -91,7 +90,7 @@ class TestCartaCorrecao(TransactionCase):
             'property_account_receivable_id': self.receivable_account.id,
         }
         self.partner_fisica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='545.770.154-98',
             company_type='person',
             is_company=False,
@@ -215,11 +214,11 @@ class TestCartaCorrecao(TransactionCase):
 
         Id = "ID1101103516122133291700016355001000000004115817672101"
         carta = self.env['carta.correcao.eletronica.evento'].search([])
-        self.assertEquals(len(carta), 1)
-        self.assertEquals(
-            carta.message, u"Evento registrado e vinculado a NF-e")
-        self.assertEquals(carta.protocolo, "135160008802236")
-        self.assertEquals(carta.correcao, 'Teste de Carta de Correcao' * 10)
-        self.assertEquals(carta.sequencial_evento, 1)
-        self.assertEquals(carta.tipo_evento, '110110')
-        self.assertEquals(carta.id_cce, Id)
+        self.assertEqual(len(carta), 1)
+        self.assertEqual(
+            carta.message, "Evento registrado e vinculado a NF-e")
+        self.assertEqual(carta.protocolo, "135160008802236")
+        self.assertEqual(carta.correcao, 'Teste de Carta de Correcao' * 10)
+        self.assertEqual(carta.sequencial_evento, 1)
+        self.assertEqual(carta.tipo_evento, '110110')
+        self.assertEqual(carta.id_cce, Id)

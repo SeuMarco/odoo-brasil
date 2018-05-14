@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -32,9 +31,9 @@ class AccountInvoice(models.Model):
     nfe_status = fields.Char(
         string="Mensagem NFe", compute="_compute_nfe_number")
     nfe_number = fields.Integer(
-        string=u"Número NFe", compute="_compute_nfe_number")
+        string="Número NFe", compute="_compute_nfe_number")
     nfe_exception_number = fields.Integer(
-        string=u"Número NFe", compute="_compute_nfe_number")
+        string="Número NFe", compute="_compute_nfe_number")
 
     @api.multi
     def action_invoice_draft(self):

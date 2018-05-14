@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Fernandes Martini, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -18,13 +17,13 @@ class ProductFiscalClassificationWizard(models.TransientModel):
     product_fiscal_class_csv = fields.Binary(string="Arquivo CSV")
     ncm_csv_delimiter = fields.Char(string='Delimitador', size=3,
                                     required=True)
-    has_quote_char = fields.Boolean(string=u'Possui caracter de citação?')
-    ncm_quote_char = fields.Char(string=u'Caracter de Citação', size=3)
+    has_quote_char = fields.Boolean(string='Possui caracter de citação?')
+    ncm_quote_char = fields.Char(string='Caracter de Citação', size=3)
 
     @api.multi
     def import_ncm(self):
         if not self.product_fiscal_class_csv:
-            raise UserError(u'Nenhum Arquivo Selecionado!')
+            raise UserError('Nenhum Arquivo Selecionado!')
         ncm_string = base64.decodestring(self.product_fiscal_class_csv)
         temp = tempfile.NamedTemporaryFile(delete=False)
         temp.write(ncm_string)
@@ -35,7 +34,7 @@ class ProductFiscalClassificationWizard(models.TransientModel):
                     csvfile, delimiter=str(self.ncm_csv_delimiter))
             else:
                 if not self.ncm_quote_char:
-                    raise UserError(u'Se o campo indicador de caracter de \
+                    raise UserError('Se o campo indicador de caracter de \
 citação estiver marcado é necessário informá-lo!')
                 ncm_lines = csv.DictReader(
                     csvfile, delimiter=str(self.ncm_csv_delimiter),

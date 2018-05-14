@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Martini <alessandrofmartini@gmail.com>, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -8,21 +7,21 @@ from odoo import api, fields, models
 class InutilizationNFeNumeration(models.TransientModel):
     _name = 'wizard.inutilization.nfe.numeration'
 
-    numeration_start = fields.Integer(u'Começo da Numeração', required=True)
-    numeration_end = fields.Integer(u'Fim da Numeração', required=True)
-    serie = fields.Many2one('br_account.document.serie', string=u'Série',
+    numeration_start = fields.Integer('Começo da Numeração', required=True)
+    numeration_end = fields.Integer('Fim da Numeração', required=True)
+    serie = fields.Many2one('br_account.document.serie', string='Série',
                             required=True)
     modelo = fields.Selection([
         ('55', '55 - NFe'),
         ('65', '65 - NFCe'), ],
-        string=u'Modelo', required=True)
+        string='Modelo', required=True)
     justificativa = fields.Text(
-        u'Justificativa', required=True,
-        help=u'Mínimo: 15 caracteres;\nMáximo: 255 caracteres.')
+        'Justificativa', required=True,
+        help='Mínimo: 15 caracteres;\nMáximo: 255 caracteres.')
 
     @api.multi
     def action_inutilize_nfe(self):
-        name = u'Série Inutilizada {inicio} - {fim}'.format(
+        name = 'Série Inutilizada {inicio} - {fim}'.format(
             inicio=self.numeration_start, fim=self.numeration_end
         )
         inut_inv = self.env['invoice.eletronic.inutilized'].create(dict(

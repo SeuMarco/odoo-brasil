@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Fernandes Martini, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -22,7 +21,7 @@ class BancoBrasil240(Cnab240):
 
     def _prepare_segmento(self, line):
         vals = super(BancoBrasil240, self)._prepare_segmento(line)
-        vals['numero_documento'] = (u"%s/%s" % (
+        vals['numero_documento'] = ("%s/%s" % (
             line.move_id.name, line.name))[-15:]
         vals['codigo_convenio_banco'] = self.format_codigo_convenio_banco(
             line.payment_mode_id)

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -52,7 +51,7 @@ class AccountBankStatementImport(models.TransientModel):
             return True
         except Exception as e:
             if raise_error:
-                raise UserError(u"Arquivo formato inválido:\n%s" % str(e))
+                raise UserError("Arquivo formato inválido:\n%s" % str(e))
             return False
 
     def _get_nosso_numero(self, journal_id, nosso_numero):
@@ -94,7 +93,7 @@ class AccountBankStatementImport(models.TransientModel):
             from cnab240.bancos import sicredi
             return sicredi
         else:
-            raise UserError(u'Banco ainda não implementado: %s' % bank)
+            raise UserError('Banco ainda não implementado: %s' % bank)
 
     def _parse_cnab(self, data_file, raise_error=False):
         cnab240_file = tempfile.NamedTemporaryFile()
@@ -154,7 +153,7 @@ class AccountBankStatementImport(models.TransientModel):
         last_balance = last_bank_stmt and last_bank_stmt[0].balance_end or 0.0
 
         vals_bank_statement = {
-            'name': u"%s - %s até %s" % (
+            'name': "%s - %s até %s" % (
                 arquivo.header.nome_do_banco,
                 inicio.strftime('%d/%m/%Y'),
                 final.strftime('%d/%m/%Y')),

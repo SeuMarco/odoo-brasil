@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Martini, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -75,7 +74,7 @@ class TestInutilizacao(TransactionCase):
             'property_account_receivable_id': self.receivable_account.id,
         }
         self.partner_fisica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='545.770.154-98',
             company_type='person',
             is_company=False,
@@ -177,11 +176,11 @@ class TestInutilizacao(TransactionCase):
         self.assertEqual(inut_inv.numeration_start, 0)
         self.assertEqual(inut_inv.numeration_end, 5)
         self.assertEqual(inut_inv.serie, self.serie)
-        self.assertEqual(inut_inv.name, u'Série Inutilizada 0 - 5')
+        self.assertEqual(inut_inv.name, 'Série Inutilizada 0 - 5')
         self.assertEqual(inut_inv.justificativa, justif)
         self.assertEqual(inut_inv.state, 'error')
         invoice = self.env['account.invoice'].create(dict(
-            self.default_invoice.items(),
+            list(self.default_invoice.items()),
             partner_id=self.partner_fisica.id,
         ))
         invoice.action_invoice_open()
@@ -220,7 +219,7 @@ class TestInutilizacao(TransactionCase):
         ))
         wizard2.action_inutilize_nfe()
         invoice = self.env['account.invoice'].create(dict(
-            self.default_invoice.items(),
+            list(self.default_invoice.items()),
             partner_id=self.partner_fisica.id,
         ))
         invoice.action_invoice_open()
@@ -256,11 +255,11 @@ class TestInutilizacao(TransactionCase):
         self.assertEqual(inut_inv.numeration_start, 0)
         self.assertEqual(inut_inv.numeration_end, 5)
         self.assertEqual(inut_inv.serie, self.serie)
-        self.assertEqual(inut_inv.name, u'Série Inutilizada 0 - 5')
+        self.assertEqual(inut_inv.name, 'Série Inutilizada 0 - 5')
         self.assertEqual(inut_inv.justificativa, justif)
         self.assertEqual(inut_inv.state, 'done')
         invoice = self.env['account.invoice'].create(dict(
-            self.default_invoice.items(),
+            list(self.default_invoice.items()),
             partner_id=self.partner_fisica.id,
         ))
         invoice.action_invoice_open()
@@ -279,7 +278,7 @@ class TestInutilizacao(TransactionCase):
             justificativa='Sed lorem nibh, sodales ut ex a, tristique ullamcor'
         ))
         invoice = self.env['account.invoice'].create(dict(
-            self.default_invoice.items(),
+            list(self.default_invoice.items()),
             partner_id=self.partner_fisica.id,
         ))
         invoice.action_invoice_open()
@@ -353,7 +352,7 @@ class TestInutilizacao(TransactionCase):
             justificativa='Sed lorem nibh, sodales ut ex a, tristique ullamcor'
         ))
         invoice = self.env['account.invoice'].create(dict(
-            self.default_invoice.items(),
+            list(self.default_invoice.items()),
             partner_id=self.partner_fisica.id,
         ))
         invoice.action_invoice_open()

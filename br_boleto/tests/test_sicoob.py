@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -11,7 +10,7 @@ class TestBoletoSicoob(TestBoleto):
     def _return_payment_mode(self):
         super(TestBoletoSicoob, self)._return_payment_mode()
         sequencia = self.env['ir.sequence'].create({
-            'name': u"Nosso Número"
+            'name': "Nosso Número"
         })
         sicoob = self.env['res.bank'].search([('bic', '=', '756')])
         conta = self.env['res.partner.bank'].create({
@@ -71,17 +70,17 @@ class TestBoletoSicoob(TestBoleto):
         self._update_partner_fisica()
         self.invoices.action_invoice_open()
 
-        self.assertEquals(len(self.invoices.receivable_move_line_ids), 1)
+        self.assertEqual(len(self.invoices.receivable_move_line_ids), 1)
 
         move = self.invoices.receivable_move_line_ids[0]
         vals = move.action_print_boleto()
 
-        self.assertEquals(vals['report_name'], 'br_boleto.report.print')
-        self.assertEquals(vals['report_type'], 'qweb-pdf')
+        self.assertEqual(vals['report_name'], 'br_boleto.report.print')
+        self.assertEqual(vals['report_type'], 'qweb-pdf')
 
         vals = self.invoices.action_register_boleto()
 
-        self.assertEquals(vals['report_name'], 'br_boleto.report.print')
-        self.assertEquals(vals['report_type'], 'qweb-pdf')
+        self.assertEqual(vals['report_name'], 'br_boleto.report.print')
+        self.assertEqual(vals['report_type'], 'qweb-pdf')
 
         move.action_register_boleto()

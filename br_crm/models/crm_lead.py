@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2012  Renato Lima - Akretion
 # © 2016 Danimar Ribeiro <danimaribeiro@gmail.com>, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
@@ -12,17 +11,17 @@ from odoo.exceptions import UserError
 class CrmLead(models.Model):
     """ CRM Lead Case """
     _inherit = "crm.lead"
-    legal_name = fields.Char(u'Razão Social', size=60,
+    legal_name = fields.Char('Razão Social', size=60,
                              help="Nome utilizado em documentos fiscais")
     cnpj = fields.Char('CNPJ', size=18)
-    inscr_est = fields.Char(u'Inscrição Estadual', size=16)
-    inscr_mun = fields.Char(u'Inscrição Municipal', size=18)
+    inscr_est = fields.Char('Inscrição Estadual', size=16)
+    inscr_mun = fields.Char('Inscrição Municipal', size=18)
     suframa = fields.Char('Suframa', size=18)
-    city_id = fields.Many2one('res.state.city', u'Município',
+    city_id = fields.Many2one('res.state.city', 'Município',
                               domain="[('state_id','=',state_id)]")
     district = fields.Char('Bairro', size=32)
-    number = fields.Char(u'Número', size=10)
-    name_surname = fields.Char(u'Nome e Sobrenome', size=128,
+    number = fields.Char('Número', size=10)
+    name_surname = fields.Char('Nome e Sobrenome', size=128,
                                help="Nome utilizado em documentos fiscais")
     cpf = fields.Char('CPF', size=18)
     rg = fields.Char('RG', size=16)
@@ -32,7 +31,7 @@ class CrmLead(models.Model):
     def _check_cnpj(self):
         if self.cnpj:
             if not fiscal.validate_cnpj(self.cnpj):
-                raise UserError(_(u'CNPJ inválido!'))
+                raise UserError(_('CNPJ inválido!'))
         return True
 
     @api.one
@@ -40,7 +39,7 @@ class CrmLead(models.Model):
     def _check_cpf(self):
         if self.cpf:
             if not fiscal.validate_cpf(self.cpf):
-                raise UserError(_(u'CPF inválido!'))
+                raise UserError(_('CPF inválido!'))
         return True
 
     def _validate_ie_param(self, uf, inscr_est):
@@ -69,7 +68,7 @@ class CrmLead(models.Model):
         uf = self.state_id and self.state_id.code.lower() or ''
         res = self._validate_ie_param(uf, self.inscr_est)
         if not res:
-            raise Warning(_(u'Inscrição Estadual inválida!'))
+            raise Warning(_('Inscrição Estadual inválida!'))
         return True
 
     @api.onchange('cnpj')
@@ -81,7 +80,7 @@ class CrmLead(models.Model):
                     % (val[0:2], val[2:5], val[5:8], val[8:12], val[12:14])
                 self.cnpj = cnpj_cpf
             else:
-                raise Warning(_(u'Verifique o CNPJ'))
+                raise Warning(_('Verifique o CNPJ'))
 
     @api.onchange('cpf')
     def onchange_mask_cpf(self):
@@ -92,7 +91,7 @@ class CrmLead(models.Model):
                     % (val[0:3], val[3:6], val[6:9], val[9:11])
                 self.cpf = cnpj_cpf
             else:
-                raise Warning(_(u'Verifique o CPF'))
+                raise Warning(_('Verifique o CPF'))
 
     @api.onchange('city_id')
     def onchange_city_id(self):

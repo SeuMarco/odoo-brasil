@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2015 Luis Felipe Mileo
 #        Fernando Marcato Rodrigues
 #        Daniel Sadamo Hirayama
@@ -23,9 +22,9 @@ class Cef240(Cnab240):
         vals['cedente_beneficiario'] = vals['cedente_convenio']
 
         vals['cedente_codigo_codCedente'] = 6088
-        vals['nome_do_banco'] = u'CAIXA ECONOMICA FEDERAL'
+        vals['nome_do_banco'] = 'CAIXA ECONOMICA FEDERAL'
         # Não pode pegar comentário da payment_line.
-        vals['reservado_cedente_campo23'] = u'REMESSA TESTE'
+        vals['reservado_cedente_campo23'] = 'REMESSA TESTE'
         # reservado_banco_campo22 não é required. Código atualizado na
         # biblioteca cnab240
         vals['data_credito_hd_lote'] = 15052015

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -47,15 +46,15 @@ class TestImportStatement(TransactionCase):
 
         lines = stmt.line_ids.sorted(lambda x: x.ref, reverse=True)
         self.assertTrue(stmt)
-        self.assertEquals(len(lines), 3)
-        self.assertEquals(lines[0].amount, 260.0)
-        self.assertEquals(
+        self.assertEqual(len(lines), 3)
+        self.assertEqual(lines[0].amount, 260.0)
+        self.assertEqual(
             lines[0].name,
-            u'Empresa de teste limitada me          00 : NF-0117/01')
-        self.assertEquals(lines[0].ref, 'NF-0117/01')
-        self.assertEquals(stmt.balance_start, 0.0)
-        self.assertEquals(stmt.balance_end_real, 2405.6)
-        self.assertEquals(stmt.balance_end, 2405.6)
+            'Empresa de teste limitada me          00 : NF-0117/01')
+        self.assertEqual(lines[0].ref, 'NF-0117/01')
+        self.assertEqual(stmt.balance_start, 0.0)
+        self.assertEqual(stmt.balance_end_real, 2405.6)
+        self.assertEqual(stmt.balance_end, 2405.6)
 
     def test_import_cnab_without_force(self):
         cnab = os.path.join(self.caminho, 'extratos/CNAB240-Sicoob.ret')
@@ -67,4 +66,4 @@ class TestImportStatement(TransactionCase):
         stmt = self.env['account.bank.statement'].search(
             [('journal_id', '=', self.journal.id)])
         self.assertTrue(stmt)
-        self.assertEquals(len(stmt.line_ids), 3)
+        self.assertEqual(len(stmt.line_ids), 3)

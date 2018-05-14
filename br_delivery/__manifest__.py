@@ -1,7 +1,3 @@
-# -*- coding: utf-8 -*-
-# © 2010  Renato Lima - Akretion
-# License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
-
 {  # pylint: disable=C8101,C8103
     'name': 'Métodos de entrega no Brasil',
     'summary': """Extende os módulos do Odoo e adiciona novos métodos de
@@ -24,5 +20,5 @@
     ],
     'category': 'Localisation',
     'application': True,
-    'installable': False,
+    'installable': True,
 }

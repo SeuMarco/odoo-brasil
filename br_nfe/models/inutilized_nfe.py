@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Alessandro Martini <alessandrofmartini@gmail.com>, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -24,25 +23,25 @@ STATE = {'edit': [('readonly', False)], 'draft': [('readonly', False)]}
 class InutilizedNfe(models.Model):
     _name = 'invoice.eletronic.inutilized'
 
-    name = fields.Char(u'Nome', required=True, readonly=True, states=STATE)
-    numeration_start = fields.Integer(u'Número Inicial', required=True,
+    name = fields.Char('Nome', required=True, readonly=True, states=STATE)
+    numeration_start = fields.Integer('Número Inicial', required=True,
                                       readonly=True, states=STATE)
-    numeration_end = fields.Integer(u'Número Final', required=True,
+    numeration_end = fields.Integer('Número Final', required=True,
                                     readonly=True, states=STATE)
-    justificativa = fields.Text(u'Justificativa', required=True,
+    justificativa = fields.Text('Justificativa', required=True,
                                 readonly=True, states=STATE)
-    erro = fields.Text(u'Erros', readonly=True)
+    erro = fields.Text('Erros', readonly=True)
     state = fields.Selection([
-        ('draft', u'Provisório'),
-        ('done', u'Enviado'),
-        ('error', u'Erro'),
-        ('edit', u'Editando'), ],
-        string=u'State', default='edit', required=True, readonly=True)
+        ('draft', 'Provisório'),
+        ('done', 'Enviado'),
+        ('error', 'Erro'),
+        ('edit', 'Editando'), ],
+        string='State', default='edit', required=True, readonly=True)
     modelo = fields.Selection([
         ('55', '55 - NFe'),
         ('65', '65 - NFCe'), ],
-        string=u'Modelo', required=True, readonly=True, states=STATE)
-    serie = fields.Many2one('br_account.document.serie', string=u'Série',
+        string='Modelo', required=True, readonly=True, states=STATE)
+    serie = fields.Many2one('br_account.document.serie', string='Série',
                             required=True, readonly=True, states=STATE)
 
     @api.model
@@ -111,7 +110,7 @@ class InutilizedNfe(models.Model):
         self._create_attachment('inutilizacao-recibo', self,
                                 resposta['received_xml'])
         if hasattr(resposta['object'].Body, 'Fault'):
-            raise UserError(u'Não foi possível concluir a operação.')
+            raise UserError('Não foi possível concluir a operação.')
         inf_inut = resposta['object'].Body.nfeInutilizacaoNF2Result.\
             retInutNFe.infInut
         status = inf_inut.cStat
@@ -150,7 +149,7 @@ class InutilizedNfe(models.Model):
                 'name': file_name,
                 'datas': base64.b64encode(data.encode('utf-8')),
                 'datas_fname': file_name,
-                'description': u'',
+                'description': '',
                 'res_model': 'invoice.eletronic.inutilized',
                 'res_id': event.id
             })

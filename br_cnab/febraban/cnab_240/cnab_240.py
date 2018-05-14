@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2015 Luis Felipe Mileo
 #        Fernando Marcato Rodrigues
 #        Daniel Sadamo Hirayama
@@ -90,7 +89,7 @@ class Cnab240(Cnab):
             'cedente_dv_ag_cc': (self.order.payment_mode_id.
                                  bank_account_id.bra_number_dig),
             'arquivo_codigo': 1,  # Remessa/Retorno
-            'servico_operacao': u'R',
+            'servico_operacao': 'R',
             'nome_banco': str(self.order.payment_mode_id.bank_account_id
                               .bank_name)
         }
@@ -163,8 +162,8 @@ class Cnab240(Cnab):
             # DV ag e cc
             'cedente_dv_ag_cc': (self.order.payment_mode_id.bank_account_id.
                                  bra_number_dig),
-            'identificacao_titulo': u'0000000',  # TODO
-            'identificacao_titulo_banco': u'0000000',  # TODO
+            'identificacao_titulo': '0000000',  # TODO
+            'identificacao_titulo_banco': '0000000',  # TODO
             'identificacao_titulo_empresa': (' ' * 25),
             'numero_documento': "%s/%s" % (line.move_id.name, line.name),
             'vencimento_titulo': self.format_date(

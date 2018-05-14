@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -18,8 +17,8 @@ from odoo.exceptions import UserError
 class NfseExportInvoice(models.TransientModel):
     _name = 'nfse.export.invoice'
 
-    name = fields.Char(u'Nome', size=255)
-    file = fields.Binary(u'Arquivo', readonly=True)
+    name = fields.Char('Nome', size=255)
+    file = fields.Binary('Arquivo', readonly=True)
     state = fields.Selection(
         [('init', 'init'), ('done', 'done')],
         'state', readonly=True, default='init')
@@ -80,7 +79,7 @@ class NfseExportInvoice(models.TransientModel):
         template = env.get_template('nfse.xml')
         xml = template.render(vals)
         xml = xml.replace('&', '&amp;')
-        return {'name': u'{0}_{1}_nfse.xml'.format(
+        return {'name': '{0}_{1}_nfse.xml'.format(
             invoice.number.replace('/', '-'),
             re.sub('[^A-Za-z]', '', invoice.commercial_partner_id.name)),
             'content': xml}

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2009 Gabriel C. Stabel
 # © 2009 Renato Lima (Akretion)
 # © 2012 Raphaël Valyi (Akretion)
@@ -13,16 +12,16 @@ from odoo.addons.base.res.res_bank import sanitize_account_number
 class ResBank(models.Model):
     _inherit = 'res.bank'
 
-    number = fields.Char(u'Number', size=10)
+    number = fields.Char('Number', size=10)
     street2 = fields.Char('Complement', size=128)
     district = fields.Char('District', size=32)
     city_id = fields.Many2one(comodel_name='res.state.city',
-                              string=u'City',
+                              string='City',
                               domain="[('state_id','=',state_id)]")
 
     country_id = fields.Many2one(comodel_name='res.country',
                                  related='country',
-                                 string=u'Country')
+                                 string='Country')
     state_id = fields.Many2one(comodel_name='res.country.state',
                                related='state',
                                string='State')
@@ -56,9 +55,9 @@ class ResPartnerBank(models.Model):
     _inherit = 'res.partner.bank'
 
     acc_number = fields.Char('Account Number', size=64, required=False)
-    acc_number_dig = fields.Char(u'Account Number Digit', size=8)
-    bra_number = fields.Char(u'Agency', size=8)
-    bra_number_dig = fields.Char(u'Account Agency Digit', size=8)
+    acc_number_dig = fields.Char('Account Number Digit', size=8)
+    bra_number = fields.Char('Agency', size=8)
+    bra_number_dig = fields.Char('Account Agency Digit', size=8)
 
     @api.depends('bank_id', 'acc_number', 'acc_number_dig',
                  'bra_number', 'bra_number_dig')

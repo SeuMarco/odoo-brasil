@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 # © 2016 Danimar Ribeiro, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
@@ -101,20 +100,20 @@ class TestEletronicInvoice(TransactionCase):
         ))
 
     def test_basic_validation_for_eletronic_doc(self):
-        self.assertEquals(self.inv_incomplete.total_edocs, 0)
+        self.assertEqual(self.inv_incomplete.total_edocs, 0)
 
         vals = self.inv_incomplete.action_view_edocs()
-        self.assertEquals(vals['type'], 'ir.actions.act_window')
-        self.assertEquals(vals['res_model'], 'invoice.eletronic')
-        self.assertEquals(vals['res_id'], 0)
+        self.assertEqual(vals['type'], 'ir.actions.act_window')
+        self.assertEqual(vals['res_model'], 'invoice.eletronic')
+        self.assertEqual(vals['res_id'], 0)
         with self.assertRaises(UserError):
             self.inv_incomplete.action_invoice_open()
 
         invoice_eletronic = self.env['invoice.eletronic'].search(
             [('invoice_id', '=', self.inv_incomplete.id)])
 
-        self.assertEquals(self.inv_incomplete.total_edocs, 0)
+        self.assertEqual(self.inv_incomplete.total_edocs, 0)
         vals = self.inv_incomplete.action_view_edocs()
-        self.assertEquals(vals['type'], 'ir.actions.act_window')
-        self.assertEquals(vals['res_model'], 'invoice.eletronic')
-        self.assertEquals(vals['res_id'], invoice_eletronic.id)
+        self.assertEqual(vals['type'], 'ir.actions.act_window')
+        self.assertEqual(vals['res_model'], 'invoice.eletronic')
+        self.assertEqual(vals['res_id'], invoice_eletronic.id)
