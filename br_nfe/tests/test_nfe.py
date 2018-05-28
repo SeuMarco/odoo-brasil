@@ -55,7 +55,7 @@ class TestNFeBrasil(TransactionCase):
             'federal_nacional': 10.0,
             'estadual_imposto': 10.0,
             'municipal_imposto': 10.0,
-            'cest': '123'
+            'cest': '17.084.00'
         })
         self.default_product = self.env['product.product'].create({
             'name': 'Normal Product',
@@ -163,6 +163,20 @@ class TestNFeBrasil(TransactionCase):
             fiscal_type='product',
             company_id=self.main_company.id,
         ))
+        self.icms_difal_inter_700 = self.env['account.tax'].create({
+            'name': "ICMS Difal Inter",
+            'amount_type': 'division',
+            'domain': 'icms_inter',
+            'amount': 7,
+            'price_include': True,
+        })
+        self.icms_difal_intra_1700 = self.env['account.tax'].create({
+            'name': "ICMS Difal Intra",
+            'amount_type': 'division',
+            'domain': 'icms_intra',
+            'amount': 17,
+            'price_include': True,
+        })
 
         self.fpos = self.env['account.fiscal.position'].create({
             'name': 'Venda',
@@ -201,6 +215,7 @@ class TestNFeBrasil(TransactionCase):
             (0, 0,
                 {
                     'product_id': self.default_product.id,
+                    'uom_id': self.default_product.uom_id.id,
                     'quantity': 10.0,
                     'account_id': self.revenue_account.id,
                     'name': 'product test 5',
@@ -212,11 +227,16 @@ class TestNFeBrasil(TransactionCase):
                     'ipi_cst': '50',
                     'pis_cst': '01',
                     'cofins_cst': '01',
+                    'fiscal_classification_id': self.default_ncm.id,
+                    'tem_difal': True,
+                    'tax_icms_inter_id': self.icms_difal_inter_700.id,
+                    'tax_icms_intra_id': self.icms_difal_intra_1700.id,
                 }
              ),
             (0, 0,
                 {
                     'product_id': self.service.id,
+                    'uom_id': self.default_product.uom_id.id,
                     'quantity': 10.0,
                     'account_id': self.revenue_account.id,
                     'name': 'product test 5',
@@ -227,6 +247,7 @@ class TestNFeBrasil(TransactionCase):
                         'br_data_account_product.cfop_5101').id,
                     'pis_cst': '01',
                     'cofins_cst': '01',
+                    'fiscal_classification_id': self.default_ncm.id,
                 }
              )
         ]
@@ -240,6 +261,8 @@ class TestNFeBrasil(TransactionCase):
             'fiscal_position_id': self.fpos.id,
             'invoice_line_ids': invoice_line_data,
             'product_serie_id': self.serie.id,
+            'freight_responsibility': '0',
+            'carrier_id': self.partner_juridica.id,
         }
         self.inv_incomplete = self.env['account.invoice'].create(dict(
             name="Teste Validação",
@@ -284,9 +307,7 @@ class TestNFeBrasil(TransactionCase):
             partner_id=self.partner_exterior.id
         ))
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
-    def test_computed_fields(self, validar):
-        validar.return_value = ''
+    def test_computed_fields(self):
         for invoice in self.invoices:
             self.assertEqual(invoice.total_edocs, 0)
             self.assertEqual(invoice.nfe_number, 0)
@@ -304,9 +325,7 @@ class TestNFeBrasil(TransactionCase):
             self.assertEqual(invoice.nfe_exception, False)
             self.assertEqual(invoice.sending_nfe, True)
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
-    def test_print_actions(self, validar):
-        validar.return_value = ''
+    def test_print_actions(self):
         for invoice in self.invoices:
             # Antes de confirmar a fatura
             with self.assertRaises(UserError):
@@ -326,9 +345,26 @@ class TestNFeBrasil(TransactionCase):
             self.assertEqual(danfe['report_name'],
                               'br_nfe.main_template_br_nfe_danfe')
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
-    def test_check_invoice_eletronic_values(self, validar):
-        validar.return_value = ''
+    @patch('odoo.addons.br_nfe.models.invoice_eletronic.InvoiceEletronic._prepare_lote')  # noqa
+    def test_check_invoice_eletronic_values(self, prepare):
+        def _prepare_lote(lote, nfe_values):
+            # Let's fix some values
+            nfe_values['ide']['cNF'] = '66382470'
+            nfe_values['ide']['dhEmi'] = '2018-05-21T14:19:37-00:00'
+            nfe_values['ide']['dhSaiEnt'] = '2018-05-21T14:19:37-00:00'
+            nfe_values['cobr']['dup'][0]['dVenc'] = '2018-05-21'
+            return {
+                'idLote': nfe_values['ide']['nNF'],
+                'indSinc': 0,
+                'estado': nfe_values['ide']['cUF'],
+                'ambiente': 2,
+                'NFes': [{
+                    'infNFe': nfe_values
+                }],
+                'modelo': '55',
+            }
+
+        prepare.side_effect = _prepare_lote
         for invoice in self.invoices:
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
@@ -344,9 +380,7 @@ class TestNFeBrasil(TransactionCase):
         with self.assertRaises(UserError):
             self.inv_incomplete.action_invoice_open()
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
-    def test_send_nfe(self, validar):
-        validar.return_value = ''
+    def test_send_nfe(self):
         for invoice in self.invoices:
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
@@ -356,11 +390,9 @@ class TestNFeBrasil(TransactionCase):
             with self.assertRaises(Exception):
                 invoice_eletronic.action_send_eletronic_invoice()
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.retorno_autorizar_nfe')
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.autorizar_nfe')
-    def test_wrong_xml_schema(self, autorizar, ret_autorizar, validar):
-        validar.return_value = ''
+    def test_wrong_xml_schema(self, autorizar, ret_autorizar):
         for invoice in self.invoices:
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
@@ -391,11 +423,9 @@ class TestNFeBrasil(TransactionCase):
             self.assertEqual(invoice_eletronic.state, 'error')
             self.assertEqual(invoice_eletronic.codigo_retorno, '225')
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.retorno_autorizar_nfe')
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.autorizar_nfe')
-    def test_nfe_with_concept_error(self, autorizar, ret_autorizar, validar):
-        validar.return_value = ''
+    def test_nfe_with_concept_error(self, autorizar, ret_autorizar):
         for invoice in self.invoices:
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
@@ -427,10 +457,8 @@ class TestNFeBrasil(TransactionCase):
             self.assertEqual(invoice_eletronic.state, 'error')
             self.assertEqual(invoice_eletronic.codigo_retorno, '694')
 
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.recepcao_evento_cancelamento')  # noqa
-    def test_nfe_cancelamento_ok(self, cancelar, validar):
-        validar.return_value = ''
+    def test_nfe_cancelamento_ok(self, cancelar):
         for invoice in self.invoices:
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
@@ -460,15 +488,3 @@ class TestNFeBrasil(TransactionCase):
             self.assertEqual(invoice_eletronic.codigo_retorno, "155")
             self.assertEqual(invoice_eletronic.mensagem_retorno,
                               "Cancelamento homologado fora de prazo")
-
-    @patch('odoo.addons.br_nfe.models.invoice_eletronic.valida_nfe')
-    def test_invoice_eletronic_functions(self, validar):
-        validar.return_value = ''
-        for invoice in self.invoices:
-            # Confirmando a fatura deve gerar um documento eletrônico
-            invoice.action_invoice_open()
-            invoice_eletronic = self.env['invoice.eletronic'].search(
-                [('invoice_id', '=', invoice.id)])
-
-            url = invoice_eletronic.barcode_url()
-            self.assertTrue(invoice_eletronic.chave_nfe in url)

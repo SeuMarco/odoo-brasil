@@ -16,6 +16,7 @@
     ],
     'depends': [
         'br_account_einvoice',
+        'br_stock_account',
     ],
     'external_dependencies': {
         'python': [

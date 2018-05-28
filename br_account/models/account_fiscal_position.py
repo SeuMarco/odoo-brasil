@@ -197,6 +197,8 @@ class AccountFiscalPosition(models.Model):
                 'pis_cst': rules[0].cst_pis,
                 # PIS
                 'cofins_cst': rules[0].cst_cofins,
+                # ISSQN
+                'l10n_br_issqn_deduction': rules[0].l10n_br_issqn_deduction,
             }
         else:
             return{}
