@@ -6,14 +6,14 @@
         <field name="model">product.template</field>
         <field name="inherit_id" ref="account.product_template_form_view"/>
         <field name="arch" type="xml">
-            <group name="accounting" position="inside">
-                <group>
-                    <field name="fiscal_category_id" />
-                    <field name="fiscal_type" />
-                    <field name="origin" attrs="{'required': [('fiscal_type', '=', 'product')], 'invisible': [('fiscal_type', '=', 'service')]}" />
-                    <field name="fiscal_classification_id" attrs="{'required': [('fiscal_type', '=', 'product')], 'invisible': [('fiscal_type', '=', 'service')]}" />
+            <group name="inventory" position="inside">
+                <group string="Fiscal">
+                    <field name="fiscal_category_id"/>
+                    <field name="fiscal_type"/>
+                    <field name="origin" attrs="{'required': [('fiscal_type', '=', 'product')], 'invisible': [('fiscal_type', '=', 'service')]}"/>
+                    <field name="fiscal_classification_id" attrs="{'required': [('fiscal_type', '=', 'product')], 'invisible': [('fiscal_type', '=', 'service')]}"/>
                     <field name="service_type_id" attrs="{'required': [('fiscal_type', '=', 'service')], 'invisible': [('fiscal_type', '=', 'product')]}" domain="[('internal_type', '=', 'normal')]"/>
-                    <field name="cest" attrs="{'invisible': [('fiscal_type', '=', 'service')]}" />
+                    <field name="cest" attrs="{'invisible': [('fiscal_type', '=', 'service')]}"/>
                 </group>
             </group>
             <group name="description" position="inside">
