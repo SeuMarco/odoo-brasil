@@ -76,11 +76,15 @@ class Itau240(Cnab240):
             line.payment_information_id.payment_type)
         del(segmento['codigo_camara_compensacao'])
         if line.barcode:
+<<<<<<< HEAD
             segmento.update({
                 'codigo_de_barras': int(line.barcode[20:]),
                 'codigo_de_barras_dv': self.get_dv_digitable_line(
                     self._just_numbers(line.linha_digitavel))
             })
+=======
+            segmento.update({'codigo_de_barras': line.barcode[20:]})
+>>>>>>> 5c041dab... [FIX] barcode information (#863)
         segmento.update({
             'numero_parcela': int(segmento.get('numero_parcela')[:13]),
             'divida_ativa_etiqueta': int(
