@@ -77,6 +77,7 @@ class Itau240(Cnab240):
         del(segmento['codigo_camara_compensacao'])
         if line.barcode:
 <<<<<<< HEAD
+<<<<<<< HEAD
             segmento.update({
                 'codigo_de_barras': int(line.barcode[20:]),
                 'codigo_de_barras_dv': self.get_dv_digitable_line(
@@ -85,6 +86,9 @@ class Itau240(Cnab240):
 =======
             segmento.update({'codigo_de_barras': line.barcode[20:]})
 >>>>>>> 5c041dab... [FIX] barcode information (#863)
+=======
+            segmento.update({'codigo_de_barras': int(line.barcode[20:])})
+>>>>>>> 0a8f10b5... [FIX] Passa corretamente o parâmetro do código de barras.
         segmento.update({
             'numero_parcela': int(segmento.get('numero_parcela')[:13]),
             'divida_ativa_etiqueta': int(
