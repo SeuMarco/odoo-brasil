@@ -59,6 +59,10 @@ to process a single invoice's payment."))
 
         return action
 
+<<<<<<< HEAD
+=======
+    @api.multi
+>>>>>>> a1a602be... [FIX] payment value in account payment wizard (#873)
     def _compute_payment_amount(self, invoices=None, currency=None):
         super(AccountPayment, self)._compute_payment_amount(
             invoices=invoices, currency=currency)
