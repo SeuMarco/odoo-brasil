@@ -38,7 +38,11 @@ class ProductFiscalClassification(models.Model):
     ipi_reducao_bc = fields.Float(
         string=u'% Redução Base',
         required=True,
+<<<<<<< HEAD
         digits=('Account'),
+=======
+        digits=dp.get_precision('Account'),
+>>>>>>> f0f4466b... Atualização da tabela de NCM
         default=0.00)
     ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
 
@@ -49,10 +53,17 @@ class ProductFiscalClassification(models.Model):
         domain=[('domain', '=', 'icmsst')])
     icms_st_aliquota_reducao_base = fields.Float(
         string='% Red. Base ST',
+<<<<<<< HEAD
         digits=('Discount'))
     icms_st_aliquota_mva = fields.Float(
         string='MVA Ajustado ST',
         digits=('Discount'), default=0.00)
+=======
+        digits=dp.get_precision('Discount'))
+    icms_st_aliquota_mva = fields.Float(
+        string='MVA Ajustado ST',
+        digits=dp.get_precision('Discount'), default=0.00)
+>>>>>>> f0f4466b... Atualização da tabela de NCM
     active = fields.Boolean(default=True, string='Ativo')
 
     @api.model
