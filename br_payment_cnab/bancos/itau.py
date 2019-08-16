@@ -122,10 +122,14 @@ class Itau240(Cnab240):
                 segmento.get('valor_real_pagamento')),
             'favorecido_banco': int(line.bank_account_id.bank_id.bic) or
 <<<<<<< HEAD
+<<<<<<< HEAD
                 int(line.barcode[:3]),
 =======
                 line.barcode[:3],
 >>>>>>> c0f24cd3... [ADD] Remaining info to barcode payment (#870)
+=======
+                int(line.barcode[:3]),
+>>>>>>> d4833305... [FIX] bank type (#875)
             'finalidade_ted': get_ted_doc_finality(
                 'itau', segmento.get('finalidade_doc_ted'), '01', ignore),
             'finalidade_doc': get_ted_doc_finality(
