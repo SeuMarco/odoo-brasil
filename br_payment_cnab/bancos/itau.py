@@ -94,7 +94,7 @@ class Itau240(Cnab240):
             segmento.update({
                 'codigo_de_barras': int(line.barcode[20:]),
                 'codigo_de_barras_dv': self.get_dv_digitable_line(
-                    line.linha_digitavel)
+                    self._just_numbers(line.linha_digitavel))
             })
 >>>>>>> c0f24cd3... [ADD] Remaining info to barcode payment (#870)
         segmento.update({
