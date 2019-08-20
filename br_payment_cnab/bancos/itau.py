@@ -144,6 +144,7 @@ class Itau240(Cnab240):
     def get_dv_digitable_line(self, linha_digitavel):
         if len(linha_digitavel) == 47:
 <<<<<<< HEAD
+<<<<<<< HEAD
             return int(linha_digitavel[4])
         elif len(linha_digitavel) == 48:
             return int(linha_digitavel[3])  # confirmar info
@@ -152,6 +153,11 @@ class Itau240(Cnab240):
         elif len(linha_digitavel) == 48:
             return linha_digitavel[3]  # confirmar info
 >>>>>>> c0f24cd3... [ADD] Remaining info to barcode payment (#870)
+=======
+            return int(linha_digitavel[4])
+        elif len(linha_digitavel) == 48:
+            return int(linha_digitavel[3])  # confirmar info
+>>>>>>> 3429ae44...  [FIX] DV barcode type  (#877)
 
     # NOTA 11 do manual: se houverem dois digitos no dac da agencia/conta
     # o campo 42 (inicialmente vazio) deve ser utilizado
