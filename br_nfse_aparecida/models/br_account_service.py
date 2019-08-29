@@ -8,5 +8,9 @@ class BrAccountServiceType(models.Model):
     _inherit = 'br_account.service.type'
 
     codigo_tributacao_municipio = fields.Char(
+<<<<<<< HEAD
         string="Cód. Tribut. Munic.", size=20,
+=======
+        string=u"Cód. Tribut. Munic.", size=20,
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
         help="Código de Tributação no Munípio")

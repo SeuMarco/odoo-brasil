@@ -29,7 +29,11 @@ class InvoiceEletronicItem(models.Model):
     _inherit = 'invoice.eletronic.item'
 
     codigo_tributacao_municipio = fields.Char(
+<<<<<<< HEAD
         string="Cód. Tribut. Munic.", size=20, readonly=True,
+=======
+        string=u"Cód. Tribut. Munic.", size=20, readonly=True,
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
         help="Código de Tributação no Munípio", states=STATE)
 
 
@@ -52,12 +56,17 @@ class InvoiceEletronic(models.Model):
     retencoes_federais = fields.Monetary(
         string="Retenções Federais", compute=_compute_total_retencoes)
 
+<<<<<<< HEAD
+=======
+    @api.multi
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model != '016':
             return errors
         issqn_codigo = ''
         if not self.company_id.inscr_mun:
+<<<<<<< HEAD
             errors.append('Inscrição municipal obrigatória')
         if not self.company_id.cnae_main_id.code:
             errors.append('CNAE Principal da empresa obrigatório')
@@ -77,6 +86,28 @@ class InvoiceEletronic(models.Model):
                                   de serviço podem ser enviados' % prod)
         return errors
 
+=======
+            errors.append(u'Inscrição municipal obrigatória')
+        if not self.company_id.cnae_main_id.code:
+            errors.append(u'CNAE Principal da empresa obrigatório')
+        for eletr in self.eletronic_item_ids:
+            prod = u"Produto: %s - %s" % (eletr.product_id.default_code,
+                                          eletr.product_id.name)
+            if eletr.tipo_produto == 'product':
+                errors.append(
+                    u'Esse documento permite apenas serviços - %s' % prod)
+            if eletr.tipo_produto == 'service':
+                if not eletr.issqn_codigo:
+                    errors.append(u'%s - Código de Serviço' % prod)
+                if not issqn_codigo:
+                    issqn_codigo = eletr.issqn_codigo
+                if issqn_codigo != eletr.issqn_codigo:
+                    errors.append(u'%s - Apenas itens com o mesmo código \
+                                  de serviço podem ser enviados' % prod)
+        return errors
+
+    @api.multi
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model != '016':
@@ -175,6 +206,10 @@ class InvoiceEletronic(models.Model):
         res.update(nfse_vals)
         return res
 
+<<<<<<< HEAD
+=======
+    @api.multi
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('016'):
@@ -219,6 +254,10 @@ class InvoiceEletronic(models.Model):
             atts.append(danfe_id.id)
         return atts
 
+<<<<<<< HEAD
+=======
+    @api.multi
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model != '016' or self.state in ('done', 'cancel'):
@@ -300,6 +339,10 @@ class InvoiceEletronic(models.Model):
                 'rec-ret', self,
                 consulta_lote['received_xml'])
 
+<<<<<<< HEAD
+=======
+    @api.multi
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('016'):
             return super(InvoiceEletronic, self).action_cancel_document(
@@ -329,7 +372,11 @@ class InvoiceEletronic(models.Model):
         if "Cancelamento" in dir(retorno):
             self.state = 'cancel'
             self.codigo_retorno = '100'
+<<<<<<< HEAD
             self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
+=======
+            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
         else:
             # E79 - Nota já está cancelada
             if retorno.ListaMensagemRetorno.MensagemRetorno.Codigo != 'E79':
@@ -341,7 +388,11 @@ class InvoiceEletronic(models.Model):
 
             self.state = 'cancel'
             self.codigo_retorno = '100'
+<<<<<<< HEAD
             self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
+=======
+            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
 
         self.env['invoice.eletronic.event'].create({
             'code': self.codigo_retorno,

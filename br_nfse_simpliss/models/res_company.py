@@ -9,4 +9,8 @@ class ResCompany(models.Model):
 
     senha_nfse_simpliss = fields.Char(
         string='Senha NFSe SimplISS', size=30,
+<<<<<<< HEAD
         help='Senha Nota Fiscal de Serviço')
+=======
+        help=u'Senha Nota Fiscal de Serviço')
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss

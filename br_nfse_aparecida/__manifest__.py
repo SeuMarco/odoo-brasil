@@ -6,7 +6,11 @@
     'summary': """Permite o envio de NFS-e Aparecida-SP nas faturas do Odoo
     Mantido por Trustcode""",
     'description': 'Envio de NFS-e - Aparecida-SP',
+<<<<<<< HEAD
     'version': '13.0.1.0.0',
+=======
+    'version': '12.0.1.0.0',
+>>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
     'category': 'account',
     'author': 'Trustcode',
     'website': 'http://www.trustcode.com.br',
