@@ -13,7 +13,11 @@ class CashFlowWizard(models.TransientModel):
         string="End Date", required=True,
         default=fields.date.today() + datetime.timedelta(6 * 365 / 12))
     start_amount = fields.Float(string="Initial value",
+<<<<<<< HEAD
                                 digits=('Account'))
+=======
+                                digits=dp.get_precision('Account'))
+>>>>>>> 93be34d4... [WIP] Filtro de contas no fluxo de caixa e melhoria da tabela de visualização
     account_ids = fields.Many2many('account.account', string="Filtrar Contas")
     print_report = fields.Boolean(string="Imprimir")
     ignore_outstanding = fields.Boolean(string="Ignorar Vencidos?")
@@ -26,6 +30,10 @@ class CashFlowWizard(models.TransientModel):
             'account_ids': [(6, None, self.account_ids.ids)]
         }
 
+<<<<<<< HEAD
+=======
+    @api.multi
+>>>>>>> 93be34d4... [WIP] Filtro de contas no fluxo de caixa e melhoria da tabela de visualização
     def button_calculate(self):
         vals = self._prepare_vals()
         cashflow_id = self.env['account.cash.flow'].create(vals)
