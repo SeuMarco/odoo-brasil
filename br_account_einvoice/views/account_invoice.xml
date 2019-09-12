@@ -51,6 +51,7 @@
     </record>
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     <record id="view_br_nfse_invoice_tree" model="ir.ui.view">
         <field name="name">view.br_nfse.line.tree</field>
         <field name="model">account.invoice</field>
@@ -68,6 +69,8 @@
 
     <!-- <record id="account.action_invoice_tree2" model="ir.actions.act_window">
 =======
+=======
+>>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
     <record id="account.action_invoice_tree2" model="ir.actions.act_window">
 >>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
         <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase', 'issuer': 0}</field>

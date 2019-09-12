@@ -304,4 +304,8 @@ class AccountInvoiceLine(models.Model):
         help="Se setado aqui sobrescreve o pedido de compra da fatura")
     item_pedido_compra = fields.Char(
         string="Item de compra", size=20,
+<<<<<<< HEAD
         help='Item do pedido de compra do cliente')
+=======
+        help=u'Item do pedido de compra do cliente')
+>>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
