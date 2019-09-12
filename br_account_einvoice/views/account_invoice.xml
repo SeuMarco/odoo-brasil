@@ -44,12 +44,13 @@
         <field name="inherit_id" ref="br_account.view_br_account_invoice_line_form"/>
         <field name="arch" type="xml">
             <field name="price_subtotal" position="after">
+                <field name="pedido_compra" />
                 <field name="item_pedido_compra" />
-                <field name="state"/>
             </field>
         </field>
     </record>
 
+<<<<<<< HEAD
     <record id="view_br_nfse_invoice_tree" model="ir.ui.view">
         <field name="name">view.br_nfse.line.tree</field>
         <field name="model">account.invoice</field>
@@ -66,6 +67,9 @@
     </record>
 
     <!-- <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+=======
+    <record id="account.action_invoice_tree2" model="ir.actions.act_window">
+>>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
         <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase', 'issuer': 0}</field>
     </record> -->
 </odoo>
