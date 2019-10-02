@@ -95,7 +95,11 @@ class InvoiceEletronic(models.Model):
         default=fields.Date.today,
         states=STATE)
     data_emissao = fields.Datetime(
+<<<<<<< HEAD
         string='Data emissão', readonly=True, states=STATE)
+=======
+        string=u'Data emissão', readonly=True, states=STATE)
+>>>>>>> 387baaed... [ADD] Implementa data de entrada e saida de mercadorias
     data_autorizacao = fields.Char(
         string='Data de autorização', size=30, readonly=True, states=STATE)
     ambiente = fields.Selection(

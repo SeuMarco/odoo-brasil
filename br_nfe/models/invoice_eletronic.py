@@ -435,7 +435,11 @@ class InvoiceEletronic(models.Model):
             return res
 
         tz = timezone(self.env.user.tz)
+<<<<<<< HEAD
         dt_emissao = datetime.now(tz).replace(microsecond=0).isoformat()
+=======
+        dt_emissao = datetime.now(tz).isoformat(timespec='seconds')
+>>>>>>> 387baaed... [ADD] Implementa data de entrada e saida de mercadorias
         dt_saida = fields.Datetime.from_string(self.data_entrada_saida)
         if dt_saida:
             dt_saida = tz.localize(dt_saida).replace(microsecond=0).isoformat()
