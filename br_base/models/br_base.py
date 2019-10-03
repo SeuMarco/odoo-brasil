@@ -23,7 +23,11 @@ class ResStateCity(models.Model):
 
 class ResRegion(models.Model):
     _name = 'res.region'
+<<<<<<< HEAD
     _description = _("Região")
+=======
+    _description = "Região"
+>>>>>>> 7d550962... Retira warnings ao iniciar odoo
 
     name = fields.Char(string=_("Name"), size=100)
     city_ids = fields.Many2many('res.state.city', string=_("Cities"))

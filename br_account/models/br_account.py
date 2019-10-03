@@ -328,6 +328,7 @@ class ImportDeclarationLine(models.Model):
 
 class AccountDocumentRelated(models.Model):
     _name = 'br_account.document.related'
+<<<<<<< HEAD
     _description = _("Documentos Relacionados")
 
     move_id = fields.Many2one('account.move',
@@ -343,6 +344,18 @@ class AccountDocumentRelated(models.Model):
                                      _("Tipo Documento"),
                                      required=True)
 <<<<<<< HEAD
+=======
+    _description = "Documentos Relacionados"
+
+    invoice_id = fields.Many2one('account.invoice', 'Documento Fiscal',
+                                 ondelete='cascade')
+    invoice_related_id = fields.Many2one(
+        'account.invoice', 'Documento Fiscal', ondelete='cascade')
+    document_type = fields.Selection(
+        [('nf', 'NF'), ('nfe', 'NF-e'), ('cte', 'CT-e'),
+            ('nfrural', 'NF Produtor'), ('cf', 'Cupom Fiscal')],
+        'Tipo Documento', required=True)
+>>>>>>> 7d550962... Retira warnings ao iniciar odoo
     access_key = fields.Char('Chave de Acesso', size=44)
     serie = fields.Char(u'Série', size=12)
     internal_number = fields.Char(u'Número', size=32)
