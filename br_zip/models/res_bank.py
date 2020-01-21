@@ -15,9 +15,9 @@ class ResBank(models.Model):
         if len(cep) == 8:
             self.zip_search(cep)
 
-    @api.multi
     def zip_search(self, cep):
-        self.zip = "%s-%s" % (cep[0:5], cep[5:8])
-        res = self.env['br.zip'].search_by_zip(zip_code=self.zip)
-        if res:
-            self.update(res)
+        for rec in self:
+            rec.zip = "%s-%s" % (cep[0:5], cep[5:8])
+            res = rec.env['br.zip'].search_by_zip(zip_code=rec.zip)
+            if res:
+                rec.update(res)
