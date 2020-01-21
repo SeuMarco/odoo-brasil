@@ -34,7 +34,7 @@ class ResPartner(models.Model):
     legal_name = fields.Char(
         _("Legal Name"), size=60, help=_("Name used in fiscal documents"))
     city_id = fields.Many2one(
-        'res.state.city', _("City"),
+        'res.state.city', _("City ID"),
         domain="[('state_id','=',state_id)]")
     district = fields.Char(_("District"), size=32)
     number = fields.Char(_("Number"), size=10)

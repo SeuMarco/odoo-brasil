@@ -23,14 +23,14 @@ class ResCompany(models.Model):
     annual_revenue = fields.Float(
         'Faturamento Anual', required=True,
         digits=dp.get_precision('Account'), default=0.00,
-        help=u"Faturamento Bruto dos últimos 12 meses")
+        help="Faturamento Bruto dos últimos 12 meses")
     fiscal_type = fields.Selection(
-        COMPANY_FISCAL_TYPE, u'Regime Tributário', required=True,
+        COMPANY_FISCAL_TYPE, 'Regime Tributário', required=True,
         default=COMPANY_FISCAL_TYPE_DEFAULT)
     cnae_main_id = fields.Many2one(
-        'br_account.cnae', u'CNAE Primário')
+        'br_account.cnae', 'CNAE Primário')
     cnae_secondary_ids = fields.Many2many(
         'br_account.cnae', 'res_company_br_account_cnae',
-        'company_id', 'cnae_id', u'CNAE Secundários')
+        'company_id', 'cnae_id', 'CNAE Secundários')
 
     accountant_id = fields.Many2one('res.partner', string="Contador")

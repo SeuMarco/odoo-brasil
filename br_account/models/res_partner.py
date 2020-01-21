@@ -57,7 +57,7 @@ class ResPartner(models.Model):
                 """ % where_clause
         self.env.cr.execute(query, where_clause_params)
         price_totals = self.env.cr.dictfetchall()
-        for partner, child_ids in all_partners_and_children.items():
+        for partner, child_ids in list(all_partners_and_children.items()):
             total = 0.0
             for price in price_totals:
                 if price['partner_id'] in child_ids:
