@@ -20,7 +20,7 @@ class ResBank(models.Model):
         domain="[('state_id','=',state_id)]")
 
     country_id = fields.Many2one(
-        comodel_name='res.country', related='country', string=_("Country"))
+        comodel_name='res.country', related='country', string=_("Country ID"))
     state_id = fields.Many2one(
         comodel_name='res.country.state', related='state', string=_("State"))
 
