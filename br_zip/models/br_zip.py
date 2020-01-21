@@ -22,7 +22,7 @@ class BrZip(models.Model):
     _description = _("CEP")
     _rec_name = 'zip'
 
-    zip = fields.Char(_("Zip Code"), size=8, required=True)
+    zip = fields.Char(_("Zip"), size=8, required=True)
     street_type = fields.Char(_("Street Type"), size=26)
     street = fields.Char(_("Street"), size=72)
     district = fields.Char(_("District"), size=72)
