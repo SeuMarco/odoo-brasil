@@ -10,9 +10,9 @@ from odoo import fields, models
 class DeliveryCarrier(models.Model):
     _inherit = 'delivery.carrier'
 
-    antt_code = fields.Char(u'Código ANTT', size=32)
+    antt_code = fields.Char('Código ANTT', size=32)
     vehicle_ids = fields.One2many(
-        'br_delivery.carrier.vehicle', 'carrier_id', u'Veículos')
+        'br_delivery.carrier.vehicle', 'carrier_id', 'Veículos')
     partner_id = fields.Many2one('res.partner', string='Transportadora')
     incoterm = fields.Many2one('account.incoterms', 'Tipo do Frete',
                                help="Incoterm which stands for 'International "

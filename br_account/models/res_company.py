@@ -3,7 +3,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, fields
-from odoo.addons import decimal_precision as dp
 
 COMPANY_FISCAL_TYPE = [
     ('1', 'Simples Nacional'),
@@ -22,8 +21,13 @@ class ResCompany(models.Model):
 
     annual_revenue = fields.Float(
         'Faturamento Anual', required=True,
+<<<<<<< HEAD
         digits=dp.get_precision('Account'), default=0.00,
         help=u"Faturamento Bruto dos últimos 12 meses")
+=======
+        digits=('Account'), default=0.00,
+        help="Faturamento Bruto dos últimos 12 meses")
+>>>>>>> 2614df42... A pasos agigantados
     fiscal_type = fields.Selection(
         COMPANY_FISCAL_TYPE, u'Regime Tributário', required=True,
         default=COMPANY_FISCAL_TYPE_DEFAULT)

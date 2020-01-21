@@ -162,9 +162,9 @@ class TestBrCnabSicoob(TestBrCnabPayment):
 
     def test_size_arq(self):
         cnab = self.get_cnab_file()
-        self.assertEquals(len(cnab), 8)
+        self.assertEqual(len(cnab), 8)
         for line in cnab:
-            self.assertEquals(len(line), 240)
+            self.assertEqual(len(line), 240)
 
     def test_header_arq(self):
         cnab = self.get_cnab_obj(self.payment_order)
@@ -182,7 +182,7 @@ class TestBrCnabSicoob(TestBrCnabPayment):
             'hora_geracao_arquivo': int(time.strftime("%H%M%S")[:4]),
             'numero_sequencial_arquivo': 1,
         }
-        self.assertEquals(arq_ok, arq_teste)
+        self.assertEqual(arq_ok, arq_teste)
 
     def test_header_lot(self):
         cnab = self.get_cnab_obj(self.payment_order)
@@ -209,8 +209,8 @@ class TestBrCnabSicoob(TestBrCnabPayment):
             'cedente_endereco_rua': 'Vinicius de Moraes',
             'cedente_inscricao_numero': 92743275000133
         }
-        for key, value in lot_ok.items():
-            self.assertEquals(value, lot_teste[key], 'Key: %s' % key)
+        for key, value in list(lot_ok.items()):
+            self.assertEqual(value, lot_teste[key], 'Key: %s' % key)
 
     def test_seg(self):
         cnab = self.get_cnab_obj(self.payment_order)
@@ -280,5 +280,5 @@ class TestBrCnabSicoob(TestBrCnabPayment):
             'valor_receita': Decimal('120.0'),
             'numero_referencia': 0,
             'percentual_receita_bruta_acumulada': Decimal('12.00')}
-        for key, value in seg_ok.items():
-            self.assertEquals(value, seg_teste[key], 'Key: %s' % key)
+        for key, value in list(seg_ok.items()):
+            self.assertEqual(value, seg_teste[key], 'Key: %s' % key)

@@ -6,7 +6,6 @@
 from datetime import timedelta
 
 from odoo import api, fields, models, _
-from odoo.addons import decimal_precision as dp
 from odoo.exceptions import UserError
 
 
@@ -68,20 +67,19 @@ class SaleOrder(models.Model):
 
     total_despesas = fields.Float(
         string='Despesas ( + )', default=0.00,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
     total_seguro = fields.Float(
         string='Seguro ( + )', default=0.00,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
     total_frete = fields.Float(
-        string='Frete ( + )', default=0.00, digits=dp.get_precision('Account'),
+        string='Frete ( + )', default=0.00, digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
 
-    @api.multi
     def action_confirm(self):
         for order in self:
             prec = order.currency_id.decimal_places
@@ -126,7 +124,6 @@ class SaleOrderLine(models.Model):
         })
         return res
 
-    @api.multi
     def _prepare_order_line_procurement(self, group_id=False):
         vals = super(SaleOrderLine, self)._prepare_order_line_procurement(
             group_id=group_id)
@@ -137,13 +134,12 @@ class SaleOrderLine(models.Model):
         return vals
 
     valor_seguro = fields.Float(
-        'Seguro', default=0.0, digits=dp.get_precision('Account'))
+        'Seguro', default=0.0, digits=('Account'))
     outras_despesas = fields.Float(
-        'Despesas', default=0.0, digits=dp.get_precision('Account'))
+        'Despesas', default=0.0, digits=('Account'))
     valor_frete = fields.Float(
-        'Frete', default=0.0, digits=dp.get_precision('Account'))
+        'Frete', default=0.0, digits=('Account'))
 
-    @api.multi
     def _prepare_invoice_line(self, qty):
         res = super(SaleOrderLine, self)._prepare_invoice_line(qty)
 

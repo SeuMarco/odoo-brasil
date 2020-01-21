@@ -7,26 +7,26 @@ from odoo import fields, models
 
 class BrDeliveryCarrierVehicle(models.Model):
     _name = 'br_delivery.carrier.vehicle'
-    _description = u'Veículos das transportadoras'
+    _description = 'Veículos das transportadoras'
 
-    name = fields.Char(u'Nome', required=True, size=32)
-    description = fields.Char(u'Descrição', size=132)
-    plate = fields.Char(u'Placa', size=7)
-    driver = fields.Char(u'Condutor', size=64)
-    rntc_code = fields.Char(u'Código ANTT', size=32)
-    country_id = fields.Many2one('res.country', u'País')
+    name = fields.Char('Nome', required=True, size=32)
+    description = fields.Char('Descrição', size=132)
+    plate = fields.Char('Placa', size=7)
+    driver = fields.Char('Condutor', size=64)
+    rntc_code = fields.Char('Código ANTT', size=32)
+    country_id = fields.Many2one('res.country', 'País')
     state_id = fields.Many2one(
-        'res.country.state', u'Estado',
+        'res.country.state', 'Estado',
         domain="[('country_id', '=', country_id)]")
     city_id = fields.Many2one(
-        'res.state.city', u'Município',
+        'res.state.city', 'Município',
         domain="[('state_id','=',state_id)]")
-    active = fields.Boolean(u'Ativo')
-    manufacture_year = fields.Char(u'Ano de Fabricação', size=4)
-    model_year = fields.Char(u'Ano do Modelo', size=4)
-    type = fields.Selection([('bau', u'Caminhão Baú')], u'Tipo')
+    active = fields.Boolean('Ativo')
+    manufacture_year = fields.Char('Ano de Fabricação', size=4)
+    model_year = fields.Char('Ano do Modelo', size=4)
+    type = fields.Selection([('bau', 'Caminhão Baú')], 'Tipo')
     carrier_id = fields.Many2one(
-        'delivery.carrier', u'Carrier', index=True,
+        'delivery.carrier', 'Carrier', index=True,
         required=True, ondelete='cascade')
 
 
@@ -34,16 +34,16 @@ class BrDeliveryShipment(models.Model):
     _name = 'br_delivery.shipment'
     _description = "Expedição"
 
-    code = fields.Char(u'Nome', size=32)
-    description = fields.Char(u'Descrição', size=132)
+    code = fields.Char('Nome', size=32)
+    description = fields.Char('Descrição', size=132)
     carrier_id = fields.Many2one(
-        'delivery.carrier', u'Carrier', index=True, required=True)
+        'delivery.carrier', 'Carrier', index=True, required=True)
     vehicle_id = fields.Many2one(
-        'br_delivery.carrier.vehicle', u'Vehicle', index=True,
+        'br_delivery.carrier.vehicle', 'Vehicle', index=True,
         required=True)
-    volume = fields.Float(u'Volume')
-    carrier_tracking_ref = fields.Char(u'Carrier Tracking Ref', size=32)
-    number_of_packages = fields.Integer(u'Number of Packages')
+    volume = fields.Float('Volume')
+    carrier_tracking_ref = fields.Char('Carrier Tracking Ref', size=32)
+    number_of_packages = fields.Integer('Number of Packages')
 
     def _cal_weight(self):
         for picking in self:

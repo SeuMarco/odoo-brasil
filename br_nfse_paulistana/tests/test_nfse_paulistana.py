@@ -75,7 +75,7 @@ class TestNFeBrasil(TransactionCase):
             'property_account_receivable_id': self.receivable_account.id,
         }
         self.partner_fisica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='545.770.154-98',
             company_type='person',
             is_company=False,
@@ -84,7 +84,7 @@ class TestNFeBrasil(TransactionCase):
             city_id=self.env.ref('br_base.city_4205407').id
         ))
         self.partner_juridica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='05.075.837/0001-13',
             company_type='company',
             is_company=True,
@@ -151,21 +151,21 @@ class TestNFeBrasil(TransactionCase):
         }
 
         self.invoices = self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_fisica.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_juridica.id
         ))
 
     def test_computed_fields(self):
         for invoice in self.invoices:
-            self.assertEquals(invoice.total_edocs, 0)
+            self.assertEqual(invoice.total_edocs, 0)
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
             # Verifica algumas propriedades computadas que dependem do edoc
-            self.assertEquals(invoice.total_edocs, 1)
+            self.assertEqual(invoice.total_edocs, 1)
 
     def test_check_invoice_eletronic_values(self):
         for invoice in self.invoices:
@@ -177,7 +177,7 @@ class TestNFeBrasil(TransactionCase):
 
             # TODO Validar os itens que foi setado no invoice e verficar com o
             # documento eletronico
-            self.assertEquals(inv_eletr.partner_id, invoice.partner_id)
+            self.assertEqual(inv_eletr.partner_id, invoice.partner_id)
 
     @patch('odoo.addons.br_nfse_paulistana.models.invoice_eletronic.teste_envio_lote_rps')  # noqa
     def test_nfse_sucesso_homologacao(self, envio_lote):
@@ -224,9 +224,9 @@ class TestNFeBrasil(TransactionCase):
             invoice_eletronic.action_cancel_document(
                 justificativa="Cancelamento de teste")
 
-            self.assertEquals(invoice_eletronic.state, 'cancel')
-            self.assertEquals(invoice_eletronic.codigo_retorno, "100")
-            self.assertEquals(invoice_eletronic.mensagem_retorno,
+            self.assertEqual(invoice_eletronic.state, 'cancel')
+            self.assertEqual(invoice_eletronic.codigo_retorno, "100")
+            self.assertEqual(invoice_eletronic.mensagem_retorno,
                               "Nota Fiscal Paulistana Cancelada")
 
     @patch('odoo.addons.br_nfse_paulistana.models.invoice_eletronic.cancelamento_nfe')  # noqa
@@ -253,7 +253,7 @@ class TestNFeBrasil(TransactionCase):
             invoice_eletronic.ambiente = 'producao'
             invoice_eletronic.action_cancel_document(
                 justificativa="Cancelamento de teste")
-            self.assertEquals(invoice_eletronic.state, 'draft')
-            self.assertEquals(invoice_eletronic.codigo_retorno, "1305")
-            self.assertEquals(invoice_eletronic.mensagem_retorno,
+            self.assertEqual(invoice_eletronic.state, 'draft')
+            self.assertEqual(invoice_eletronic.codigo_retorno, "1305")
+            self.assertEqual(invoice_eletronic.mensagem_retorno,
                               "Assinatura de cancelamento da NFS-e incorreta.")

@@ -4,8 +4,8 @@
 {  # pylint: disable=C8101,C8103
     'name': 'Odoo Brasil - Módulo Base',
     'description': 'Brazilian Localization Base',
-    'version': '12.0.1.0.0',
-    'category': 'Localisation',
+    'version': '13.0.1.0.0',
+    'category': 'Localization',
     'license': 'AGPL-3',
     'author': 'Akretion, OpenERP Brasil',
     'website': 'http://www.trustcode.com,br',
@@ -18,7 +18,7 @@
     ],
     'external_dependencies': {
         'python': [
-            'pytrustnfe.nfe', 'pytrustnfe.certificado'
+            'pytrustnfe3',
         ],
     },
     'data': [

@@ -3,7 +3,6 @@
 
 
 from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
 
 
 class PurchaseOrder(models.Model):
@@ -79,21 +78,21 @@ class PurchaseOrder(models.Model):
 
     total_despesas = fields.Float(
         string='Despesas ( + )', default=0.00,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
     total_despesas_aduana = fields.Float(
         string='Despesas Aduaneiras', default=0.00,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
     total_seguro = fields.Float(
         string='Seguro ( + )', default=0.00,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
     total_frete = fields.Float(
-        string='Frete ( + )', default=0.00, digits=dp.get_precision('Account'),
+        string='Frete ( + )', default=0.00, digits=('Account'),
         readonly=True, states={'draft': [('readonly', False)],
                                'sent': [('readonly', False)]})
 
@@ -102,13 +101,13 @@ class PuchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     valor_seguro = fields.Float(
-        'Seguro', default=0.0, digits=dp.get_precision('Account'))
+        'Seguro', default=0.0, digits=('Account'))
     outras_despesas = fields.Float(
-        'Despesas', default=0.0, digits=dp.get_precision('Account'))
+        'Despesas', default=0.0, digits=('Account'))
     valor_frete = fields.Float(
-        'Frete', default=0.0, digits=dp.get_precision('Account'))
+        'Frete', default=0.0, digits=('Account'))
     valor_aduana = fields.Float(
-        default=0.0, digits=dp.get_precision('Account'))
+        default=0.0, digits=('Account'))
 
     def _prepare_tax_context(self):
         res = super(PuchaseOrderLine, self)._prepare_tax_context()
@@ -121,7 +120,6 @@ class PuchaseOrderLine(models.Model):
         })
         return res
 
-    @api.multi
     def _get_stock_move_price_unit(self):
         price = super(PuchaseOrderLine, self)._get_stock_move_price_unit()
         price = price + \

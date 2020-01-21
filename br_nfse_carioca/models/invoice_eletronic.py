@@ -30,7 +30,7 @@ class InvoiceEletronicItem(models.Model):
     _inherit = 'invoice.eletronic.item'
 
     codigo_tributacao_municipio = fields.Char(
-        string=u"Cód. Tribut. Munic.", size=20, readonly=True,
+        string="Cód. Tribut. Munic.", size=20, readonly=True,
         help="Código de Tributação no Munípio", states=STATE)
 
 
@@ -40,25 +40,23 @@ class InvoiceEletronic(models.Model):
     model = fields.Selection(
         selection_add=[('013', 'Nota Carioca')])
 
-    @api.multi
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model == '013':
             if not self.company_id.inscr_mun:
-                errors.append(u'Inscrição municipal obrigatória')
+                errors.append('Inscrição municipal obrigatória')
             if not self.company_id.cnae_main_id.code:
-                errors.append(u'CNAE Principal da empresa obrigatório')
+                errors.append('CNAE Principal da empresa obrigatório')
             for eletr in self.eletronic_item_ids:
-                prod = u"Produto: %s - %s" % (eletr.product_id.default_code,
+                prod = "Produto: %s - %s" % (eletr.product_id.default_code,
                                               eletr.product_id.name)
                 if not eletr.codigo_tributacao_municipio:
                     errors.append(
-                        u'Código de Tributação no Munípio obrigatório - %s' %
+                        'Código de Tributação no Munípio obrigatório - %s' %
                         prod)
 
         return errors
 
-    @api.multi
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model != '013':
@@ -192,7 +190,6 @@ class InvoiceEletronic(models.Model):
 
         return atts
 
-    @api.multi
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('013'):
@@ -211,7 +208,6 @@ class InvoiceEletronic(models.Model):
         self.xml_to_send = base64.encodestring(xml_enviar)
         self.xml_to_send_name = 'nfse-enviar-%s.xml' % self.numero
 
-    @api.multi
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model != '013' or self.state in ('done', 'cancel'):
@@ -253,7 +249,6 @@ class InvoiceEletronic(models.Model):
         self._create_attachment(
             'nfse-ret', self, enviar_nfse['received_xml'])
 
-    @api.multi
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('013'):
             return super(InvoiceEletronic, self).action_cancel_document(
@@ -264,7 +259,6 @@ class InvoiceEletronic(models.Model):
                 'name': 'Cancelamento NFe',
                 'type': 'ir.actions.act_window',
                 'res_model': 'wizard.cancel.nfse',
-                'view_type': 'form',
                 'view_mode': 'form',
                 'target': 'new',
                 'context': {
@@ -292,7 +286,7 @@ class InvoiceEletronic(models.Model):
         if "Cancelamento" in dir(retorno):
             self.state = 'cancel'
             self.codigo_retorno = '100'
-            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+            self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
         else:
             # E79 - Nota já está cancelada
             if retorno.ListaMensagemRetorno.MensagemRetorno.Codigo != 'E79':
@@ -304,7 +298,7 @@ class InvoiceEletronic(models.Model):
 
             self.state = 'cancel'
             self.codigo_retorno = '100'
-            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+            self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
 
         self.env['invoice.eletronic.event'].create({
             'code': self.codigo_retorno,

@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
 from .cst import CST_IPI
 
 
@@ -39,7 +38,7 @@ class ProductFiscalClassification(models.Model):
     ipi_reducao_bc = fields.Float(
         string=u'% Redução Base',
         required=True,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         default=0.00)
     ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
 
@@ -50,10 +49,10 @@ class ProductFiscalClassification(models.Model):
         domain=[('domain', '=', 'icmsst')])
     icms_st_aliquota_reducao_base = fields.Float(
         string='% Red. Base ST',
-        digits=dp.get_precision('Discount'))
+        digits=('Discount'))
     icms_st_aliquota_mva = fields.Float(
         string='MVA Ajustado ST',
-        digits=dp.get_precision('Discount'), default=0.00)
+        digits=('Discount'), default=0.00)
     active = fields.Boolean(default=True, string='Ativo')
 
     @api.model
@@ -66,7 +65,6 @@ class ProductFiscalClassification(models.Model):
             recs = self.search([('name', operator, name)] + args, limit=limit)
         return recs.name_get()
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:

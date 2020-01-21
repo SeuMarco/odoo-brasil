@@ -29,7 +29,7 @@ class InvoiceEletronicItem(models.Model):
     _inherit = 'invoice.eletronic.item'
 
     codigo_tributacao_municipio = fields.Char(
-        string=u"Cód. Tribut. Munic.", size=20, readonly=True,
+        string="Cód. Tribut. Munic.", size=20, readonly=True,
         help="Código de Tributação no Munípio", states=STATE)
 
 
@@ -52,33 +52,31 @@ class InvoiceEletronic(models.Model):
     retencoes_federais = fields.Monetary(
         string="Retenções Federais", compute=_compute_total_retencoes)
 
-    @api.multi
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model != '016':
             return errors
         issqn_codigo = ''
         if not self.company_id.inscr_mun:
-            errors.append(u'Inscrição municipal obrigatória')
+            errors.append('Inscrição municipal obrigatória')
         if not self.company_id.cnae_main_id.code:
-            errors.append(u'CNAE Principal da empresa obrigatório')
+            errors.append('CNAE Principal da empresa obrigatório')
         for eletr in self.eletronic_item_ids:
-            prod = u"Produto: %s - %s" % (eletr.product_id.default_code,
+            prod = "Produto: %s - %s" % (eletr.product_id.default_code,
                                           eletr.product_id.name)
             if eletr.tipo_produto == 'product':
                 errors.append(
-                    u'Esse documento permite apenas serviços - %s' % prod)
+                    'Esse documento permite apenas serviços - %s' % prod)
             if eletr.tipo_produto == 'service':
                 if not eletr.issqn_codigo:
-                    errors.append(u'%s - Código de Serviço' % prod)
+                    errors.append('%s - Código de Serviço' % prod)
                 if not issqn_codigo:
                     issqn_codigo = eletr.issqn_codigo
                 if issqn_codigo != eletr.issqn_codigo:
-                    errors.append(u'%s - Apenas itens com o mesmo código \
+                    errors.append('%s - Apenas itens com o mesmo código \
                                   de serviço podem ser enviados' % prod)
         return errors
 
-    @api.multi
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model != '016':
@@ -177,7 +175,6 @@ class InvoiceEletronic(models.Model):
         res.update(nfse_vals)
         return res
 
-    @api.multi
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('016'):
@@ -222,7 +219,6 @@ class InvoiceEletronic(models.Model):
             atts.append(danfe_id.id)
         return atts
 
-    @api.multi
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model != '016' or self.state in ('done', 'cancel'):
@@ -304,7 +300,6 @@ class InvoiceEletronic(models.Model):
                 'rec-ret', self,
                 consulta_lote['received_xml'])
 
-    @api.multi
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('016'):
             return super(InvoiceEletronic, self).action_cancel_document(
@@ -334,7 +329,7 @@ class InvoiceEletronic(models.Model):
         if "Cancelamento" in dir(retorno):
             self.state = 'cancel'
             self.codigo_retorno = '100'
-            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+            self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
         else:
             # E79 - Nota já está cancelada
             if retorno.ListaMensagemRetorno.MensagemRetorno.Codigo != 'E79':
@@ -346,7 +341,7 @@ class InvoiceEletronic(models.Model):
 
             self.state = 'cancel'
             self.codigo_retorno = '100'
-            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+            self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
 
         self.env['invoice.eletronic.event'].create({
             'code': self.codigo_retorno,

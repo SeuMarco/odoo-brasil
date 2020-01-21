@@ -14,7 +14,6 @@ class AccountInvoice(models.Model):
     def _get_email_template_invoice(self):
         return self.env.user.company_id.boleto_email_tmpl
 
-    @api.multi
     def send_email_boleto_queue(self):
         mail = self._get_email_template_invoice()
         if not mail:
@@ -55,7 +54,6 @@ class AccountInvoice(models.Model):
             }
             mail.send_mail(item.id, email_values=values)
 
-    @api.multi
     def invoice_validate(self):
         res = super(AccountInvoice, self).invoice_validate()
         error = ''
@@ -67,44 +65,44 @@ class AccountInvoice(models.Model):
             if not item.payment_mode_id.boleto:
                 continue
             if not item.company_id.partner_id.legal_name:
-                error += u'Empresa - Razão Social\n'
+                error += 'Empresa - Razão Social\n'
             if not item.company_id.cnpj_cpf:
-                error += u'Empresa - CNPJ\n'
+                error += 'Empresa - CNPJ\n'
             if not item.company_id.district:
-                error += u'Empresa - Bairro\n'
+                error += 'Empresa - Bairro\n'
             if not item.company_id.zip:
-                error += u'Empresa - CEP\n'
+                error += 'Empresa - CEP\n'
             if not item.company_id.city_id.name:
-                error += u'Empresa - Cidade\n'
+                error += 'Empresa - Cidade\n'
             if not item.company_id.street:
-                error += u'Empresa - Logradouro\n'
+                error += 'Empresa - Logradouro\n'
             if not item.company_id.number:
-                error += u'Empresa - Número\n'
+                error += 'Empresa - Número\n'
             if not item.company_id.state_id.code:
-                error += u'Empresa - Estado\n'
+                error += 'Empresa - Estado\n'
 
             if not item.commercial_partner_id.name:
-                error += u'Cliente - Nome\n'
+                error += 'Cliente - Nome\n'
             if item.commercial_partner_id.is_company and \
                not item.commercial_partner_id.legal_name:
-                error += u'Cliente - Razão Social\n'
+                error += 'Cliente - Razão Social\n'
             if not item.commercial_partner_id.cnpj_cpf:
-                error += u'Cliente - CNPJ/CPF \n'
+                error += 'Cliente - CNPJ/CPF \n'
             if not item.commercial_partner_id.district:
-                error += u'Cliente - Bairro\n'
+                error += 'Cliente - Bairro\n'
             if not item.commercial_partner_id.zip:
-                error += u'Cliente - CEP\n'
+                error += 'Cliente - CEP\n'
             if not item.commercial_partner_id.city_id.name:
-                error += u'Cliente - Cidade\n'
+                error += 'Cliente - Cidade\n'
             if not item.commercial_partner_id.street:
-                error += u'Cliente - Logradouro\n'
+                error += 'Cliente - Logradouro\n'
             if not item.commercial_partner_id.number:
-                error += u'Cliente - Número\n'
+                error += 'Cliente - Número\n'
             if not item.commercial_partner_id.state_id.code:
-                error += u'Cliente - Estado\n'
+                error += 'Cliente - Estado\n'
 
             if item.number and len(item.number) > 12:
-                error += u'Numeração da fatura deve ser menor que 12 ' + \
+                error += 'Numeração da fatura deve ser menor que 12 ' + \
                     'caracteres quando usado boleto\n'
 
             if len(error) > 0:
@@ -112,7 +110,6 @@ class AccountInvoice(models.Model):
 Para prosseguir é necessário preencher os seguintes campos:\n""") + error)
         return res
 
-    @api.multi
     def action_print_boleto(self):
         if self.state in ('draft', 'cancel'):
             raise UserError(

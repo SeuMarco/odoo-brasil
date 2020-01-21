@@ -2,13 +2,12 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class AccountChartTemplate(models.Model):
     _inherit = 'account.chart.template'
 
-    @api.multi
     def _load_template(self, company, code_digits=None,
                        account_ref=None, taxes_ref=None):
         acc_ref, tax_ref = super(AccountChartTemplate, self)._load_template(
@@ -62,10 +61,10 @@ class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     deduced_account_id = fields.Many2one(
-        'account.account', string=u"Conta de Dedução da Venda")
+        'account.account', string=_("Conta de Dedução da Venda"))
     refund_deduced_account_id = fields.Many2one(
-        'account.account', string=u"Conta de Dedução do Reembolso")
-    domain = fields.Selection([('icms', 'ICMS'),
+        'account.account', string=_("Conta de Dedução do Reembolso"))
+    domain = fields.Selection([('icms', "ICMS"),
                                ('icmsst', 'ICMS ST'),
                                ('pis', 'PIS'),
                                ('cofins', 'COFINS'),
@@ -79,8 +78,8 @@ class AccountTax(models.Model):
                                ('irrf', 'IRRF'),
                                ('inss', 'INSS'),
                                ('outros', 'Outros')], string="Tipo")
-    amount_type = fields.Selection(selection_add=[('icmsst', 'ICMS ST')])
-    difal_por_dentro = fields.Boolean(string="Calcular Difal por Dentro?")
+    amount_type = fields.Selection(selection_add=[('icmsst', _("ICMS ST"))])
+    difal_por_dentro = fields.Boolean(string=_("Calcular Difal por Dentro?"))
     icms_st_incluso = fields.Boolean(
         string="Incluir ICMS ST na Base de Calculo?")
 
@@ -365,7 +364,6 @@ class AccountTax(models.Model):
         taxes += self._compute_others(price_base)
         return taxes
 
-    @api.multi
     def compute_all(self, price_unit, currency=None, quantity=1.0,
                     product=None, partner=None, fisc_pos=None):
 

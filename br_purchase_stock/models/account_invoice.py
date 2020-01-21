@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import models, api, fields
-from odoo.addons import decimal_precision as dp
 
 
 class AccountInvoice(models.Model):
@@ -18,10 +17,9 @@ class AccountInvoice(models.Model):
         return res
 
     total_despesas_aduana = fields.Float(
-        string='Despesas Aduaneiras', digits=dp.get_precision('Account'),
+        string='Despesas Aduaneiras', digits=('Account'),
         compute="_compute_amount")
 
-    @api.one
     @api.depends('invoice_line_ids.price_subtotal',
                  'tax_line_ids.amount',
                  'currency_id', 'company_id')

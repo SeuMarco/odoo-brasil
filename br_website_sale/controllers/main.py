@@ -49,11 +49,11 @@ class L10nBrWebsiteSale(main.WebsiteSale):
         email = data.get('email', False)
         if cnpj_cpf and len(cnpj_cpf) == 18:
             if not validate_cnpj(cnpj_cpf):
-                errors["cnpj_cpf"] = u"invalid"
+                errors["cnpj_cpf"] = "invalid"
                 error_msg.append(('CNPJ Inválido!'))
         elif cnpj_cpf and len(cnpj_cpf) == 14:
             if not validate_cpf(cnpj_cpf):
-                errors["cnpj_cpf"] = u"invalid"
+                errors["cnpj_cpf"] = "invalid"
                 error_msg.append(('CPF Inválido!'))
         partner_id = data.get('partner_id', False)
         if cnpj_cpf:
@@ -62,7 +62,7 @@ class L10nBrWebsiteSale(main.WebsiteSale):
                 domain.append(('id', '!=', partner_id))
             existe = request.env["res.partner"].sudo().search_count(domain)
             if existe > 0:
-                errors["cnpj_cpf"] = u"invalid"
+                errors["cnpj_cpf"] = "invalid"
                 error_msg.append(('CPF/CNPJ já cadastrado'))
         if email:
             domain = [('email', '=', email)]
@@ -70,7 +70,7 @@ class L10nBrWebsiteSale(main.WebsiteSale):
                 domain.append(('id', '!=', partner_id))
             existe = request.env["res.partner"].sudo().search_count(domain)
             if existe > 0:
-                errors["email"] = u"invalid"
+                errors["email"] = "invalid"
                 error_msg.append(('E-mail já cadastrado'))
         return errors, error_msg
 

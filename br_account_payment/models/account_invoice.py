@@ -12,9 +12,8 @@ class AccountInvoice(models.Model):
 
     payment_mode_id = fields.Many2one(
         'l10n_br.payment.mode', readonly=True,
-        states=FIELD_STATE, string=u"Modo de pagamento")
+        states=FIELD_STATE, string="Modo de pagamento")
 
-    @api.multi
     def finalize_invoice_move_lines(self, move_lines):
         res = super(AccountInvoice, self).\
             finalize_invoice_move_lines(move_lines)

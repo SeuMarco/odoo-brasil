@@ -367,7 +367,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.cfop</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="br_account_cfop_tree"/>
     </record>
 
@@ -375,7 +374,6 @@
         <field name="name">Estrutura do CFOP</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.cfop</field>
-        <field name="view_type">tree</field>
         <field name="domain">[('parent_id','=',False)]</field>
         <field name="view_id" ref="br_account_cfop_structure"/>
     </record>
@@ -385,7 +383,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.fiscal.document</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="view_br_account_fiscal_document_tree"/>
     </record>
 
@@ -394,7 +391,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.document.serie</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="view_br_account_document_serie_tree"/>
     </record>
 
@@ -403,7 +399,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.cnae</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="view_br_account_cnae_tree"/>
     </record>
 
@@ -411,7 +406,6 @@
         <field name="name">Estrutura do CNAE</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.cnae</field>
-        <field name="view_type">tree</field>
         <field name="domain">[('parent_id','=',False)]</field>
         <field name="view_id" ref="view_br_account_cnae_structure"/>
     </record>
@@ -421,7 +415,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.service.type</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="view_br_account_service_type_tree"/>
     </record>
 
@@ -429,7 +422,6 @@
         <field name="name">Estrutura de Tipo de Serviço</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.service.type</field>
-        <field name="view_type">tree</field>
         <field name="domain">[('parent_id','=',False)]</field>
         <field name="view_id" ref="view_br_account_service_type_structure"/>
     </record>
@@ -439,7 +431,6 @@
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">br_account.fiscal.category</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="view_br_account_fiscal_category_tree"/>
     </record>
 

@@ -60,7 +60,6 @@
     <record id="action_receivable_move_line" model="ir.actions.act_window">
         <field name="name">Contas a Receber/Pagar</field>
         <field name="res_model">account.move.line</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,graph,pivot</field>
         <field name="view_id" ref="view_payments_tree_a_receber"/>
         <field name="search_view_id" ref="view_payments_filter"/>

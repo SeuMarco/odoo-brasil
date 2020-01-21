@@ -24,32 +24,32 @@ class InutilizedNfe(models.Model):
     _name = 'invoice.eletronic.inutilized'
     _description = "NF-e inutilizada"
 
-    name = fields.Char(u'Nome', required=True, readonly=True, states=STATE)
-    numeration_start = fields.Integer(u'Número Inicial', required=True,
+    name = fields.Char('Nome', required=True, readonly=True, states=STATE)
+    numeration_start = fields.Integer('Número Inicial', required=True,
                                       readonly=True, states=STATE)
-    numeration_end = fields.Integer(u'Número Final', required=True,
+    numeration_end = fields.Integer('Número Final', required=True,
                                     readonly=True, states=STATE)
-    justificativa = fields.Text(u'Justificativa', required=True,
+    justificativa = fields.Text('Justificativa', required=True,
                                 readonly=True, states=STATE)
     state = fields.Selection([
-        ('draft', u'Provisório'),
-        ('done', u'Enviado'),
-        ('error', u'Erro'),
-        ('edit', u'Editando'), ],
-        string=u'State', default='edit', required=True, readonly=True)
+        ('draft', 'Provisório'),
+        ('done', 'Enviado'),
+        ('error', 'Erro'),
+        ('edit', 'Editando'), ],
+        string='State', default='edit', required=True, readonly=True)
     modelo = fields.Selection([
         ('55', '55 - NFe'),
         ('65', '65 - NFCe'), ],
-        string=u'Modelo', required=True, readonly=True, states=STATE)
-    serie = fields.Many2one('br_account.document.serie', string=u'Série',
+        string='Modelo', required=True, readonly=True, states=STATE)
+    serie = fields.Many2one('br_account.document.serie', string='Série',
                             required=True, readonly=True, states=STATE)
     code = fields.Char(string="Código", size=10)
     motive = fields.Char(string="Motivo", size=300)
     sent_xml = fields.Binary(string="Xml Envio", readonly=True)
-    sent_xml_name = fields.Char(string=u"Xml Envio", size=30, readonly=True)
-    received_xml = fields.Binary(string=u"Xml Recebimento", readonly=True)
+    sent_xml_name = fields.Char(string="Xml Envio", size=30, readonly=True)
+    received_xml = fields.Binary(string="Xml Recebimento", readonly=True)
     received_xml_name = fields.Char(
-        string=u"Xml Recebimento", size=30, readonly=True)
+        string="Xml Recebimento", size=30, readonly=True)
 
     @api.model
     def create(self, vals):
@@ -142,7 +142,6 @@ class InutilizedNfe(models.Model):
                 'type': 'ir.actions.act_window',
                 'res_model': 'invoice.eletronic.inutilized',
                 'res_id': self.id,
-                'view_type': 'form',
                 'view_mode': 'form',
                 'target': 'new',
             }
@@ -163,7 +162,6 @@ class InutilizedNfe(models.Model):
                                   ambiente=int(ambiente), modelo=obj['modelo'])
         return self._handle_response(response=resposta)
 
-    @api.multi
     def action_send_inutilization(self):
         self.validate_hook()
         retorno = self.send_sefaz()
@@ -180,7 +178,7 @@ class InutilizedNfe(models.Model):
                 'name': file_name,
                 'datas': base64.b64encode(data.encode('utf-8')),
                 'datas_fname': file_name,
-                'description': u'',
+                'description': '',
                 'res_model': 'invoice.eletronic.inutilized',
                 'res_id': event.id
             })

@@ -6,7 +6,7 @@
     'name': 'Plano de Contas Simplificado Brasil',
     'summary': """Plano de contas simplificado""",
     'description': """Plano de contas simplificado""",
-    'version': '12.0.1.0.0',
+    'version': '13.0.1.0.0',
     'category': 'Localization',
     'author': 'Trustcode',
     'license': 'AGPL-3',

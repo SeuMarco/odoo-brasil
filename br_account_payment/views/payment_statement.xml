@@ -71,7 +71,6 @@
     <record id="action_payment_statement_tree" model="ir.actions.act_window">
         <field name="name">Extratos de Pagamento</field>
         <field name="res_model">l10n_br.payment.statement</field>
-        <field name="view_type">form</field>
         <field name="view_mode">tree,form,pivot,graph</field>
         <field name="domain">[('journal_id.type', '=', 'bank')]</field>
     </record>

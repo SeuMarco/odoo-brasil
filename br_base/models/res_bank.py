@@ -5,26 +5,32 @@
 # © 2016 Danimar Ribeiro <danimaribeiro@gmail.com>, Trustcode
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.addons.base.models.res_bank import sanitize_account_number
 
 
 class ResBank(models.Model):
     _inherit = 'res.bank'
 
-    number = fields.Char(u'Number', size=10)
-    street2 = fields.Char('Complement', size=128)
-    district = fields.Char('District', size=32)
-    city_id = fields.Many2one(comodel_name='res.state.city',
-                              string=u'City',
-                              domain="[('state_id','=',state_id)]")
+    number = fields.Char(_("Number"), size=10)
+    street2 = fields.Char(_("Complement"), size=128)
+    district = fields.Char(_("District"), size=32)
+    city_id = fields.Many2one(
+        comodel_name='res.state.city', string=_("City ID"),
+        domain="[('state_id','=',state_id)]")
 
-    country_id = fields.Many2one(comodel_name='res.country',
-                                 related='country',
-                                 string=u'Country')
-    state_id = fields.Many2one(comodel_name='res.country.state',
-                               related='state',
-                               string='State')
+    country_id = fields.Many2one(
+<<<<<<< HEAD
+<<<<<<< HEAD
+        comodel_name='res.country', related='country', string=_("Country ID"))
+=======
+        comodel_name='res.country', related='country', string=_("Country"))
+>>>>>>> 321d714c... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
+=======
+        comodel_name='res.country', related='country', string=_("Country ID"))
+>>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
+    state_id = fields.Many2one(
+        comodel_name='res.country.state', related='state', string=_("State"))
 
     acc_number_format = fields.Text(help="""You can enter here the format as\
     the bank accounts are referenced in ofx files for the import of bank\
@@ -45,8 +51,9 @@ class ResBank(models.Model):
         para manter a compatibilidade entre os demais módulos que usam o
         campo city.
         """
-        if self.city_id:
-            self.city = self.city_id.name
+        for rec in self:
+            if rec.city_id:
+                rec.city = rec.city_id.name
 
 
 class ResPartnerBank(models.Model):
@@ -54,12 +61,11 @@ class ResPartnerBank(models.Model):
     bancárias no Brasil."""
     _inherit = 'res.partner.bank'
 
-    acc_number = fields.Char('Account Number', size=64, required=False)
-    acc_number_dig = fields.Char('Account Number Digit', size=8)
-    bra_number = fields.Char('Agency', size=8)
-    bra_number_dig = fields.Char('Account Agency Digit', size=8)
+    acc_number = fields.Char(_("Account Number"), size=64, required=False)
+    acc_number_dig = fields.Char(_("Account Number Digit"), size=8)
+    bra_number = fields.Char(_("Agency"), size=8)
+    bra_number_dig = fields.Char(_("Account Agency Digit"), size=8)
 
-    @api.multi
     def name_get(self):
         result = []
         for rec in self:

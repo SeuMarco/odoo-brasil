@@ -9,7 +9,7 @@ class StockPicking(models.Model):
     _inherit = 'stock.picking'
 
     vehicle_id = fields.Many2one(
-        'br_delivery.carrier.vehicle', u'Veículo')
+        'br_delivery.carrier.vehicle', 'Veículo')
     incoterm = fields.Many2one(
         'account.incoterms', 'Tipo do Frete',
         help="Incoterm which stands for 'International Commercial terms"
@@ -17,7 +17,7 @@ class StockPicking(models.Model):
         "commercial transaction.")
     carrier_id = fields.Many2one(
         'delivery.carrier', 'Carrier')
-    vehicle_plate = fields.Char(u'Placa do Veículo', size=7)
+    vehicle_plate = fields.Char('Placa do Veículo', size=7)
     vehicle_state_id = fields.Many2one('res.country.state', 'UF da Placa')
     vehicle_rntc = fields.Char('RNTC', size=20)
     freight_responsibility = fields.Selection(
@@ -27,7 +27,7 @@ class StockPicking(models.Model):
          ('3', '3 - Transporte Próprio por conta do Remetente'),
          ('4', '4 - Transporte Próprio por conta do Destinatário'),
          ('9', '9 - Sem Ocorrência de Transporte')],
-        u'Modalidade do frete')
+        'Modalidade do frete')
 
     @api.onchange('vehicle_id')
     def onchange_vehicle_id(self):
@@ -42,7 +42,6 @@ class StockPicking(models.Model):
             self.incoterm = self.carrier_id.incoterm
             self.freight_responsibility = self.incoterm.freight_responsibility
 
-    @api.multi
     def _add_delivery_cost_to_so(self):
         return
 

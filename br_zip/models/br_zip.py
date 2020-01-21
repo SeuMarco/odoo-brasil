@@ -6,7 +6,7 @@ import re
 import logging
 import requests
 
-from odoo import api, fields, models, _
+from odoo import fields, models, _
 from odoo.exceptions import UserError
 
 _logger = logging.getLogger(__name__)
@@ -19,24 +19,27 @@ except ImportError:
 
 class BrZip(models.Model):
     _name = 'br.zip'
-    _description = u'CEP'
+    _description = _("CEP")
     _rec_name = 'zip'
 
-    zip = fields.Char('CEP', size=8, required=True)
-    street_type = fields.Char('Tipo', size=26)
-    street = fields.Char('Logradouro', size=72)
-    district = fields.Char('Bairro', size=72)
-    country_id = fields.Many2one('res.country', 'Country')
+<<<<<<< HEAD
+    zip = fields.Char(_("Zip Code"), size=8, required=True)
+=======
+    zip_code = fields.Char(_("Zip Code"), size=8, required=True)
+>>>>>>> 5580f2b5... Migration to 13.0
+    street_type = fields.Char(_("Street Type"), size=26)
+    street = fields.Char(_("Street"), size=72)
+    district = fields.Char(_("District"), size=72)
+    country_id = fields.Many2one('res.country', _("Country"))
     state_id = fields.Many2one(
-        'res.country.state', 'Estado',
+        'res.country.state', _("State ID"),
         domain="[('country_id','=',country_id)]")
     city_id = fields.Many2one(
-        'res.state.city', 'Cidade',
+        'res.state.city', _("Ciy ID"),
         required=True, domain="[('state_id','=',state_id)]")
 
-    def set_domain(self, country_id=False, state_id=False,
-                   city_id=False, district=False,
-                   street=False, zip_code=False):
+    def set_domain(self, country_id=False, state_id=False, city_id=False,
+                   district=False, street=False, zip_code=False):
         domain = []
         if zip_code:
             new_zip = re.sub('[^0-9]', '', zip_code or '')
@@ -79,9 +82,9 @@ class BrZip(models.Model):
             result = {}
         return result
 
-    def zip_search_multi(self, country_id=False,
-                         state_id=False, city_id=False,
-                         district=False, street=False, zip_code=False):
+    def zip_search_multi(
+            self, country_id=False, state_id=False, city_id=False,
+            district=False, street=False, zip_code=False):
         domain = self.set_domain(
             country_id=country_id,
             state_id=state_id,
@@ -155,7 +158,6 @@ class BrZip(models.Model):
         except Exception as e:
             _logger.error(str(e), exc_info=True)
 
-    @api.multi
     def search_by_zip(self, zip_code):
         zip_ids = self.zip_search_multi(zip_code=zip_code)
         if len(zip_ids) == 1:
@@ -163,7 +165,6 @@ class BrZip(models.Model):
         else:
             return False
 
-    @api.multi
     def search_by_address(self, obj, country_id=False, state_id=False,
                           city_id=False, district=False, street=False,
                           error=True):
@@ -219,8 +220,7 @@ class BrZip(models.Model):
             'object_name': object_name})
 
         result = {
-            'name': u'Zip Search',
-            'view_type': 'form',
+            'name': 'Zip Search',
             'view_mode': 'form',
             'res_model': 'br.zip.search',
             'view_id': False,

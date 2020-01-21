@@ -30,7 +30,7 @@ class TestVoucher(TestBaseCnab):
 
     def test_copy_voucher(self):
         voucher = self.env['account.voucher'].create(dict(
-            self.voucher_vals.items(),
+            list(self.voucher_vals.items()),
             partner_id=self.partner_fisica.id,
             account_id=self.partner_fisica.property_account_payable_id.id,
             linha_digitavel='85810000014-5 24680270200-8 32415823300-6 01852018107-0'  # noqa
@@ -45,7 +45,7 @@ class TestVoucher(TestBaseCnab):
 
     def test_barcode_linha_digitavel(self):
         voucher = self.env['account.voucher'].create(dict(
-            self.voucher_vals.items(),
+            list(self.voucher_vals.items()),
             partner_id=self.partner_fisica.id,
             account_id=self.partner_fisica.property_account_payable_id.id,
             # Tributos
@@ -80,7 +80,7 @@ class TestVoucher(TestBaseCnab):
         # Remove a linha e testa se o onchange cria uma linha
         self.voucher_vals.pop('line_ids')
         voucher = self.env['account.voucher'].new(dict(
-            self.voucher_vals.items(),
+            list(self.voucher_vals.items()),
             partner_id=self.partner_fisica.id,
             account_id=self.partner_fisica.property_account_payable_id.id,
             # Tributos
@@ -92,7 +92,7 @@ class TestVoucher(TestBaseCnab):
 
     def test_voucher_onchanges(self):
         voucher = self.env['account.voucher'].new(dict(
-            self.voucher_vals.items(),
+            list(self.voucher_vals.items()),
             partner_id=self.partner_fisica.id,
             account_id=self.partner_fisica.property_account_payable_id.id,
             payment_mode_id=self.ted_payment[0].id,
@@ -104,7 +104,7 @@ class TestVoucher(TestBaseCnab):
 
     def test_voucher_cancel(self):
         voucher = self.env['account.voucher'].create(dict(
-            self.voucher_vals.items(),
+            list(self.voucher_vals.items()),
             partner_id=self.partner_fisica.id,
             account_id=self.partner_fisica.property_account_payable_id.id,
             payment_mode_id=self.titulos_payment[0].id,
@@ -133,7 +133,7 @@ class TestVoucher(TestBaseCnab):
         for mode in doc_ted_payments:
             for conta in self.dest_bank_accounts:
                 voucher = self.env['account.voucher'].create(dict(
-                    self.voucher_vals.items(),
+                    list(self.voucher_vals.items()),
                     partner_id=conta.partner_id.id,
                     bank_account_id=conta.id,
                     account_id=conta.partner_id.property_account_payable_id.id,
@@ -188,7 +188,7 @@ class TestVoucher(TestBaseCnab):
         vouchers = self.env['account.voucher']
         for mode in self.tributo_payment:
             voucher = self.env['account.voucher'].create(dict(
-                self.voucher_vals.items(),
+                list(self.voucher_vals.items()),
                 partner_id=self.partner_juridica.id,
                 account_id=self.partner_juridica.
                 property_account_payable_id.id,
@@ -267,7 +267,7 @@ def test_fgts(self):
         vouchers = self.env['account.voucher']
         for mode in self.fgts_payment:
             voucher = self.env['account.voucher'].create(dict(
-                self.voucher_vals.items(),
+                list(self.voucher_vals.items()),
                 partner_id=self.partner_juridica.id,
                 account_id=self.partner_juridica.
                 property_account_payable_id.id,

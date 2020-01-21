@@ -8,7 +8,7 @@ class ResCompany(models.Model):
     _inherit = "res.company"
 
     tipo_ambiente = fields.Selection(
-        [("1", u"Produção"), ("2", u"Homologação")],
+        [("1", "Produção"), ("2", "Homologação")],
         string="Ambiente NFe",
         default="2",
     )
@@ -18,17 +18,17 @@ class ResCompany(models.Model):
             ("vertical", "Modelo Vertical"),
             ("horizontal", "Modelo Horizontal"),
         ],
-        string=u"Cabeçalho Danfe",
+        string="Cabeçalho Danfe",
         default="vertical",
     )
     # NFC-e
     id_token_csc = fields.Char(string="Identificador do CSC")
-    csc = fields.Char(string=u"Código de Segurança do Contribuinte")
+    csc = fields.Char(string="Código de Segurança do Contribuinte")
     nfe_sinc = fields.Boolean(string="Aceita envio síncrono")
 
     # Responsavel Técnico
     id_token_csrt = fields.Char(string="Identificador do Responsavel Técnico")
-    csrt = fields.Char(string=u"Código de Segurança do Responsavel Técnico")
+    csrt = fields.Char(string="Código de Segurança do Responsavel Técnico")
     responsavel_tecnico_id = fields.Many2one(
         string="Responsável Técnico",
         comodel_name="res.partner")

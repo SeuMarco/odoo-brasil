@@ -29,8 +29,8 @@ class AccountBankStatementImport(models.TransientModel):
         e se forem todos duplicados dizer que o arquivo já foi importado. \
         Se alguma dessas situações estiver ocorrendo ao importar o arquivo \
         talvez você precise marcar esta opção.")
-    force_journal_account = fields.Boolean(string=u"Forçar conta bancária?")
-    journal_id = fields.Many2one('account.journal', string=u"Conta Bancária",
+    force_journal_account = fields.Boolean(string="Forçar conta bancária?")
+    journal_id = fields.Many2one('account.journal', string="Conta Bancária",
                                  domain=[('type', '=', 'bank')])
 
     def _parse_file(self, data_file):
@@ -76,7 +76,7 @@ class AccountBankStatementImport(models.TransientModel):
             dummy, journal = self._find_additional_data(
                 ofx.account.statement.currency, ofx.account.number)
 
-        name = u"%s - %s até %s" % (
+        name = "%s - %s até %s" % (
             journal.name,
             ofx.account.statement.start_date.strftime('%d/%m/%Y'),
             ofx.account.statement.end_date.strftime('%d/%m/%Y')

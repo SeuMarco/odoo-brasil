@@ -7,7 +7,6 @@ from odoo import api, fields, models
 class HrEmployee(models.Model):
     _inherit = 'hr.employee'
 
-    @api.multi
     def get_accumulated_fgts(self):
         for item in self:
             fgts_positivo = self.env.cr.execute(
@@ -23,5 +22,5 @@ class HrEmployee(models.Model):
             item.accumulated_fgts = ((fgts_positivo[0] or 0) -
                                      (fgts_negativo[0] or 0))
 
-    accumulated_fgts = fields.Float(u'FGTS Acumulado',
+    accumulated_fgts = fields.Float('FGTS Acumulado',
                                     compute=get_accumulated_fgts)

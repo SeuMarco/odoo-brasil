@@ -64,7 +64,7 @@ class TestSaleOrder(TransactionCase):
             'property_account_receivable_id': self.receivable_account.id,
         }
         self.partner_fisica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='545.770.154-98',
             company_type='person',
             is_company=False,
@@ -73,7 +73,7 @@ class TestSaleOrder(TransactionCase):
             city_id=self.env.ref('br_base.city_4205407').id
         ))
         self.partner_juridica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='05.075.837/0001-13',
             company_type='company',
             is_company=True,
@@ -204,7 +204,7 @@ class TestSaleOrder(TransactionCase):
         }
 
         self.sale_order = self.env['sale.order'].create(dict(
-            default_saleorder.items(),
+            list(default_saleorder.items()),
             name="SO 999",
             partner_id=self.partner_fisica.id
         ))

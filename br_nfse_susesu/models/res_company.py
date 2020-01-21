@@ -9,4 +9,4 @@ class ResCompany(models.Model):
 
     # Nota Susesu
     senha_ambiente_nfse = fields.Char(
-        string=u'Senha NFSe', size=30, help=u'Senha Nota Fiscal de Serviço')
+        string='Senha NFSe', size=30, help='Senha Nota Fiscal de Serviço')

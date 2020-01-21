@@ -26,33 +26,31 @@ class InvoiceEletronic(models.Model):
     _inherit = 'invoice.eletronic'
 
     url_danfe = fields.Char(
-        string=u'Url de Impressão Danfe', size=500, readonly=True)
+        string='Url de Impressão Danfe', size=500, readonly=True)
 
-    @api.multi
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model == '009':
             issqn_codigo = ''
             if not self.company_id.inscr_mun:
-                errors.append(u'Inscrição municipal obrigatória')
+                errors.append('Inscrição municipal obrigatória')
             for eletr in self.eletronic_item_ids:
-                prod = u"Produto: %s - %s" % (eletr.product_id.default_code,
+                prod = "Produto: %s - %s" % (eletr.product_id.default_code,
                                               eletr.product_id.name)
                 if eletr.tipo_produto == 'product':
                     errors.append(
-                        u'Esse documento permite apenas serviços - %s' % prod)
+                        'Esse documento permite apenas serviços - %s' % prod)
                 if eletr.tipo_produto == 'service':
                     if not eletr.issqn_codigo:
-                        errors.append(u'%s - Código de Serviço' % prod)
+                        errors.append('%s - Código de Serviço' % prod)
                     if not issqn_codigo:
                         issqn_codigo = eletr.issqn_codigo
                     if issqn_codigo != eletr.issqn_codigo:
-                        errors.append(u'%s - Apenas itens com o mesmo código \
+                        errors.append('%s - Apenas itens com o mesmo código \
                                       de serviço podem ser enviados' % prod)
 
         return errors
 
-    @api.multi
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model == '009':
@@ -174,7 +172,6 @@ class InvoiceEletronic(models.Model):
             atts.append(danfe_id.id)
         return atts
 
-    @api.multi
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('009'):
@@ -186,7 +183,6 @@ class InvoiceEletronic(models.Model):
         self.xml_to_send = base64.encodestring(xml_enviar)
         self.xml_to_send_name = 'nfse-enviar-%s.xml' % self.numero
 
-    @api.multi
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model == '009' and self.state not in ('done', 'cancel'):
@@ -212,7 +208,6 @@ class InvoiceEletronic(models.Model):
                 'invoice_eletronic_id': self.id,
             })
 
-    @api.multi
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('009'):
             return super(InvoiceEletronic, self).action_cancel_document(

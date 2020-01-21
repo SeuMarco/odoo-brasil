@@ -27,7 +27,6 @@ class AcquirerCielo(models.Model):
     return_url = fields.Char(string="Url de Retorno",
                              default=_default_return_url, size=300)
 
-    @api.multi
     def cielo_form_generate_values(self, tx_values):
         """ Função para gerar HTML POST da Cielo """
         total_desconto = 0
@@ -104,24 +103,24 @@ class AcquirerCielo(models.Model):
 class TransactionCielo(models.Model):
     _inherit = 'payment.transaction'
 
-    cielo_transaction_id = fields.Char(string=u'ID Transação')
+    cielo_transaction_id = fields.Char(string='ID Transação')
     state_cielo = fields.Selection(
-        [('1', u'Pendente'), ('2', u'Pago'), ('3', u'Negado'),
-         ('5', u'Cancelado'), ('6', u'Não Finalizado'), ('7', u'Autorizado')],
-        string=u"Situação Cielo")
+        [('1', 'Pendente'), ('2', 'Pago'), ('3', 'Negado'),
+         ('5', 'Cancelado'), ('6', 'Não Finalizado'), ('7', 'Autorizado')],
+        string="Situação Cielo")
     transaction_type = fields.Selection(
-        [('1', u'Cartão de Crédito'), ('2', u'Boleto Bancário'),
-         ('3', u'Débito Online'), ('4', u'Cartão de Débito')],
-        string=u'Tipo pagamento')
-    payment_installments = fields.Integer(u'Número de parcelas')
+        [('1', 'Cartão de Crédito'), ('2', 'Boleto Bancário'),
+         ('3', 'Débito Online'), ('4', 'Cartão de Débito')],
+        string='Tipo pagamento')
+    payment_installments = fields.Integer('Número de parcelas')
     payment_method_brand = fields.Selection(
-        [('1', u'Visa'), ('2', u'Mastercard'), ('3', u'American Express'),
-         ('4', u'Diners'), ('5', u'Elo'), ('6', u'Aura'), ('7', u'JCB')],
-        string=u"Bandeira Cartão")
-    payment_boletonumber = fields.Char(string=u"Número boleto", size=100)
+        [('1', 'Visa'), ('2', 'Mastercard'), ('3', 'American Express'),
+         ('4', 'Diners'), ('5', 'Elo'), ('6', 'Aura'), ('7', 'JCB')],
+        string="Bandeira Cartão")
+    payment_boletonumber = fields.Char(string="Número boleto", size=100)
 
     url_cielo = fields.Char(
-        string=u"Cielo", size=60,
+        string="Cielo", size=60,
         default="https://www.cielo.com.br/VOL/areaProtegida/index.jsp")
 
     @api.model
@@ -131,7 +130,6 @@ class TransactionCielo(models.Model):
             [('reference', '=', reference)])
         return txs[0]
 
-    @api.multi
     def _cielo_form_validate(self, data):
         reference = data.get('order_number')
         txn_id = data.get('checkout_cielo_order_number')
@@ -165,5 +163,5 @@ class TransactionCielo(models.Model):
             'state_cielo': state_cielo
         }
         res = {}
-        res.update({k: v for k, v in values.items() if v})
+        res.update({k: v for k, v in list(values.items()) if v})
         return self.write(res)

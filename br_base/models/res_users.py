@@ -17,13 +17,12 @@ class ResUsers(models.Model):
 
     @api.depends("create_date")
     def _compute_channel_names(self):
-        for record in self:
-            res_id = record.id
-            record.notify_success_channel_name = "notify_success_%s" % res_id
-            record.notify_danger_channel_name = "notify_danger_%s" % res_id
-            record.notify_warning_channel_name = "notify_warning_%s" % res_id
-            record.notify_info_channel_name = "notify_info_%s" % res_id
-            record.notify_default_channel_name = "notify_default_%s" % res_id
+        for rec in self:
+            rec.notify_success_channel_name = "notify_success_%s" % rec.id
+            rec.notify_danger_channel_name = "notify_danger_%s" % rec.id
+            rec.notify_warning_channel_name = "notify_warning_%s" % rec.id
+            rec.notify_info_channel_name = "notify_info_%s" % rec.id
+            rec.notify_default_channel_name = "notify_default_%s" % rec.id
 
     notify_success_channel_name = fields.Char(compute="_compute_channel_names")
     notify_danger_channel_name = fields.Char(compute="_compute_channel_names")
