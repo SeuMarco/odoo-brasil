@@ -255,7 +255,6 @@ class AccountDocumentRelated(models.Model):
     fiscal_document_id = fields.Many2one(
         'br_account.fiscal.document', 'Documento')
 
-    @api.one
     @api.constrains('cnpj_cpf')
     def _check_cnpj_cpf(self):
         check_cnpj_cpf = True
@@ -268,7 +267,6 @@ class AccountDocumentRelated(models.Model):
         if not check_cnpj_cpf:
             raise UserError(_('CNPJ/CPF do documento relacionado é invalido!'))
 
-    @api.one
     @api.constrains('inscr_est')
     def _check_ie(self):
         check_ie = True

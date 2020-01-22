@@ -47,7 +47,6 @@ class AccountInvoiceLine(models.Model):
             'l10n_br_issqn_deduction': self.l10n_br_issqn_deduction,
         }
 
-    @api.one
     @api.depends('price_unit', 'discount', 'invoice_line_tax_ids', 'quantity',
                  'product_id', 'invoice_id.partner_id',
                  'invoice_id.currency_id', 'invoice_id.company_id',
