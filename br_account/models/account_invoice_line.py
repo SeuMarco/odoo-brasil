@@ -168,7 +168,6 @@ class AccountInvoiceLine(models.Model):
             'irrf_valor': sum([x['amount'] for x in irrf]),
         })
 
-    @api.multi
     @api.depends('icms_cst_normal', 'icms_csosn_simples',
                  'company_fiscal_type')
     def _compute_cst_icms(self):
