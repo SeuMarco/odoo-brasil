@@ -9,11 +9,9 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    @api.depends('invoice_line_ids.price_subtotal', 'tax_line_ids.amount',
+    @api.depends('invoice_line_ids.price_subtotal', 'line_ids',
                  'currency_id', 'company_id')
     def _compute_amount(self):
-        res = super(AccountMove, self)._compute_amount()
-
         for rec in self:
             lines = rec.line_ids
             rec.total_tax = sum(l.price_tax for l in lines)
@@ -415,7 +413,7 @@ class AccountMove(models.Model):
 
         done_taxes = []
 
-        for tax_line in sorted(self.tax_line_ids, key=lambda x: -x.sequence):
+        for tax_line in sorted(self.line_ids, key=lambda x: -x.sequence):
             if tax_line.amount and tax_line.tax_id.deduced_account_id:
                 tax = tax_line.tax_id
                 done_taxes.append(tax.id)

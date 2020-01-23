@@ -213,35 +213,35 @@ class AccountMoveLine(models.Model):
     price_tax = fields.Float(compute='_compute_price',
                              string=_("Impostos"),
                              store=True,
-                             digits=dp.get_precision('Account'))
+                             digits=('Account'))
     valor_liquido = fields.Float('Valor Líquido',
-                                 digits=dp.get_precision('Account'),
+                                 digits=('Account'),
                                  store=True,
                                  default=0.00,
                                  compute='_compute_price')
     valor_desconto = fields.Float(string='Vlr. desconto',
                                   store=True,
                                   compute='_compute_price',
-                                  digits=dp.get_precision('Account'))
+                                  digits=('Account'))
     valor_bruto = fields.Float(string='Vlr. Bruto',
                                store=True,
                                compute='_compute_price',
-                               digits=dp.get_precision('Account'))
+                               digits=('Account'))
     tributos_estimados = fields.Float(string='Total Est. Tributos',
                                       default=0.00,
-                                      digits=dp.get_precision('Account'))
+                                      digits=('Account'))
     tributos_estimados_federais = fields.Float(
         string='Tributos Federais',
         default=0.00,
-        digits=dp.get_precision('Account'))
+        digits=('Account'))
     tributos_estimados_estaduais = fields.Float(
         string='Tributos Estaduais',
         default=0.00,
-        digits=dp.get_precision('Account'))
+        digits=('Account'))
     tributos_estimados_municipais = fields.Float(
         string='Tributos Municipais',
         default=0.00,
-        digits=dp.get_precision('Account'))
+        digits=('Account'))
 
     rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     cfop_id = fields.Many2one('br_account.cfop', 'CFOP')
@@ -286,21 +286,21 @@ class AccountMoveLine(models.Model):
                                      required=True,
                                      compute='_compute_price',
                                      store=True,
-                                     digits=dp.get_precision('Account'),
+                                     digits=('Account'),
                                      default=0.00)
     icms_valor = fields.Float('Valor ICMS',
                               required=True,
                               compute='_compute_price',
                               store=True,
-                              digits=dp.get_precision('Account'),
+                              digits=('Account'),
                               default=0.00)
     icms_aliquota = fields.Float('Perc ICMS',
-                                 digits=dp.get_precision('Discount'),
+                                 digits=('Discount'),
                                  default=0.00)
     icms_aliquota_reducao_base = fields.Float(
-        '% Red. Base ICMS', digits=dp.get_precision('Discount'), default=0.00)
+        '% Red. Base ICMS', digits=('Discount'), default=0.00)
     icms_base_calculo_manual = fields.Float('Base ICMS Manual',
-                                            digits=dp.get_precision('Account'),
+                                            digits=('Account'),
                                             default=0.00)
 
     # =========================================================================
@@ -322,34 +322,34 @@ class AccountMoveLine(models.Model):
                                  required=True,
                                  compute='_compute_price',
                                  store=True,
-                                 digits=dp.get_precision('Account'),
+                                 digits=('Account'),
                                  default=0.00)
     icms_st_base_calculo = fields.Float('Base ICMS ST',
                                         required=True,
                                         compute='_compute_price',
                                         store=True,
-                                        digits=dp.get_precision('Account'),
+                                        digits=('Account'),
                                         default=0.00)
     icms_st_aliquota = fields.Float('% ICMS ST',
-                                    digits=dp.get_precision('Discount'),
+                                    digits=('Discount'),
                                     default=0.00)
     icms_st_aliquota_reducao_base = fields.Float(
-        '% Red. Base ST', digits=dp.get_precision('Discount'))
+        '% Red. Base ST', digits=('Discount'))
     icms_st_aliquota_mva = fields.Float('MVA Ajustado ST',
-                                        digits=dp.get_precision('Discount'),
+                                        digits=('Discount'),
                                         default=0.00)
     icms_st_base_calculo_manual = fields.Float(
         'Base ICMS ST Manual',
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         default=0.00)
 
     # =========================================================================
     # ICMS Difal
     # =========================================================================
-    tem_difal = fields.Boolean(u'Difal?', digits=dp.get_precision('Discount'))
+    tem_difal = fields.Boolean(u'Difal?', digits=('Discount'))
     icms_bc_uf_dest = fields.Float(u'Base ICMS',
                                    compute='_compute_price',
-                                   digits=dp.get_precision('Discount'))
+                                   digits=('Discount'))
     tax_icms_inter_id = fields.Many2one(
         'account.tax',
         help=u"Alíquota utilizada na operação Interestadual",
@@ -364,18 +364,18 @@ class AccountMoveLine(models.Model):
                                       string="% FCP",
                                       domain=[('domain', '=', 'fcp')])
     icms_aliquota_inter_part = fields.Float(
-        u'% Partilha', default=100.0, digits=dp.get_precision('Discount'))
+        u'% Partilha', default=100.0, digits=('Discount'))
     icms_fcp_uf_dest = fields.Float(
         string=u'Valor FCP',
         compute='_compute_price',
-        digits=dp.get_precision('Discount'),
+        digits=('Discount'),
     )
     icms_uf_dest = fields.Float(u'ICMS Destino',
                                 compute='_compute_price',
-                                digits=dp.get_precision('Discount'))
+                                digits=('Discount'))
     icms_uf_remet = fields.Float(u'ICMS Remetente',
                                  compute='_compute_price',
-                                 digits=dp.get_precision('Discount'))
+                                 digits=('Discount'))
 
     # =========================================================================
     # ICMS Simples Nacional
@@ -407,21 +407,21 @@ class AccountMoveLine(models.Model):
     service_type_id = fields.Many2one('br_account.service.type',
                                       u'Tipo de Serviço')
     issqn_base_calculo = fields.Float('Base ISSQN',
-                                      digits=dp.get_precision('Account'),
+                                      digits=('Account'),
                                       compute='_compute_price',
                                       store=True)
     issqn_aliquota = fields.Float('Perc ISSQN',
                                   required=True,
-                                  digits=dp.get_precision('Discount'),
+                                  digits=('Discount'),
                                   default=0.00)
     issqn_valor = fields.Float('Valor ISSQN',
                                required=True,
-                               digits=dp.get_precision('Account'),
+                               digits=('Account'),
                                default=0.00,
                                compute='_compute_price',
                                store=True)
     l10n_br_issqn_deduction = fields.Float('% Dedução Base ISSQN',
-                                           digits=dp.get_precision('Discount'),
+                                           digits=('Discount'),
                                            default=0.00,
                                            store=True)
 
@@ -439,28 +439,28 @@ class AccountMoveLine(models.Model):
     ipi_base_calculo = fields.Float(
         'Base IPI',
         required=True,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         default=0.00,
         compute='_compute_price',
         store=True,
     )
     ipi_reducao_bc = fields.Float(u'% Redução Base',
                                   required=True,
-                                  digits=dp.get_precision('Account'),
+                                  digits=('Account'),
                                   default=0.00)
     ipi_valor = fields.Float('Valor IPI',
                              required=True,
-                             digits=dp.get_precision('Account'),
+                             digits=('Account'),
                              default=0.00,
                              compute='_compute_price',
                              store=True)
     ipi_aliquota = fields.Float('Perc IPI',
                                 required=True,
-                                digits=dp.get_precision('Discount'),
+                                digits=('Discount'),
                                 default=0.00)
     ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
     ipi_base_calculo_manual = fields.Float('Base IPI Manual',
-                                           digits=dp.get_precision('Account'),
+                                           digits=('Account'),
                                            default=0.00)
 
     # =========================================================================
@@ -479,20 +479,20 @@ class AccountMoveLine(models.Model):
                                     required=True,
                                     compute='_compute_price',
                                     store=True,
-                                    digits=dp.get_precision('Account'),
+                                    digits=('Account'),
                                     default=0.00)
     pis_valor = fields.Float('Valor PIS',
                              required=True,
-                             digits=dp.get_precision('Account'),
+                             digits=('Account'),
                              default=0.00,
                              compute='_compute_price',
                              store=True)
     pis_aliquota = fields.Float('Perc PIS',
                                 required=True,
-                                digits=dp.get_precision('Discount'),
+                                digits=('Discount'),
                                 default=0.00)
     pis_base_calculo_manual = fields.Float('Base PIS Manual',
-                                           digits=dp.get_precision('Account'),
+                                           digits=('Account'),
                                            default=0.00)
 
     # =========================================================================
@@ -511,15 +511,15 @@ class AccountMoveLine(models.Model):
     cofins_base_calculo = fields.Float('Base COFINS',
                                        compute='_compute_price',
                                        store=True,
-                                       digits=dp.get_precision('Account'))
+                                       digits=('Account'))
     cofins_valor = fields.Float('Valor COFINS',
-                                digits=dp.get_precision('Account'),
+                                digits=('Account'),
                                 compute='_compute_price',
                                 store=True)
     cofins_aliquota = fields.Float('Perc COFINS',
-                                   digits=dp.get_precision('Discount'))
+                                   digits=('Discount'))
     cofins_base_calculo_manual = fields.Float(
-        'Base COFINS Manual', digits=dp.get_precision('Account'), default=0.00)
+        'Base COFINS Manual', digits=('Account'), default=0.00)
 
     # =========================================================================
     # Imposto de importação
@@ -530,26 +530,26 @@ class AccountMoveLine(models.Model):
                                 domain=[('domain', '=', 'ii')])
     ii_base_calculo = fields.Float('Base II',
                                    required=True,
-                                   digits=dp.get_precision('Account'),
+                                   digits=('Account'),
                                    default=0.00,
                                    store=True)
     ii_aliquota = fields.Float('% II',
                                required=True,
-                               digits=dp.get_precision('Account'),
+                               digits=('Account'),
                                default=0.00)
     ii_valor = fields.Float('Valor II',
                             required=True,
-                            digits=dp.get_precision('Account'),
+                            digits=('Account'),
                             default=0.00,
                             compute='_compute_price',
                             store=True)
     ii_valor_iof = fields.Float('Valor IOF',
                                 required=True,
-                                digits=dp.get_precision('Account'),
+                                digits=('Account'),
                                 default=0.00)
     ii_valor_despesas = fields.Float('Desp. Aduaneiras',
                                      required=True,
-                                     digits=dp.get_precision('Account'),
+                                     digits=('Account'),
                                      default=0.00)
     import_declaration_ids = fields.Many2many(
         'br_account.import.declaration', string='Declaração de Importação')
@@ -563,19 +563,19 @@ class AccountMoveLine(models.Model):
                                   domain=[('domain', '=', 'csll')])
     csll_base_calculo = fields.Float('Base CSLL',
                                      required=True,
-                                     digits=dp.get_precision('Account'),
+                                     digits=('Account'),
                                      default=0.00,
                                      compute='_compute_price',
                                      store=True)
     csll_valor = fields.Float('Valor CSLL',
                               required=True,
-                              digits=dp.get_precision('Account'),
+                              digits=('Account'),
                               default=0.00,
                               compute='_compute_price',
                               store=True)
     csll_aliquota = fields.Float('Perc CSLL',
                                  required=True,
-                                 digits=dp.get_precision('Account'),
+                                 digits=('Account'),
                                  default=0.00)
 
     # =========================================================================
@@ -587,19 +587,19 @@ class AccountMoveLine(models.Model):
                                   domain=[('domain', '=', 'irrf')])
     irrf_base_calculo = fields.Float('Base IRRF',
                                      required=True,
-                                     digits=dp.get_precision('Account'),
+                                     digits=('Account'),
                                      default=0.00,
                                      compute='_compute_price',
                                      store=True)
     irrf_valor = fields.Float('Valor IRFF',
                               required=True,
-                              digits=dp.get_precision('Account'),
+                              digits=('Account'),
                               default=0.00,
                               compute='_compute_price',
                               store=True)
     irrf_aliquota = fields.Float('Perc IRRF',
                                  required=True,
-                                 digits=dp.get_precision('Account'),
+                                 digits=('Account'),
                                  default=0.00)
 
     # =========================================================================
@@ -611,19 +611,19 @@ class AccountMoveLine(models.Model):
                                   domain=[('domain', '=', 'inss')])
     inss_base_calculo = fields.Float(u'Base INSS',
                                      required=True,
-                                     digits=dp.get_precision('Account'),
+                                     digits=('Account'),
                                      default=0.00,
                                      compute='_compute_price',
                                      store=True)
     inss_valor = fields.Float(u'Valor INSS',
                               required=True,
-                              digits=dp.get_precision('Account'),
+                              digits=('Account'),
                               default=0.00,
                               compute='_compute_price',
                               store=True)
     inss_aliquota = fields.Float(u'Perc INSS',
                                  required=True,
-                                 digits=dp.get_precision('Account'),
+                                 digits=('Account'),
                                  default=0.00)
 
     informacao_adicional = fields.Text(string=u"Informações Adicionais")

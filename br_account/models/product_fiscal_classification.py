@@ -39,7 +39,7 @@ class ProductFiscalClassification(models.Model):
     ipi_reducao_bc = fields.Float(
         string='% Redução Base',
         required=True,
-        digits=dp.get_precision('Account'),
+        digits=('Account'),
         default=0.00)
     ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
 
@@ -50,10 +50,10 @@ class ProductFiscalClassification(models.Model):
         domain=[('domain', '=', 'icmsst')])
     icms_st_aliquota_reducao_base = fields.Float(
         string='% Red. Base ST',
-        digits=dp.get_precision('Discount'))
+        digits=('Discount'))
     icms_st_aliquota_mva = fields.Float(
         string='MVA Ajustado ST',
-        digits=dp.get_precision('Discount'), default=0.00)
+        digits=('Discount'), default=0.00)
     active = fields.Boolean(default=True, string='Ativo')
 
     @api.model
