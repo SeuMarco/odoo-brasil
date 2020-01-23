@@ -8,8 +8,8 @@ from . import product_fiscal_classification
 from . import product
 from . import res_company
 from . import account_fiscal_position
-from . import account_invoice
-from . import account_invoice_line
+from . import account_move
+from . import account_move_line
 from . import account_tax
 from . import account_move
 from . import res_partner

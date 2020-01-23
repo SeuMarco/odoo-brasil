@@ -80,7 +80,6 @@
         <field name="name">Classificações Fiscais (NCM)</field>
         <field name="type">ir.actions.act_window</field>
         <field name="res_model">product.fiscal.classification</field>
-        <field name="view_type">form</field>
         <field name="view_id" ref="view_br_account_product_fiscal_classification_tree"/>
     </record>
 
