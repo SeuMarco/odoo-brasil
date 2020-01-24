@@ -14,6 +14,7 @@ class AccountMoveLine(models.Model):
             'name': 'Agendar Pagamento',
             'type': 'ir.actions.act_window',
             'res_model': 'wizard.change.payment',
+            'view_type': 'form',
             'view_mode': 'form',
             'target': 'new',
             'context': {

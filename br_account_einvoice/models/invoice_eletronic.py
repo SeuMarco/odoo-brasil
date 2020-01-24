@@ -95,14 +95,7 @@ class InvoiceEletronic(models.Model):
         default=fields.Date.today,
         states=STATE)
     data_emissao = fields.Datetime(
-<<<<<<< HEAD
         string='Data emissão', readonly=True, states=STATE)
-=======
-        string=u'Data emissão', readonly=True, states=STATE)
-<<<<<<< HEAD
->>>>>>> 387baaed... [ADD] Implementa data de entrada e saida de mercadorias
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     data_autorizacao = fields.Char(
         string='Data de autorização', size=30, readonly=True, states=STATE)
     ambiente = fields.Selection(
@@ -240,6 +233,7 @@ class InvoiceEletronic(models.Model):
                 'res_id': event.id
             })
 
+    @api.multi
     def _hook_validation(self):
         """
             Override this method to implement the validations specific
@@ -348,6 +342,7 @@ class InvoiceEletronic(models.Model):
                 errors.append('Destinatário / Endereço - Cód. do BC do país')
         return errors
 
+    @api.multi
     def _compute_legal_information(self):
         fiscal_ids = self.invoice_id.fiscal_observation_ids.filtered(
             lambda x: x.tipo == 'fiscal')
@@ -424,6 +419,7 @@ class InvoiceEletronic(models.Model):
             'invoice': self.invoice_id
             }
 
+    @api.multi
     def validate_invoice(self):
         self.ensure_one()
         errors = self._hook_validation()
@@ -433,25 +429,32 @@ class InvoiceEletronic(models.Model):
             self.sudo().unlink()
             raise UserError(msg)
 
+    @api.multi
     def action_post_validate(self):
         self._compute_legal_information()
 
+    @api.multi
     def _prepare_eletronic_invoice_item(self, item, invoice):
         return {}
 
+    @api.multi
     def _prepare_eletronic_invoice_values(self):
         return {}
 
+    @api.multi
     def action_send_eletronic_invoice(self):
         pass
 
+    @api.multi
     def action_cancel_document(self, context=None, justificativa=None):
         pass
 
+    @api.multi
     def action_back_to_draft(self):
         self.action_post_validate()
         self.state = 'draft'
 
+    @api.multi
     def action_edit_edoc(self):
         self.state = 'edit'
 
@@ -460,6 +463,7 @@ class InvoiceEletronic(models.Model):
             return True
         return False
 
+    @api.multi
     def unlink(self):
         for item in self:
             if not item.can_unlink():
@@ -492,6 +496,7 @@ class InvoiceEletronic(models.Model):
     def _get_state_to_send(self):
         return ('draft',)
 
+    @api.multi
     def cron_send_nfe(self, limit=50):
         inv_obj = self.env['invoice.eletronic'].with_context({
             'lang': self.env.user.lang, 'tz': self.env.user.tz})
@@ -514,6 +519,7 @@ class InvoiceEletronic(models.Model):
     def _find_attachment_ids_email(self):
         return []
 
+    @api.multi
     def send_email_nfe(self):
         mail = self.env.user.company_id.nfe_email_template
         if not mail:
@@ -531,6 +537,7 @@ class InvoiceEletronic(models.Model):
             message_type='email', subtype='mt_comment',
             attachment_ids=atts + mail.attachment_ids.ids, **values)
 
+    @api.multi
     def send_email_nfe_queue(self):
         after = datetime.now() + timedelta(days=-1)
         nfe_queue = self.env['invoice.eletronic'].search(
@@ -541,6 +548,7 @@ class InvoiceEletronic(models.Model):
             nfe.send_email_nfe()
             nfe.email_sent = True
 
+    @api.multi
     def copy(self, default=None):
         raise UserError(_('Não é possível duplicar uma Nota Fiscal.'))
 
@@ -597,15 +605,7 @@ class InvoiceEletronicItem(models.Model):
         help="Se setado aqui sobrescreve o pedido de compra da fatura")
     item_pedido_compra = fields.Char(
         string="Item de compra", size=20,
-<<<<<<< HEAD
-<<<<<<< HEAD
         help='Item do pedido de compra do cliente')
-=======
-        help=u'Item do pedido de compra do cliente')
->>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
-=======
-        help=u'Item do pedido de compra do cliente')
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     frete = fields.Monetary(
         string='Frete', digits=('Account'),

@@ -52,6 +52,7 @@
     <record id="action_scheduled_transfer" model="ir.actions.act_window">
         <field name="name">Agendar Transferência</field>
         <field name="res_model">l10n_br.scheduled.transfer</field>
+        <field name="view_type">form</field>
         <field name="view_mode">tree,form</field>
     </record>
 

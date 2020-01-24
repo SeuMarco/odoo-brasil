@@ -98,6 +98,7 @@ class PaymentOrderLine(models.Model):
         string="Agência do Favorecido",
         readonly=True)
 
+    @api.one
     @api.constrains('barcode')
     def _constrains_unique_barcode(self):
         if not self.barcode:
@@ -440,6 +441,7 @@ class PaymentOrderLine(models.Model):
             'type': 'ir.actions.act_window',
             'res_model': 'l10n_br.payment_information',
             'res_id': self.payment_information_id.id,
+            'view_type': 'form',
             'view_mode': 'form',
             'target': 'new',
         }

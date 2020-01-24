@@ -9,7 +9,7 @@
     'license': 'AGPL-3',
     'author': 'Fabio Negrini - OpenERP Brasil',
     'website': 'http://www.trustcode.com.br',
-    'version': '13.0.1.0.0',
+    'version': '12.0.1.0.0',
     'depends': [
         'br_zip',
         'br_crm',

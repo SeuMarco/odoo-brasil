@@ -17,6 +17,7 @@ class ResConfigSettings(models.TransientModel):
             .boleto_email_tmpl.id
         return res
 
+    @api.multi
     def set_values(self):
         super(ResConfigSettings, self).set_values()
         self.env.user.company_id.boleto_email_tmpl = self.boleto_email_tmpl

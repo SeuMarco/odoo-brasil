@@ -40,6 +40,7 @@ style="max-width:100px;height:100px;margin:0px 0px;"src="/report/barcode/\
 ?type=QR&width=100&height=100&value=' + urllib.parse.quote(urlconsulta) + '"/>'
         return url
 
+    @api.multi
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model == '012':
@@ -59,6 +60,7 @@ style="max-width:100px;height:100px;margin:0px 0px;"src="/report/barcode/\
 
         return errors
 
+    @api.multi
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model != '012':
@@ -166,6 +168,7 @@ style="max-width:100px;height:100px;margin:0px 0px;"src="/report/barcode/\
 
         return atts
 
+    @api.multi
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('012'):
@@ -187,6 +190,7 @@ style="max-width:100px;height:100px;margin:0px 0px;"src="/report/barcode/\
             'xml_to_send_name': 'nfse-enviar-%s.xml' % self.numero,
         })
 
+    @api.multi
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model != '012' or self.state in ('done', 'cancel'):
@@ -226,6 +230,7 @@ style="max-width:100px;height:100px;margin:0px 0px;"src="/report/barcode/\
         self._create_attachment(
             'nfse-ret', self, recebe_lote['received_xml'].decode('utf-8'))
 
+    @api.multi
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('012'):
             return super(InvoiceEletronic, self).action_cancel_document(
@@ -236,6 +241,7 @@ style="max-width:100px;height:100px;margin:0px 0px;"src="/report/barcode/\
                 'name': 'Cancelamento NFe',
                 'type': 'ir.actions.act_window',
                 'res_model': 'wizard.cancel.nfse',
+                'view_type': 'form',
                 'view_mode': 'form',
                 'target': 'new',
                 'context': {

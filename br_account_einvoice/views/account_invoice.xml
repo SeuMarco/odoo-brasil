@@ -50,32 +50,4 @@
         </field>
     </record>
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <record id="view_br_nfse_invoice_tree" model="ir.ui.view">
-        <field name="name">view.br_nfse.line.tree</field>
-        <field name="model">account.invoice</field>
-        <field name="inherit_id" ref="account.invoice_form"/>
-        <field name="arch" type="xml">
-            <xpath expr="//field[@name='invoice_line_ids']/tree" position="attributes">
-                <attribute name="decoration-info">state == 'pendente'</attribute>
-                <attribute name="decoration-muted">state == 'transmitido'</attribute>
-            </xpath>
-            <xpath expr="//field[@name='invoice_line_ids']/tree/field[@name='name']" position="after">
-                <field name="state"/>
-            </xpath>
-        </field>
-    </record>
-
-    <!-- <record id="account.action_invoice_tree2" model="ir.actions.act_window">
-=======
-=======
->>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
-    <record id="account.action_invoice_tree2" model="ir.actions.act_window">
->>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
-        <field name="context">{'default_type': 'in_invoice', 'type': 'in_invoice', 'journal_type': 'purchase', 'issuer': 0}</field>
-    </record> -->
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 </odoo>

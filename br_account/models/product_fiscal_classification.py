@@ -25,17 +25,10 @@ class ProductFiscalClassification(models.Model):
     # IPI
     classe_enquadramento = fields.Char(string="Classe Enquadr.", size=5)
     codigo_enquadramento = fields.Char(
-<<<<<<< HEAD
-        string=u"Cód. Enquadramento", size=3, default='999')
-    tax_ipi_id = fields.Many2one(
-        comodel_name='account.tax',
-        string=u"Alíquota IPI",
-=======
         string="Cód. Enquadramento", size=3, default='999')
     tax_ipi_id = fields.Many2one(
         comodel_name='account.tax',
         string="Alíquota IPI",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         domain=[('domain', '=', 'ipi')])
     ipi_tipo = fields.Selection(
         [('percent', 'Percentual')],
@@ -43,42 +36,15 @@ class ProductFiscalClassification(models.Model):
         required=True,
         default='percent')
     ipi_reducao_bc = fields.Float(
-<<<<<<< HEAD
-        string=u'% Redução Base',
-        required=True,
-<<<<<<< HEAD
-        digits=('Account'),
-=======
-        digits=dp.get_precision('Account'),
->>>>>>> f0f4466b... Atualização da tabela de NCM
-=======
         string='% Redução Base',
         required=True,
         digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         default=0.00)
     ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
 
     # ICMS ST
     tax_icms_st_id = fields.Many2one(
         comodel_name='account.tax',
-<<<<<<< HEAD
-        string=u"Alíquota ICMS ST",
-        domain=[('domain', '=', 'icmsst')])
-    icms_st_aliquota_reducao_base = fields.Float(
-        string='% Red. Base ST',
-<<<<<<< HEAD
-        digits=('Discount'))
-    icms_st_aliquota_mva = fields.Float(
-        string='MVA Ajustado ST',
-        digits=('Discount'), default=0.00)
-=======
-        digits=dp.get_precision('Discount'))
-    icms_st_aliquota_mva = fields.Float(
-        string='MVA Ajustado ST',
-        digits=dp.get_precision('Discount'), default=0.00)
->>>>>>> f0f4466b... Atualização da tabela de NCM
-=======
         string="Alíquota ICMS ST",
         domain=[('domain', '=', 'icmsst')])
     icms_st_aliquota_reducao_base = fields.Float(
@@ -87,7 +53,6 @@ class ProductFiscalClassification(models.Model):
     icms_st_aliquota_mva = fields.Float(
         string='MVA Ajustado ST',
         digits=('Discount'), default=0.00)
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     active = fields.Boolean(default=True, string='Ativo')
 
     @api.model

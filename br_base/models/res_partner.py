@@ -34,19 +34,7 @@ class ResPartner(models.Model):
     legal_name = fields.Char(
         _("Legal Name"), size=60, help=_("Name used in fiscal documents"))
     city_id = fields.Many2one(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         'res.state.city', _("City ID"),
-=======
-        'res.state.city', _("City"),
->>>>>>> 321d714c... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
-        'res.state.city', _("City ID"),
->>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
-        'res.state.city', _("City ID"),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         domain="[('state_id','=',state_id)]")
     district = fields.Char(_("District"), size=32)
     number = fields.Char(_("Number"), size=10)

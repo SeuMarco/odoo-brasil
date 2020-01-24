@@ -66,6 +66,7 @@ class AccountVoucher(models.Model):
             if (line.l10n_br_order_line_id.autenticacao_pagamento):
                 return line.l10n_br_order_line_id
 
+    @api.multi
     def copy(self, default=None):
         default = default or {}
         default.update({'linha_digitavel': None, 'barcode': None})
@@ -139,6 +140,7 @@ class AccountVoucher(models.Model):
             'interest_value': self.interest_value,
         }
 
+    @api.multi
     def proforma_voucher(self):
         for item in self:
             if item.payment_mode_id and item.payment_mode_id.type == 'payable':

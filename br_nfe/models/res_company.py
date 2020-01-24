@@ -38,18 +38,7 @@ class ResCompany(models.Model):
 
 class ResCompanyIest(models.Model):
     _name = 'res.company.iest'
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     _description = "Inscrição Estadual do substituto tributário"
-=======
->>>>>>> 3ed7a246... [ADD] Nova inscrição do substituto tributário para NFe
-=======
-    _description = "Inscrição Estadual do substituto tributário"
->>>>>>> 7d550962... Retira warnings ao iniciar odoo
-=======
-    _description = "Inscrição Estadual do substituto tributário"
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     name = fields.Char(string="Inscrição Estadual", required=True)
     state_id = fields.Many2one(

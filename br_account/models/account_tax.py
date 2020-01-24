@@ -61,17 +61,10 @@ class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     deduced_account_id = fields.Many2one(
-<<<<<<< HEAD
         'account.account', string=_("Conta de Dedução da Venda"))
     refund_deduced_account_id = fields.Many2one(
         'account.account', string=_("Conta de Dedução do Reembolso"))
     domain = fields.Selection([('icms', "ICMS"),
-=======
-        'account.account', string="Conta de Dedução da Venda")
-    refund_deduced_account_id = fields.Many2one(
-        'account.account', string="Conta de Dedução do Reembolso")
-    domain = fields.Selection([('icms', 'ICMS'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                ('icmsst', 'ICMS ST'),
                                ('pis', 'PIS'),
                                ('cofins', 'COFINS'),

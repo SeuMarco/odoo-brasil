@@ -80,36 +80,6 @@ class ResCompany(models.Model):
             rec.partner_id.city_id = rec.city_id
 
     def _compute_expiry_date(self):
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-        try:
-            pfx = base64.decodestring(
-                self.with_context(bin_size=False).nfe_a1_file)
-            pfx = crypto.load_pkcs12(pfx, self.nfe_a1_password)
-            cert = pfx.get_certificate()
-            end = datetime.strptime(
-                cert.get_notAfter().decode(), '%Y%m%d%H%M%SZ')
-            subj = cert.get_subject()
-            self.cert_expire_date = end.date()
-            if datetime.now() < end:
-                self.cert_state = 'valid'
-            else:
-                self.cert_state = 'expired'
-            self.cert_information = "%s\n%s\n%s\n%s" % (
-                subj.CN, subj.L, subj.O, subj.OU)
-        except crypto.Error:
-            self.cert_state = 'invalid_password'
-        except Exception as exc:
-            self.cert_state = 'unknown'
-            _logger.warning(
-                _('Error %s when validating certificate', exc),
-                exc_info=True)
-=======
-=======
->>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         for rec in self:
             try:
                 pfx = base64.decodestring(
@@ -133,13 +103,6 @@ class ResCompany(models.Model):
                 _logger.warning(
                     _('Unknown error when validating certificate. %s', exc),
                     exc_info=True)
-<<<<<<< HEAD
-<<<<<<< HEAD
->>>>>>> 321d714c... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
->>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     cnpj_cpf = fields.Char(
         compute=_get_br_data, inverse=_set_br_cnpj_cpf, size=18,
@@ -163,21 +126,7 @@ class ResCompany(models.Model):
 
     city_id = fields.Many2one(
         compute=_get_address_data, inverse='_set_city_id',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-
-
         comodel_name='res.state.city', string=_("City ID"), multi='address')
-=======
-        comodel_name='res.state.city', string=_("City"), multi='address')
->>>>>>> 321d714c... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
-        comodel_name='res.state.city', string=_("City ID"), multi='address')
->>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
-        comodel_name='res.state.city', string=_("City ID"), multi='address')
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     district = fields.Char(
         compute=_get_address_data, inverse='_set_br_district', size=32,

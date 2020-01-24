@@ -20,6 +20,7 @@ class InutilizationNFeNumeration(models.TransientModel):
         'Justificativa', required=True,
         help='Mínimo: 15 caracteres;\nMáximo: 255 caracteres.')
 
+    @api.multi
     def action_inutilize_nfe(self):
         name = 'Série Inutilizada {inicio} - {fim}'.format(
             inicio=self.numeration_start, fim=self.numeration_end

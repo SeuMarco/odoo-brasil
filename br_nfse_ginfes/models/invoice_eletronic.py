@@ -57,6 +57,7 @@ class InvoiceEletronic(models.Model):
     retencoes_federais = fields.Monetary(
         string="Retenções Federais", compute=_compute_total_retencoes)
 
+    @api.multi
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model == '002':
@@ -87,6 +88,7 @@ class InvoiceEletronic(models.Model):
 
         return errors
 
+    @api.multi
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model != '002':
@@ -185,6 +187,7 @@ class InvoiceEletronic(models.Model):
         res.update(nfse_vals)
         return res
 
+    @api.multi
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('002'):
@@ -229,6 +232,7 @@ class InvoiceEletronic(models.Model):
             atts.append(danfe_id.id)
         return atts
 
+    @api.multi
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model != '002' or self.state in ('done', 'cancel'):
@@ -332,6 +336,7 @@ class InvoiceEletronic(models.Model):
                 'rec-ret', self,
                 consulta_lote['received_xml'])
 
+    @api.multi
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('002'):
             return super(InvoiceEletronic, self).action_cancel_document(

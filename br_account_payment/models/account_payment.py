@@ -48,6 +48,7 @@ to process a single invoice's payment."))
                  (column, '=', 0),
                  ('reconciled', '=', False)])
 
+    @api.multi
     def action_view_receivable_payable(self):
         if self.partner_type == 'supplier':
             action_ref = 'br_account_payment.action_payable_move_lines'
@@ -59,14 +60,7 @@ to process a single invoice's payment."))
 
         return action
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
     @api.multi
->>>>>>> a1a602be... [FIX] payment value in account payment wizard (#873)
-=======
-    @api.multi
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def _compute_payment_amount(self, invoices=None, currency=None):
         super(AccountPayment, self)._compute_payment_amount(
             invoices=invoices, currency=currency)

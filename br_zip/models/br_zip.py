@@ -22,15 +22,7 @@ class BrZip(models.Model):
     _description = _("CEP")
     _rec_name = 'zip'
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-    zip = fields.Char(_("Zip Code"), size=8, required=True)
-=======
-    zip_code = fields.Char(_("Zip Code"), size=8, required=True)
->>>>>>> 5580f2b5... Migration to 13.0
-=======
     zip = fields.Char(_("Zip"), size=8, required=True)
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     street_type = fields.Char(_("Street Type"), size=26)
     street = fields.Char(_("Street"), size=72)
     district = fields.Char(_("District"), size=72)

@@ -142,6 +142,7 @@ class InutilizedNfe(models.Model):
                 'type': 'ir.actions.act_window',
                 'res_model': 'invoice.eletronic.inutilized',
                 'res_id': self.id,
+                'view_type': 'form',
                 'view_mode': 'form',
                 'target': 'new',
             }
@@ -162,6 +163,7 @@ class InutilizedNfe(models.Model):
                                   ambiente=int(ambiente), modelo=obj['modelo'])
         return self._handle_response(response=resposta)
 
+    @api.multi
     def action_send_inutilization(self):
         self.validate_hook()
         retorno = self.send_sefaz()

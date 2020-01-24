@@ -5,17 +5,6 @@
 """
 
 from odoo import _, api, fields, models
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-from odoo.addons import decimal_precision as dp
->>>>>>> 79d6053a... First steps and save to cloud
-=======
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-from odoo.addons import decimal_precision as dp
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
 from .cst import CSOSN_SIMPLES, CST_ICMS, CST_IPI, CST_PIS_COFINS, ORIGEM_PROD
 from .res_company import COMPANY_FISCAL_TYPE
@@ -26,34 +15,12 @@ class AccountMoveLine(models.Model):
 
     @api.model
     def _default_company_fiscal_type(self):
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
         for rec in self:
             if rec.invoice_id:
                 return rec.invoice_id.company_id.fiscal_type
             company = rec.env['res.company'].browse(rec.env.user.company_id.id)
-<<<<<<< HEAD
 
             return company.fiscal_type
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-        if self.invoice_id:
-            return self.invoice_id.company_id.fiscal_type
-        company = self.env['res.company'].browse(self.env.user.company_id.id)
-
-        return company.fiscal_type
-<<<<<<< HEAD
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-
-            return company.fiscal_type
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     def _prepare_tax_context(self):
         return {
@@ -246,38 +213,15 @@ class AccountMoveLine(models.Model):
     price_tax = fields.Float(compute='_compute_price',
                              string=_("Impostos"),
                              store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                              digits=('Account'))
     valor_liquido = fields.Float('Valor Líquido',
                                  digits=('Account'),
-=======
-                             digits=dp.get_precision('Account'))
-    valor_liquido = fields.Float('Valor Líquido',
-                                 digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                             digits=('Account'))
-    valor_liquido = fields.Float('Valor Líquido',
-                                 digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                             digits=('Account'))
-    valor_liquido = fields.Float('Valor Líquido',
-                                 digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  store=True,
                                  default=0.00,
                                  compute='_compute_price')
     valor_desconto = fields.Float(string='Vlr. desconto',
                                   store=True,
                                   compute='_compute_price',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                   digits=('Account'))
     valor_bruto = fields.Float(string='Vlr. Bruto',
                                store=True,
@@ -298,109 +242,29 @@ class AccountMoveLine(models.Model):
         string='Tributos Municipais',
         default=0.00,
         digits=('Account'))
-<<<<<<< HEAD
-=======
-                                  digits=dp.get_precision('Account'))
-=======
-                                  digits=('Account'))
->>>>>>> 2614df42... A pasos agigantados
-    valor_bruto = fields.Float(string='Vlr. Bruto',
-                               store=True,
-                               compute='_compute_price',
-                               digits=('Account'))
-    tributos_estimados = fields.Float(string='Total Est. Tributos',
-                                      default=0.00,
-                                      digits=('Account'))
-    tributos_estimados_federais = fields.Float(
-        string='Tributos Federais',
-        default=0.00,
-        digits=('Account'))
-    tributos_estimados_estaduais = fields.Float(
-        string='Tributos Estaduais',
-        default=0.00,
-        digits=('Account'))
-    tributos_estimados_municipais = fields.Float(
-        string='Tributos Municipais',
-        default=0.00,
-<<<<<<< HEAD
-        digits=dp.get_precision('Account'))
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        digits=('Account'))
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     cfop_id = fields.Many2one('br_account.cfop', 'CFOP')
     fiscal_classification_id = fields.Many2one('product.fiscal.classification',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                                'Classificação Fiscal')
     product_type = fields.Selection([('product', 'Produto'),
                                      ('service', 'Serviço')],
-=======
-                                               u'Classificação Fiscal')
-    product_type = fields.Selection([('product', 'Produto'),
-                                     ('service', u'Serviço')],
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                               'Classificação Fiscal')
-    product_type = fields.Selection([('product', 'Produto'),
-                                     ('service', 'Serviço')],
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-                                               u'Classificação Fiscal')
-    product_type = fields.Selection([('product', 'Produto'),
-                                     ('service', u'Serviço')],
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                     string='Tipo do Produto',
                                     required=True,
                                     default='product')
     company_fiscal_type = fields.Selection(
         COMPANY_FISCAL_TYPE,
         default=_default_company_fiscal_type,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         string="Regime Tributário")
     calculate_tax = fields.Boolean(string="Calcular Imposto?", default=True)
     fiscal_comment = fields.Text('Observação Fiscal')
-=======
-        string=u"Regime Tributário")
-    calculate_tax = fields.Boolean(string="Calcular Imposto?", default=True)
-    fiscal_comment = fields.Text(u'Observação Fiscal')
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        string="Regime Tributário")
-    calculate_tax = fields.Boolean(string="Calcular Imposto?", default=True)
-    fiscal_comment = fields.Text('Observação Fiscal')
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-        string=u"Regime Tributário")
-    calculate_tax = fields.Boolean(string="Calcular Imposto?", default=True)
-    fiscal_comment = fields.Text(u'Observação Fiscal')
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     # =========================================================================
     # ICMS Normal
     # =========================================================================
     icms_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_icms_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                   string="Alíquota ICMS",
-=======
-                                  string=u"Alíquota ICMS",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                  string="Alíquota ICMS",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-                                  string=u"Alíquota ICMS",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                   domain=[('domain', '=', 'icms')])
     icms_cst = fields.Char('CST ICMS',
                            size=10,
@@ -409,72 +273,25 @@ class AccountMoveLine(models.Model):
     icms_cst_normal = fields.Selection(CST_ICMS, string="CST ICMS")
     icms_origem = fields.Selection(ORIGEM_PROD, 'Origem', default='0')
     icms_tipo_base = fields.Selection(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         [('0', '0 - Margem Valor Agregado (%)'), ('1', '1 - Pauta (valor)'),
          ('2', '2 - Preço Tabelado Máximo (valor)'),
          ('3', '3 - Valor da Operação')],
-=======
-        [('0', u'0 - Margem Valor Agregado (%)'), ('1', u'1 - Pauta (valor)'),
-         ('2', u'2 - Preço Tabelado Máximo (valor)'),
-         ('3', u'3 - Valor da Operação')],
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        [('0', '0 - Margem Valor Agregado (%)'), ('1', '1 - Pauta (valor)'),
-         ('2', '2 - Preço Tabelado Máximo (valor)'),
-         ('3', '3 - Valor da Operação')],
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-        [('0', u'0 - Margem Valor Agregado (%)'), ('1', u'1 - Pauta (valor)'),
-         ('2', u'2 - Preço Tabelado Máximo (valor)'),
-         ('3', u'3 - Valor da Operação')],
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         'Tipo Base ICMS',
         required=True,
         default='3')
     incluir_ipi_base = fields.Boolean(
         string="Incl. Valor IPI?",
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         help="Se marcado o valor do IPI inclui a base de cálculo")
-=======
-        help=u"Se marcado o valor do IPI inclui a base de cálculo")
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        help="Se marcado o valor do IPI inclui a base de cálculo")
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-        help=u"Se marcado o valor do IPI inclui a base de cálculo")
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     icms_base_calculo = fields.Float('Base ICMS',
                                      required=True,
                                      compute='_compute_price',
                                      store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                      digits=('Account'),
-=======
-                                     digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                     digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                     digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                      default=0.00)
     icms_valor = fields.Float('Valor ICMS',
                               required=True,
                               compute='_compute_price',
                               store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                               digits=('Account'),
                               default=0.00)
     icms_aliquota = fields.Float('Perc ICMS',
@@ -484,36 +301,12 @@ class AccountMoveLine(models.Model):
         '% Red. Base ICMS', digits=('Discount'), default=0.00)
     icms_base_calculo_manual = fields.Float('Base ICMS Manual',
                                             digits=('Account'),
-<<<<<<< HEAD
-=======
-                              digits=dp.get_precision('Account'),
-=======
-                              digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-                              default=0.00)
-    icms_aliquota = fields.Float('Perc ICMS',
-                                 digits=('Discount'),
-                                 default=0.00)
-    icms_aliquota_reducao_base = fields.Float(
-        '% Red. Base ICMS', digits=('Discount'), default=0.00)
-    icms_base_calculo_manual = fields.Float('Base ICMS Manual',
-<<<<<<< HEAD
-                                            digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                            digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                             default=0.00)
 
     # =========================================================================
     # ICMS Substituição
     # =========================================================================
     tax_icms_st_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                      string="Alíquota ICMS ST",
                                      domain=[('domain', '=', 'icmsst')])
     icms_st_tipo_base = fields.Selection(
@@ -522,31 +315,6 @@ class AccountMoveLine(models.Model):
          ('2', '2 - Lista Positiva (valor)'),
          ('3', '3 - Lista Neutra (valor)'),
          ('4', '4 - Margem Valor Agregado (%)'), ('5', '5 - Pauta (valor)')],
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                     string=u"Alíquota ICMS ST",
-                                     domain=[('domain', '=', 'icmsst')])
-    icms_st_tipo_base = fields.Selection(
-        [('0', u'0 - Preço tabelado ou máximo  sugerido'),
-         ('1', u'1 - Lista Negativa (valor)'),
-         ('2', u'2 - Lista Positiva (valor)'),
-         ('3', u'3 - Lista Neutra (valor)'),
-         ('4', u'4 - Margem Valor Agregado (%)'), ('5', u'5 - Pauta (valor)')],
-<<<<<<< HEAD
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                     string="Alíquota ICMS ST",
-                                     domain=[('domain', '=', 'icmsst')])
-    icms_st_tipo_base = fields.Selection(
-        [('0', '0 - Preço tabelado ou máximo  sugerido'),
-         ('1', '1 - Lista Negativa (valor)'),
-         ('2', '2 - Lista Positiva (valor)'),
-         ('3', '3 - Lista Neutra (valor)'),
-         ('4', '4 - Margem Valor Agregado (%)'), ('5', '5 - Pauta (valor)')],
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         'Tipo Base ICMS ST',
         required=True,
         default='4')
@@ -554,27 +322,12 @@ class AccountMoveLine(models.Model):
                                  required=True,
                                  compute='_compute_price',
                                  store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                  digits=('Account'),
-=======
-                                 digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                 digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                 digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  default=0.00)
     icms_st_base_calculo = fields.Float('Base ICMS ST',
                                         required=True,
                                         compute='_compute_price',
                                         store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                         digits=('Account'),
                                         default=0.00)
     icms_st_aliquota = fields.Float('% ICMS ST',
@@ -588,44 +341,11 @@ class AccountMoveLine(models.Model):
     icms_st_base_calculo_manual = fields.Float(
         'Base ICMS ST Manual',
         digits=('Account'),
-=======
-                                        digits=dp.get_precision('Account'),
-=======
-                                        digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                        digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                        default=0.00)
-    icms_st_aliquota = fields.Float('% ICMS ST',
-                                    digits=('Discount'),
-                                    default=0.00)
-    icms_st_aliquota_reducao_base = fields.Float(
-        '% Red. Base ST', digits=('Discount'))
-    icms_st_aliquota_mva = fields.Float('MVA Ajustado ST',
-                                        digits=('Discount'),
-                                        default=0.00)
-    icms_st_base_calculo_manual = fields.Float(
-        'Base ICMS ST Manual',
-<<<<<<< HEAD
-<<<<<<< HEAD
-        digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-        digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         default=0.00)
 
     # =========================================================================
     # ICMS Difal
     # =========================================================================
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     tem_difal = fields.Boolean('Difal?', digits=('Discount'))
     icms_bc_uf_dest = fields.Float('Base ICMS',
                                    compute='_compute_price',
@@ -633,61 +353,17 @@ class AccountMoveLine(models.Model):
     tax_icms_inter_id = fields.Many2one(
         'account.tax',
         help="Alíquota utilizada na operação Interestadual",
-=======
-    tem_difal = fields.Boolean(u'Difal?', digits=dp.get_precision('Discount'))
-=======
-    tem_difal = fields.Boolean(u'Difal?', digits=('Discount'))
->>>>>>> 2614df42... A pasos agigantados
-    icms_bc_uf_dest = fields.Float(u'Base ICMS',
-=======
-    tem_difal = fields.Boolean('Difal?', digits=('Discount'))
-    icms_bc_uf_dest = fields.Float('Base ICMS',
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-    tem_difal = fields.Boolean(u'Difal?', digits=('Discount'))
-    icms_bc_uf_dest = fields.Float(u'Base ICMS',
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                   compute='_compute_price',
-                                   digits=('Discount'))
-    tax_icms_inter_id = fields.Many2one(
-        'account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-        help=u"Alíquota utilizada na operação Interestadual",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        help="Alíquota utilizada na operação Interestadual",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-        help=u"Alíquota utilizada na operação Interestadual",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         string="ICMS Inter",
         domain=[('domain', '=', 'icms_inter')])
     tax_icms_intra_id = fields.Many2one(
         'account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         help="Alíquota interna do produto no estado destino",
-=======
-        help=u"Alíquota interna do produto no estado destino",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        help="Alíquota interna do produto no estado destino",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-        help=u"Alíquota interna do produto no estado destino",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         string="ICMS Intra",
         domain=[('domain', '=', 'icms_intra')])
     tax_icms_fcp_id = fields.Many2one('account.tax',
                                       string="% FCP",
                                       domain=[('domain', '=', 'fcp')])
     icms_aliquota_inter_part = fields.Float(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         '% Partilha', default=100.0, digits=('Discount'))
     icms_fcp_uf_dest = fields.Float(
         string='Valor FCP',
@@ -700,52 +376,11 @@ class AccountMoveLine(models.Model):
     icms_uf_remet = fields.Float('ICMS Remetente',
                                  compute='_compute_price',
                                  digits=('Discount'))
-=======
-        u'% Partilha', default=100.0, digits=dp.get_precision('Discount'))
-=======
-        u'% Partilha', default=100.0, digits=('Discount'))
->>>>>>> 2614df42... A pasos agigantados
-=======
-        '% Partilha', default=100.0, digits=('Discount'))
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-    icms_fcp_uf_dest = fields.Float(
-        string='Valor FCP',
-        compute='_compute_price',
-        digits=('Discount'),
-    )
-    icms_uf_dest = fields.Float('ICMS Destino',
-                                compute='_compute_price',
-                                digits=('Discount'))
-    icms_uf_remet = fields.Float('ICMS Remetente',
-                                 compute='_compute_price',
-<<<<<<< HEAD
-                                 digits=dp.get_precision('Discount'))
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                 digits=('Discount'))
->>>>>>> 2614df42... A pasos agigantados
-=======
-        u'% Partilha', default=100.0, digits=('Discount'))
-    icms_fcp_uf_dest = fields.Float(
-        string=u'Valor FCP',
-        compute='_compute_price',
-        digits=('Discount'),
-    )
-    icms_uf_dest = fields.Float(u'ICMS Destino',
-                                compute='_compute_price',
-                                digits=('Discount'))
-    icms_uf_remet = fields.Float(u'ICMS Remetente',
-                                 compute='_compute_price',
-                                 digits=('Discount'))
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     # =========================================================================
     # ICMS Simples Nacional
     # =========================================================================
     icms_csosn_simples = fields.Selection(CSOSN_SIMPLES, string="CSOSN ICMS")
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     icms_aliquota_credito = fields.Float("% Cŕedito ICMS")
     icms_valor_credito = fields.Float("Valor de Crédito",
                                       compute='_compute_price',
@@ -753,29 +388,6 @@ class AccountMoveLine(models.Model):
     icms_st_aliquota_deducao = fields.Float(
         string="% ICMS Próprio",
         help="Alíquota interna ou interestadual aplicada \
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-    icms_aliquota_credito = fields.Float(u"% Cŕedito ICMS")
-    icms_valor_credito = fields.Float(u"Valor de Crédito",
-                                      compute='_compute_price',
-                                      store=True)
-    icms_st_aliquota_deducao = fields.Float(
-        string=u"% ICMS Próprio",
-        help=u"Alíquota interna ou interestadual aplicada \
-<<<<<<< HEAD
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-    icms_aliquota_credito = fields.Float("% Cŕedito ICMS")
-    icms_valor_credito = fields.Float("Valor de Crédito",
-                                      compute='_compute_price',
-                                      store=True)
-    icms_st_aliquota_deducao = fields.Float(
-        string="% ICMS Próprio",
-        help="Alíquota interna ou interestadual aplicada \
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
          sobre o valor da operação para deduzir do ICMS ST - Para empresas \
          do Simples Nacional ou usado em casos onde existe apenas ST sem ICMS")
 
@@ -785,19 +397,7 @@ class AccountMoveLine(models.Model):
     issqn_rule_id = fields.Many2one('account.fiscal.position.tax.rule',
                                     'Regra')
     tax_issqn_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                    string="Alíquota ISSQN",
-=======
-                                   string=u"Alíquota ISSQN",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                   string="Alíquota ISSQN",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-                                   string=u"Alíquota ISSQN",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                    domain=[('domain', '=', 'issqn')])
     issqn_tipo = fields.Selection([('N', 'Normal'), ('R', 'Retida'),
                                    ('S', 'Substituta'), ('I', 'Isenta')],
@@ -805,77 +405,23 @@ class AccountMoveLine(models.Model):
                                   required=True,
                                   default='N')
     service_type_id = fields.Many2one('br_account.service.type',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                       'Tipo de Serviço')
     issqn_base_calculo = fields.Float('Base ISSQN',
                                       digits=('Account'),
-=======
-                                      u'Tipo de Serviço')
-=======
-                                      'Tipo de Serviço')
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-    issqn_base_calculo = fields.Float('Base ISSQN',
-<<<<<<< HEAD
-                                      digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                      digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                      u'Tipo de Serviço')
-    issqn_base_calculo = fields.Float('Base ISSQN',
-                                      digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                       compute='_compute_price',
                                       store=True)
     issqn_aliquota = fields.Float('Perc ISSQN',
                                   required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                   digits=('Discount'),
                                   default=0.00)
     issqn_valor = fields.Float('Valor ISSQN',
                                required=True,
                                digits=('Account'),
-=======
-                                  digits=dp.get_precision('Discount'),
-                                  default=0.00)
-    issqn_valor = fields.Float('Valor ISSQN',
-                               required=True,
-                               digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                  digits=('Discount'),
-                                  default=0.00)
-    issqn_valor = fields.Float('Valor ISSQN',
-                               required=True,
-                               digits=('Account'),
-<<<<<<< HEAD
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                default=0.00,
                                compute='_compute_price',
                                store=True)
     l10n_br_issqn_deduction = fields.Float('% Dedução Base ISSQN',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                            digits=('Discount'),
-=======
-                                           digits=dp.get_precision('Discount'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                           digits=('Discount'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                           digits=('Discount'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                            default=0.00,
                                            store=True)
 
@@ -884,19 +430,7 @@ class AccountMoveLine(models.Model):
     # =========================================================================
     ipi_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_ipi_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                  string="Alíquota IPI",
-=======
-                                 string=u"Alíquota IPI",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                 string="Alíquota IPI",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-                                 string=u"Alíquota IPI",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  domain=[('domain', '=', 'ipi')])
     ipi_tipo = fields.Selection([('percent', 'Percentual')],
                                 'Tipo do IPI',
@@ -905,26 +439,11 @@ class AccountMoveLine(models.Model):
     ipi_base_calculo = fields.Float(
         'Base IPI',
         required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         digits=('Account'),
-=======
-        digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-        digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         default=0.00,
         compute='_compute_price',
         store=True,
     )
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
     ipi_reducao_bc = fields.Float('% Redução Base',
                                   required=True,
                                   digits=('Account'),
@@ -932,61 +451,16 @@ class AccountMoveLine(models.Model):
     ipi_valor = fields.Float('Valor IPI',
                              required=True,
                              digits=('Account'),
-=======
-    ipi_reducao_bc = fields.Float(u'% Redução Base',
-=======
-    ipi_reducao_bc = fields.Float('% Redução Base',
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-    ipi_reducao_bc = fields.Float(u'% Redução Base',
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                  required=True,
-                                  digits=('Account'),
-                                  default=0.00)
-    ipi_valor = fields.Float('Valor IPI',
-                             required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-                             digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                             digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                             digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                              default=0.00,
                              compute='_compute_price',
                              store=True)
     ipi_aliquota = fields.Float('Perc IPI',
                                 required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 digits=('Discount'),
                                 default=0.00)
     ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
     ipi_base_calculo_manual = fields.Float('Base IPI Manual',
                                            digits=('Account'),
-=======
-                                digits=dp.get_precision('Discount'),
-                                default=0.00)
-    ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
-    ipi_base_calculo_manual = fields.Float('Base IPI Manual',
-                                           digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                digits=('Discount'),
-                                default=0.00)
-    ipi_cst = fields.Selection(CST_IPI, string='CST IPI')
-    ipi_base_calculo_manual = fields.Float('Base IPI Manual',
-                                           digits=('Account'),
-<<<<<<< HEAD
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                            default=0.00)
 
     # =========================================================================
@@ -994,19 +468,7 @@ class AccountMoveLine(models.Model):
     # =========================================================================
     pis_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_pis_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                  string="Alíquota PIS",
-=======
-                                 string=u"Alíquota PIS",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                 string="Alíquota PIS",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-                                 string=u"Alíquota PIS",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  domain=[('domain', '=', 'pis')])
     pis_cst = fields.Selection(CST_PIS_COFINS, 'CST PIS')
     pis_tipo = fields.Selection([('percent', 'Percentual')],
@@ -1017,62 +479,20 @@ class AccountMoveLine(models.Model):
                                     required=True,
                                     compute='_compute_price',
                                     store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                     digits=('Account'),
                                     default=0.00)
     pis_valor = fields.Float('Valor PIS',
                              required=True,
                              digits=('Account'),
-<<<<<<< HEAD
-=======
-                                    digits=dp.get_precision('Account'),
-                                    default=0.00)
-    pis_valor = fields.Float('Valor PIS',
-                             required=True,
-                             digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                    digits=('Account'),
-                                    default=0.00)
-    pis_valor = fields.Float('Valor PIS',
-                             required=True,
-                             digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                              default=0.00,
                              compute='_compute_price',
                              store=True)
     pis_aliquota = fields.Float('Perc PIS',
                                 required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                 digits=('Discount'),
                                 default=0.00)
     pis_base_calculo_manual = fields.Float('Base PIS Manual',
                                            digits=('Account'),
-<<<<<<< HEAD
-=======
-                                digits=dp.get_precision('Discount'),
-                                default=0.00)
-    pis_base_calculo_manual = fields.Float('Base PIS Manual',
-                                           digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                digits=('Discount'),
-                                default=0.00)
-    pis_base_calculo_manual = fields.Float('Base PIS Manual',
-                                           digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                            default=0.00)
 
     # =========================================================================
@@ -1081,19 +501,7 @@ class AccountMoveLine(models.Model):
     cofins_rule_id = fields.Many2one('account.fiscal.position.tax.rule',
                                      'Regra')
     tax_cofins_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                     string="Alíquota COFINS",
-=======
-                                    string=u"Alíquota COFINS",
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                    string="Alíquota COFINS",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-                                    string=u"Alíquota COFINS",
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                     domain=[('domain', '=', 'cofins')])
     cofins_cst = fields.Selection(CST_PIS_COFINS, 'CST COFINS')
     cofins_tipo = fields.Selection([('percent', 'Percentual')],
@@ -1103,11 +511,6 @@ class AccountMoveLine(models.Model):
     cofins_base_calculo = fields.Float('Base COFINS',
                                        compute='_compute_price',
                                        store=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                        digits=('Account'))
     cofins_valor = fields.Float('Valor COFINS',
                                 digits=('Account'),
@@ -1117,125 +520,36 @@ class AccountMoveLine(models.Model):
                                    digits=('Discount'))
     cofins_base_calculo_manual = fields.Float(
         'Base COFINS Manual', digits=('Account'), default=0.00)
-<<<<<<< HEAD
-=======
-                                       digits=dp.get_precision('Account'))
-=======
-                                       digits=('Account'))
->>>>>>> 2614df42... A pasos agigantados
-    cofins_valor = fields.Float('Valor COFINS',
-                                digits=('Account'),
-                                compute='_compute_price',
-                                store=True)
-    cofins_aliquota = fields.Float('Perc COFINS',
-                                   digits=('Discount'))
-    cofins_base_calculo_manual = fields.Float(
-<<<<<<< HEAD
-        'Base COFINS Manual', digits=dp.get_precision('Account'), default=0.00)
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-        'Base COFINS Manual', digits=('Account'), default=0.00)
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     # =========================================================================
     # Imposto de importação
     # =========================================================================
     ii_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_ii_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 string="Alíquota II",
                                 domain=[('domain', '=', 'ii')])
     ii_base_calculo = fields.Float('Base II',
                                    required=True,
                                    digits=('Account'),
-=======
-                                string=u"Alíquota II",
-=======
-                                string="Alíquota II",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-                                domain=[('domain', '=', 'ii')])
-    ii_base_calculo = fields.Float('Base II',
-                                   required=True,
-<<<<<<< HEAD
-                                   digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                   digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                string=u"Alíquota II",
-                                domain=[('domain', '=', 'ii')])
-    ii_base_calculo = fields.Float('Base II',
-                                   required=True,
-                                   digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                    default=0.00,
                                    store=True)
     ii_aliquota = fields.Float('% II',
                                required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                digits=('Account'),
                                default=0.00)
     ii_valor = fields.Float('Valor II',
                             required=True,
                             digits=('Account'),
-<<<<<<< HEAD
-=======
-                               digits=dp.get_precision('Account'),
-                               default=0.00)
-    ii_valor = fields.Float('Valor II',
-                            required=True,
-                            digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                               digits=('Account'),
-                               default=0.00)
-    ii_valor = fields.Float('Valor II',
-                            required=True,
-                            digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                             default=0.00,
                             compute='_compute_price',
                             store=True)
     ii_valor_iof = fields.Float('Valor IOF',
                                 required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                 digits=('Account'),
                                 default=0.00)
     ii_valor_despesas = fields.Float('Desp. Aduaneiras',
                                      required=True,
                                      digits=('Account'),
-=======
-                                digits=dp.get_precision('Account'),
-                                default=0.00)
-    ii_valor_despesas = fields.Float('Desp. Aduaneiras',
-                                     required=True,
-                                     digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                digits=('Account'),
-                                default=0.00)
-    ii_valor_despesas = fields.Float('Desp. Aduaneiras',
-                                     required=True,
-                                     digits=('Account'),
-<<<<<<< HEAD
->>>>>>> 2614df42... A pasos agigantados
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                      default=0.00)
     import_declaration_ids = fields.Many2many(
         'br_account.import.declaration', string='Declaração de Importação')
@@ -1245,71 +559,23 @@ class AccountMoveLine(models.Model):
     # =========================================================================
     csll_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_csll_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                   string="Alíquota CSLL",
                                   domain=[('domain', '=', 'csll')])
     csll_base_calculo = fields.Float('Base CSLL',
                                      required=True,
                                      digits=('Account'),
-=======
-                                  string=u"Alíquota CSLL",
-=======
-                                  string="Alíquota CSLL",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-                                  domain=[('domain', '=', 'csll')])
-    csll_base_calculo = fields.Float('Base CSLL',
-                                     required=True,
-<<<<<<< HEAD
-                                     digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                     digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                  string=u"Alíquota CSLL",
-                                  domain=[('domain', '=', 'csll')])
-    csll_base_calculo = fields.Float('Base CSLL',
-                                     required=True,
-                                     digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                      default=0.00,
                                      compute='_compute_price',
                                      store=True)
     csll_valor = fields.Float('Valor CSLL',
                               required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                               digits=('Account'),
-=======
-                              digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                              digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                              digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                               default=0.00,
                               compute='_compute_price',
                               store=True)
     csll_aliquota = fields.Float('Perc CSLL',
                                  required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                  digits=('Account'),
-=======
-                                 digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                 digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                 digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  default=0.00)
 
     # =========================================================================
@@ -1317,71 +583,23 @@ class AccountMoveLine(models.Model):
     # =========================================================================
     irrf_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_irrf_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                   string="Alíquota IRRF",
                                   domain=[('domain', '=', 'irrf')])
     irrf_base_calculo = fields.Float('Base IRRF',
                                      required=True,
                                      digits=('Account'),
-=======
-                                  string=u"Alíquota IRRF",
-=======
-                                  string="Alíquota IRRF",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-                                  domain=[('domain', '=', 'irrf')])
-    irrf_base_calculo = fields.Float('Base IRRF',
-                                     required=True,
-<<<<<<< HEAD
-                                     digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                     digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                  string=u"Alíquota IRRF",
-                                  domain=[('domain', '=', 'irrf')])
-    irrf_base_calculo = fields.Float('Base IRRF',
-                                     required=True,
-                                     digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                      default=0.00,
                                      compute='_compute_price',
                                      store=True)
     irrf_valor = fields.Float('Valor IRFF',
                               required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                               digits=('Account'),
-=======
-                              digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                              digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                              digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                               default=0.00,
                               compute='_compute_price',
                               store=True)
     irrf_aliquota = fields.Float('Perc IRRF',
                                  required=True,
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                  digits=('Account'),
-=======
-                                 digits=dp.get_precision('Account'),
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-                                 digits=('Account'),
->>>>>>> 2614df42... A pasos agigantados
-=======
-                                 digits=('Account'),
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  default=0.00)
 
     # =========================================================================
@@ -1389,9 +607,6 @@ class AccountMoveLine(models.Model):
     # =========================================================================
     inss_rule_id = fields.Many2one('account.fiscal.position.tax.rule', 'Regra')
     tax_inss_id = fields.Many2one('account.tax',
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
                                   string="Alíquota INSS",
                                   domain=[('domain', '=', 'inss')])
     inss_base_calculo = fields.Float('Base INSS',
@@ -1412,52 +627,6 @@ class AccountMoveLine(models.Model):
                                  default=0.00)
 
     informacao_adicional = fields.Text(string="Informações Adicionais")
-=======
-                                  string=u"Alíquota INSS",
-=======
-                                  string="Alíquota INSS",
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-                                  domain=[('domain', '=', 'inss')])
-    inss_base_calculo = fields.Float('Base INSS',
-=======
-                                  string=u"Alíquota INSS",
-                                  domain=[('domain', '=', 'inss')])
-    inss_base_calculo = fields.Float(u'Base INSS',
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                     required=True,
-                                     digits=('Account'),
-                                     default=0.00,
-                                     compute='_compute_price',
-                                     store=True)
-<<<<<<< HEAD
-    inss_valor = fields.Float('Valor INSS',
-=======
-    inss_valor = fields.Float(u'Valor INSS',
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                              required=True,
-                              digits=('Account'),
-                              default=0.00,
-                              compute='_compute_price',
-                              store=True)
-<<<<<<< HEAD
-    inss_aliquota = fields.Float('Perc INSS',
-=======
-    inss_aliquota = fields.Float(u'Perc INSS',
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-                                 required=True,
-                                 digits=('Account'),
-                                 default=0.00)
-
-<<<<<<< HEAD
-<<<<<<< HEAD
-    informacao_adicional = fields.Text(string=u"Informações Adicionais")
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-    informacao_adicional = fields.Text(string="Informações Adicionais")
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-    informacao_adicional = fields.Text(string=u"Informações Adicionais")
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     def _update_tax_from_ncm(self):
         if self.product_id:
@@ -1479,19 +648,7 @@ class AccountMoveLine(models.Model):
             vals = fpos.map_tax_extra_values(self.company_id, self.product_id,
                                              self.invoice_id.partner_id)
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
             for key, value in list(vals.items()):
-=======
-            for key, value in vals.items():
->>>>>>> 79d6053a... First steps and save to cloud
-=======
-            for key, value in list(vals.items()):
->>>>>>> d853bc40... 2to3 + removes de.get_precision functions and theis imports
-=======
-            for key, value in vals.items():
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                 if value and key in self._fields:
                     self.update({key: value})
 

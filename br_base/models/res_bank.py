@@ -20,19 +20,7 @@ class ResBank(models.Model):
         domain="[('state_id','=',state_id)]")
 
     country_id = fields.Many2one(
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
         comodel_name='res.country', related='country', string=_("Country ID"))
-=======
-        comodel_name='res.country', related='country', string=_("Country"))
->>>>>>> 321d714c... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
-        comodel_name='res.country', related='country', string=_("Country ID"))
->>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
-=======
-        comodel_name='res.country', related='country', string=_("Country ID"))
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     state_id = fields.Many2one(
         comodel_name='res.country.state', related='state', string=_("State"))
 

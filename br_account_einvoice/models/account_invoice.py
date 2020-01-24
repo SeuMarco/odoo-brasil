@@ -22,6 +22,7 @@ TYPE2EDOC = {
 class AccountInvoice(models.Model):
     _inherit = 'account.invoice'
 
+    @api.multi
     def _compute_total_edocs(self):
         for item in self:
             item.total_edocs = self.env['invoice.eletronic'].search_count(
@@ -41,6 +42,7 @@ class AccountInvoice(models.Model):
         help="""Unique number of the invoice, computed
             automatically when the invoice is created.""")
 
+    @api.multi
     def action_view_edocs(self):
         if self.total_edocs == 1:
             dummy, act_id = self.env['ir.model.data'].get_object_reference(
@@ -238,6 +240,7 @@ class AccountInvoice(models.Model):
         })
         return vals
 
+    @api.multi
     def invoice_validate(self):
         res = super(AccountInvoice, self).invoice_validate()
         for item in self:
@@ -266,6 +269,7 @@ class AccountInvoice(models.Model):
                     eletronic.action_post_validate()
         return res
 
+    @api.multi
     def action_cancel(self):
         res = super(AccountInvoice, self).action_cancel()
         for item in self:
@@ -304,12 +308,4 @@ class AccountInvoiceLine(models.Model):
         help="Se setado aqui sobrescreve o pedido de compra da fatura")
     item_pedido_compra = fields.Char(
         string="Item de compra", size=20,
-<<<<<<< HEAD
-<<<<<<< HEAD
         help='Item do pedido de compra do cliente')
-=======
-        help=u'Item do pedido de compra do cliente')
->>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
-=======
-        help=u'Item do pedido de compra do cliente')
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30

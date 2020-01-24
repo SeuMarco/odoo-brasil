@@ -55,6 +55,7 @@ class PaymentOrderLine(models.Model):
     cnab_code = fields.Char(string="Código Retorno")
     cnab_message = fields.Char(string="Mensagem Retorno")
 
+    @api.multi
     def unlink(self):
         lines = self.filtered(lambda x: x.state != 'draft')
         if lines:
@@ -62,6 +63,7 @@ class PaymentOrderLine(models.Model):
                 _('Apenas registros no estado provisório podem ser excluídos'))
         return super(PaymentOrderLine, self).unlink()
 
+    @api.multi
     def action_cancel_line(self):
         self.write({'state': 'cancelled'})
 
@@ -128,6 +130,7 @@ class PaymentOrder(models.Model):
             })
         return sequence_id.next_by_id()
 
+    @api.multi
     @api.depends('line_ids.state')
     def _compute_state(self):
         for item in self:
@@ -144,6 +147,7 @@ class PaymentOrder(models.Model):
             else:
                 item.state = 'open'
 
+    @api.multi
     def unlink(self):
         for item in self:
             item.line_ids.unlink()

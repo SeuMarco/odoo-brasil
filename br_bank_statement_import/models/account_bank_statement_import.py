@@ -29,16 +29,8 @@ class AccountBankStatementImport(models.TransientModel):
         e se forem todos duplicados dizer que o arquivo já foi importado. \
         Se alguma dessas situações estiver ocorrendo ao importar o arquivo \
         talvez você precise marcar esta opção.")
-<<<<<<< HEAD
-<<<<<<< HEAD
     force_journal_account = fields.Boolean(string="Forçar conta bancária?")
     journal_id = fields.Many2one('account.journal', string="Conta Bancária",
-=======
-=======
->>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
-    force_journal_account = fields.Boolean(string=u"Forçar conta bancária?")
-    journal_id = fields.Many2one('account.journal', string=u"Conta Bancária",
->>>>>>> 0c418479... [FIX] Implement a unique id for import OFX with duplicated FITID (#888)
                                  domain=[('type', '=', 'bank')])
 
     def _parse_file(self, data_file):
