@@ -87,17 +87,12 @@ class AccountInvoice(models.Model):
     @api.one
     @api.depends('move_id.line_ids')
     def _compute_payables(self):
-<<<<<<< HEAD
         payable_lines = []
         for line in self.move_id.line_ids:
             if line.account_id.user_type_id.type == "payable":
                 payable_lines.append(line.id)
         self.payable_move_line_ids = self.env['account.move.line'].browse(
             list(set(payable_lines)))
-=======
-        self.payable_move_line_ids = self.move_id.line_ids.filtered(
-            lambda m: m.account_id.user_type_id.type == 'payable')
->>>>>>> bbfe92a5... [FIX] account_invoice: Corrige compute do payable_move_line_ids (#896)
 
     total_tax = fields.Float(
         string='Impostos ( + )', readonly=True, compute='_compute_amount',
