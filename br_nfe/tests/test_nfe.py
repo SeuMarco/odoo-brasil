@@ -89,7 +89,7 @@ class TestNFeBrasil(TransactionCase):
             'property_account_receivable_id': self.receivable_account.id,
         }
         self.partner_fisica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='545.770.154-98',
             company_type='person',
             is_company=False,
@@ -98,7 +98,7 @@ class TestNFeBrasil(TransactionCase):
             city_id=self.env.ref('br_base.city_4205407').id
         ))
         self.partner_juridica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='05.075.837/0001-13',
             company_type='company',
             is_company=True,
@@ -108,7 +108,7 @@ class TestNFeBrasil(TransactionCase):
             inscr_est='433.992.727',
         ))
         self.partner_fisica_inter = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='793.493.171-92',
             company_type='person',
             is_company=False,
@@ -117,7 +117,7 @@ class TestNFeBrasil(TransactionCase):
             city_id=self.env.ref('br_base.city_4304606').id,
         ))
         self.partner_juridica_inter = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='08.326.476/0001-29',
             company_type='company',
             is_company=True,
@@ -126,7 +126,7 @@ class TestNFeBrasil(TransactionCase):
             city_id=self.env.ref('br_base.city_4300406').id,
         ))
         self.partner_juridica_sp = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='37.484.824/0001-94',
             company_type='company',
             is_company=True,
@@ -135,7 +135,7 @@ class TestNFeBrasil(TransactionCase):
             city_id=self.env.ref('br_base.city_3501608').id,
         ))
         self.partner_exterior = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='12345670',
             company_type='company',
             is_company=True,
@@ -276,52 +276,52 @@ class TestNFeBrasil(TransactionCase):
         ))
 
         self.invoices = self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_fisica.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_juridica.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_juridica.id,
             fiscal_position_id=self.fpos_consumo.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_fisica_inter.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_juridica_inter.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_juridica_sp.id
         ))
         self.invoices |= self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_exterior.id
         ))
 
     def test_computed_fields(self):
         for invoice in self.invoices:
-            self.assertEquals(invoice.total_edocs, 0)
-            self.assertEquals(invoice.nfe_number, 0)
-            self.assertEquals(invoice.nfe_exception_number, 0)
-            self.assertEquals(invoice.nfe_exception, False)
-            self.assertEquals(invoice.sending_nfe, False)
+            self.assertEqual(invoice.total_edocs, 0)
+            self.assertEqual(invoice.nfe_number, 0)
+            self.assertEqual(invoice.nfe_exception_number, 0)
+            self.assertEqual(invoice.nfe_exception, False)
+            self.assertEqual(invoice.sending_nfe, False)
 
             # Confirmando a fatura deve gerar um documento eletrônico
             invoice.action_invoice_open()
 
             # Verifica algumas propriedades computadas que dependem do edoc
-            self.assertEquals(invoice.total_edocs, 1)
+            self.assertEqual(invoice.total_edocs, 1)
             self.assertTrue(invoice.nfe_number != 0)
             self.assertTrue(invoice.nfe_exception_number != 0)
-            self.assertEquals(invoice.nfe_exception, False)
-            self.assertEquals(invoice.sending_nfe, True)
+            self.assertEqual(invoice.nfe_exception, False)
+            self.assertEqual(invoice.sending_nfe, True)
 
     def test_print_actions(self):
         for invoice in self.invoices:
@@ -332,7 +332,7 @@ class TestNFeBrasil(TransactionCase):
             # Testa a impressão normal quando não é documento eletrônico
             invoice.product_document_id.code = '00'
             vals_print = invoice.invoice_print()
-            self.assertEquals(vals_print['report_name'],
+            self.assertEqual(vals_print['report_name'],
                               'account.report_invoice_with_payments')
             invoice.product_document_id.code = '55'
 
@@ -340,7 +340,7 @@ class TestNFeBrasil(TransactionCase):
             invoice.action_invoice_open()
 
             danfe = invoice.invoice_print()
-            self.assertEquals(danfe['report_name'],
+            self.assertEqual(danfe['report_name'],
                               'br_nfe.main_template_br_nfe_danfe')
 
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.InvoiceEletronic._prepare_lote')  # noqa
@@ -377,8 +377,8 @@ class TestNFeBrasil(TransactionCase):
                 xml_test = f.read()
                 # f.write(xml_generated.decode('utf-8'))
 
-            self.assertEquals(inv_eletr.partner_id, invoice.partner_id)
-            self.assertEquals(xml_test, xml_generated.decode('utf-8'))
+            self.assertEqual(inv_eletr.partner_id, invoice.partner_id)
+            self.assertEqual(xml_test, xml_generated.decode('utf-8'))
 
     def test_nfe_validation(self):
         with self.assertRaises(UserError):
@@ -425,8 +425,8 @@ class TestNFeBrasil(TransactionCase):
                 [('invoice_id', '=', invoice.id)])
 
             invoice_eletronic.action_send_eletronic_invoice()
-            self.assertEquals(invoice_eletronic.state, 'error')
-            self.assertEquals(invoice_eletronic.codigo_retorno, '694')
+            self.assertEqual(invoice_eletronic.state, 'error')
+            self.assertEqual(invoice_eletronic.codigo_retorno, '694')
 
     @patch('odoo.addons.br_nfe.models.invoice_eletronic.recepcao_evento_cancelamento')  # noqa
     def test_nfe_cancelamento_ok(self, cancelar):
@@ -455,7 +455,7 @@ class TestNFeBrasil(TransactionCase):
             invoice_eletronic.action_cancel_document(
                 justificativa="Cancelamento de teste")
 
-            self.assertEquals(invoice_eletronic.state, 'cancel')
-            self.assertEquals(invoice_eletronic.codigo_retorno, "135")
-            self.assertEquals(invoice_eletronic.mensagem_retorno,
+            self.assertEqual(invoice_eletronic.state, 'cancel')
+            self.assertEqual(invoice_eletronic.codigo_retorno, "135")
+            self.assertEqual(invoice_eletronic.mensagem_retorno,
                               "Evento registrado e vinculado a NF-e")

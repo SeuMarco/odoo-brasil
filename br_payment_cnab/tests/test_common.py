@@ -68,13 +68,13 @@ class TestBrCnabPayment(TransactionCase):
             'property_account_payable_id': self.payable_account.id,
         }
         self.partner_fisica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             cnpj_cpf='545.770.154-98',
             company_type='person',
             is_company=False,
         ))
         self.partner_juridica = self.env['res.partner'].create(dict(
-            default_partner.items(),
+            list(default_partner.items()),
             name='Pessoa Juridica',
             cnpj_cpf='05.075.837/0001-13',
             company_type='company',

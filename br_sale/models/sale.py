@@ -6,7 +6,6 @@
 from datetime import timedelta
 
 from odoo import models, fields, api
-from odoo.addons import decimal_precision as dp
 
 
 class SaleOrder(models.Model):
@@ -49,19 +48,19 @@ class SaleOrder(models.Model):
 
     total_bruto = fields.Float(
         string='Total Bruto ( = )', readonly=True, compute='_amount_all',
-        digits=dp.get_precision('Account'), store=True)
+        digits=('Account'), store=True)
     total_tax = fields.Float(
         string='Impostos ( + )', readonly=True, compute='_amount_all',
-        digits=dp.get_precision('Account'), store=True)
+        digits=('Account'), store=True)
     total_ipi = fields.Float(
         string='IPI', readonly=True, compute='_amount_all',
-        digits=dp.get_precision('Account'), store=True)
+        digits=('Account'), store=True)
     total_icms_st = fields.Float(
         string='ICMS ST', readonly=True, compute='_amount_all',
-        digits=dp.get_precision('Account'), store=True)
+        digits=('Account'), store=True)
     total_desconto = fields.Float(
         string='Desconto Total ( - )', readonly=True, compute='_amount_all',
-        digits=dp.get_precision('Account'), store=True,
+        digits=('Account'), store=True,
         help="The discount amount.")
 
 
@@ -133,83 +132,83 @@ class SaleOrderLine(models.Model):
         for line in self:
             msg = []
             if line.cfop_id:
-                msg += [u'CFOP: %s' % line.cfop_id.code]
-            msg += [u'IPI na base ICMS: %s' % (
-                u'Sim' if line.incluir_ipi_base else u'Não')]
+                msg += ['CFOP: %s' % line.cfop_id.code]
+            msg += ['IPI na base ICMS: %s' % (
+                'Sim' if line.incluir_ipi_base else 'Não')]
             if line.icms_st_aliquota_mva:
-                msg += [u'MVA (%%): %.2f' % line.icms_st_aliquota_mva]
+                msg += ['MVA (%%): %.2f' % line.icms_st_aliquota_mva]
             if line.aliquota_icms_proprio:
-                msg += [u'ICMS Intra (%%): %.2f' % line.aliquota_icms_proprio]
+                msg += ['ICMS Intra (%%): %.2f' % line.aliquota_icms_proprio]
             if line.icms_aliquota_reducao_base:
-                msg += [u'Red. Base ICMS (%%): %.2f' %
+                msg += ['Red. Base ICMS (%%): %.2f' %
                         line.icms_aliquota_reducao_base]
             if line.icms_st_aliquota_reducao_base:
-                msg += [u'Red. Base ICMS ST (%%): %.2f' %
+                msg += ['Red. Base ICMS ST (%%): %.2f' %
                         line.icms_st_aliquota_reducao_base]
             if line.ipi_reducao_bc:
-                msg += [u'Red. Base IPI (%%): %.2f' % line.ipi_reducao_bc]
+                msg += ['Red. Base IPI (%%): %.2f' % line.ipi_reducao_bc]
 
-            line.detalhes_calculo = u'\n'.join(msg)
+            line.detalhes_calculo = '\n'.join(msg)
 
     icms_rule_id = fields.Many2one(
-        'account.fiscal.position.tax.rule', u'Regra ICMS')
+        'account.fiscal.position.tax.rule', 'Regra ICMS')
     ipi_rule_id = fields.Many2one(
-        'account.fiscal.position.tax.rule', u'Regra IPI')
+        'account.fiscal.position.tax.rule', 'Regra IPI')
     pis_rule_id = fields.Many2one(
-        'account.fiscal.position.tax.rule', u'Regra PIS')
+        'account.fiscal.position.tax.rule', 'Regra PIS')
     cofins_rule_id = fields.Many2one(
-        'account.fiscal.position.tax.rule', u'Regra COFINS')
+        'account.fiscal.position.tax.rule', 'Regra COFINS')
     issqn_rule_id = fields.Many2one(
-        'account.fiscal.position.tax.rule', u'Regra ISSQN')
+        'account.fiscal.position.tax.rule', 'Regra ISSQN')
     ii_rule_id = fields.Many2one(
-        'account.fiscal.position.tax.rule', u'Regra II')
+        'account.fiscal.position.tax.rule', 'Regra II')
 
-    cfop_id = fields.Many2one('br_account.cfop', string=u"CFOP")
+    cfop_id = fields.Many2one('br_account.cfop', string="CFOP")
 
-    icms_cst_normal = fields.Char(string=u"CST ICMS", size=5)
-    icms_csosn_simples = fields.Char(string=u"CSOSN ICMS", size=5)
-    icms_st_aliquota_mva = fields.Float(string=u'Alíquota MVA (%)',
-                                        digits=dp.get_precision('Account'))
+    icms_cst_normal = fields.Char(string="CST ICMS", size=5)
+    icms_csosn_simples = fields.Char(string="CSOSN ICMS", size=5)
+    icms_st_aliquota_mva = fields.Float(string='Alíquota MVA (%)',
+                                        digits=('Account'))
     aliquota_icms_proprio = fields.Float(
-        string=u'Alíquota ICMS Próprio (%)',
-        digits=dp.get_precision('Account'))
+        string='Alíquota ICMS Próprio (%)',
+        digits=('Account'))
     incluir_ipi_base = fields.Boolean(string="Incluir IPI na Base ICMS")
     icms_aliquota_reducao_base = fields.Float(
-        string=u'Redução Base ICMS (%)', digits=dp.get_precision('Account'))
+        string='Redução Base ICMS (%)', digits=('Account'))
     icms_st_aliquota_reducao_base = fields.Float(
-        string=u'Redução Base ICMS ST(%)', digits=dp.get_precision('Account'))
+        string='Redução Base ICMS ST(%)', digits=('Account'))
     icms_st_aliquota_deducao = fields.Float(
-        string=u"% Dedução", help=u"Alíquota interna ou interestadual aplicada \
+        string="% Dedução", help="Alíquota interna ou interestadual aplicada \
          sobre o valor da operação para deduzir do ICMS ST - Para empresas \
-         do Simples Nacional", digits=dp.get_precision('Account'))
+         do Simples Nacional", digits=('Account'))
     icms_st_valor = fields.Monetary(
         string="Valor ICMS ST", store=True, compute='_compute_amount',
-        digits=dp.get_precision('Sale Price'))
-    tem_difal = fields.Boolean(string=u"Possui Difal")
+        digits=('Sale Price'))
+    tem_difal = fields.Boolean(string="Possui Difal")
 
-    ipi_cst = fields.Char(string=u'CST IPI', size=5)
+    ipi_cst = fields.Char(string='CST IPI', size=5)
     ipi_reducao_bc = fields.Float(
-        string=u'Redução Base IPI (%)', digits=dp.get_precision('Account'))
+        string='Redução Base IPI (%)', digits=('Account'))
     ipi_valor = fields.Monetary(
         string="Valor IPI", store=True, compute='_compute_amount',
-        digits=dp.get_precision('Sale Price'))
+        digits=('Sale Price'))
 
-    pis_cst = fields.Char(string=u'CST PIS', size=5)
-    cofins_cst = fields.Char(string=u'CST COFINS', size=5)
+    pis_cst = fields.Char(string='CST PIS', size=5)
+    cofins_cst = fields.Char(string='CST COFINS', size=5)
     l10n_br_issqn_deduction = fields.Float(string="% Dedução de base ISSQN")
 
     valor_desconto = fields.Float(
-        compute='_compute_amount', string=u'Vlr. Desc. (-)', store=True,
-        digits=dp.get_precision('Sale Price'))
+        compute='_compute_amount', string='Vlr. Desc. (-)', store=True,
+        digits=('Sale Price'))
     valor_bruto = fields.Float(
-        compute='_compute_amount', string=u'Vlr. Bruto', store=True,
-        digits=dp.get_precision('Sale Price'))
+        compute='_compute_amount', string='Vlr. Bruto', store=True,
+        digits=('Sale Price'))
     price_without_tax = fields.Float(
-        compute='_compute_amount', string=u'Preço Base', store=True,
-        digits=dp.get_precision('Sale Price'))
+        compute='_compute_amount', string='Preço Base', store=True,
+        digits=('Sale Price'))
 
     detalhes_calculo = fields.Text(
-        string=u"Detalhes Cálculo", compute='_compute_detalhes', store=True)
+        string="Detalhes Cálculo", compute='_compute_detalhes', store=True)
 
     def _update_tax_from_ncm(self):
         if self.product_id:
@@ -235,7 +234,7 @@ class SaleOrderLine(models.Model):
                 vals = fpos.map_tax_extra_values(
                     line.company_id, line.product_id, line.order_id.partner_id)
 
-                for key, value in vals.items():
+                for key, value in list(vals.items()):
                     if value and key in line._fields:
                         line.update({key: value})
 

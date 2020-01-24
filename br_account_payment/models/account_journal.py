@@ -29,7 +29,7 @@ class AccountJournal(models.Model):
                 'currency_id': vals.get('currency_id'),
                 'partner_id': vals.get('acc_partner_id'),
             }
-            acc_vals = {k: v for k, v in acc_vals.items() if v}
+            acc_vals = {k: v for k, v in list(acc_vals.items()) if v}
             journal.bank_account_id.write(acc_vals)
         return result
 
@@ -44,6 +44,6 @@ class AccountJournal(models.Model):
                 'currency_id': vals.get('currency_id'),
                 'partner_id': vals.get('acc_partner_id'),
             }
-            acc_vals = {k: v for k, v in acc_vals.items() if v}
+            acc_vals = {k: v for k, v in list(acc_vals.items()) if v}
             journal.bank_account_id.write(acc_vals)
         return journal

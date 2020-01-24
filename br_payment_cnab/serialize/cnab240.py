@@ -252,7 +252,7 @@ class Cnab240(object):
 
     def create_details(self, operacoes):
         num_lot = 1
-        for lote, events in operacoes.items():
+        for lote, events in list(operacoes.items()):
             self._create_header_lote(events[0], num_lot, lote)
             lot_sequency = 1
             for event in events:

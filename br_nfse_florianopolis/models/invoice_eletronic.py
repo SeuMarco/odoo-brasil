@@ -30,7 +30,7 @@ class InvoiceEletronic(models.Model):
         selection_add=[('012', 'NFS-e Florianópolis')])
 
     def qrcode_floripa_url(self):
-        import urllib
+        import urllib.request, urllib.parse, urllib.error
 
         urlconsulta = "http://nfps-e.pmf.sc.gov.br/consulta-frontend/#!/\
 consulta?cod=%s&cmc=%s" % (self.verify_code, self.company_id.inscr_mun)

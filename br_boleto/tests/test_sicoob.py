@@ -10,7 +10,7 @@ class TestBoletoSicoob(TestBoleto):
     def _return_payment_mode(self):
         super(TestBoletoSicoob, self)._return_payment_mode()
         sequencia = self.env['ir.sequence'].create({
-            'name': u"Nosso Número"
+            'name': "Nosso Número"
         })
         sicoob = self.env['res.bank'].search([('bic', '=', '756')])
         conta = self.env['res.partner.bank'].create({
@@ -79,28 +79,28 @@ class TestBoletoSicoob(TestBoleto):
         self._update_partner_fisica()
         self.invoices.action_invoice_open()
 
-        self.assertEquals(len(self.invoices.receivable_move_line_ids), 1)
+        self.assertEqual(len(self.invoices.receivable_move_line_ids), 1)
 
         move = self.invoices.receivable_move_line_ids[0]
         vals = move.action_print_boleto()
 
-        self.assertEquals(vals['report_name'], 'br_boleto.report.print')
-        self.assertEquals(vals['report_type'], 'qweb-pdf')
+        self.assertEqual(vals['report_name'], 'br_boleto.report.print')
+        self.assertEqual(vals['report_type'], 'qweb-pdf')
 
         vals = self.invoices.action_print_boleto()
 
-        self.assertEquals(vals['report_name'], 'br_boleto.report.print')
-        self.assertEquals(vals['report_type'], 'qweb-pdf')
+        self.assertEqual(vals['report_name'], 'br_boleto.report.print')
+        self.assertEqual(vals['report_type'], 'qweb-pdf')
 
         line_ids = self.env['payment.order.line'].action_register_boleto(
             self.invoices.receivable_move_line_ids)
 
         boleto_list = line_ids.generate_boleto_list()
         boleto = boleto_list[0]
-        self.assertEquals(len(boleto_list), 1)
-        self.assertEquals(boleto.valor_documento, '1000.00')
-        self.assertEquals(boleto.valor, '1000.00')
+        self.assertEqual(len(boleto_list), 1)
+        self.assertEqual(boleto.valor_documento, '1000.00')
+        self.assertEqual(boleto.valor, '1000.00')
 
-        self.assertEquals(boleto.cedente_documento, self.main_company.cnpj_cpf)
-        self.assertEquals(
+        self.assertEqual(boleto.cedente_documento, self.main_company.cnpj_cpf)
+        self.assertEqual(
             boleto.sacado_documento, self.partner_fisica.cnpj_cpf)

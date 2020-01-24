@@ -111,6 +111,6 @@ class TestCnab(TransactionCase):
             'payment_mode_id': self._return_payment_mode(),
         }
         self.invoices = self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_fisica.id
         ))

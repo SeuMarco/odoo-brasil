@@ -17,7 +17,7 @@ class PaymentOrderLine(models.Model):
             ('state', '=', 'draft'),
             ('payment_mode_id', '=', payment_mode.id)], limit=1)
         order_dict = {
-            'name': u'%s' % order_name,
+            'name': '%s' % order_name,
             'user_id': self.env.user.id,
             'payment_mode_id': move_line.payment_mode_id.id,
             'state': 'draft',

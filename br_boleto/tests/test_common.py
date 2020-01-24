@@ -26,7 +26,7 @@ class TestBoleto(TransactionCase):
         })
         self.receivable_account = self.env['account.account'].create({
             'code': '1.0.0',
-            'name': u'Conta de Recebíveis',
+            'name': 'Conta de Recebíveis',
             'reconcile': True,
             'user_type_id': self.env.ref(
                 'account.data_account_type_receivable').id,
@@ -95,6 +95,6 @@ class TestBoleto(TransactionCase):
             'payment_mode_id': self._return_payment_mode(),
         }
         self.invoices = self.env['account.invoice'].create(dict(
-            default_invoice.items(),
+            list(default_invoice.items()),
             partner_id=self.partner_fisica.id
         ))

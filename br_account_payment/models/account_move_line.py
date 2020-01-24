@@ -7,7 +7,7 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     payment_mode_id = fields.Many2one(
-        'l10n_br.payment.mode', string=u"Modo de pagamento")
+        'l10n_br.payment.mode', string="Modo de pagamento")
     l10n_br_order_line_id = fields.Many2one(
         'payment.order.line', string='Linha de Pagamento')
 

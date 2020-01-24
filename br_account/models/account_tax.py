@@ -2,7 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 
-from odoo import api, fields, models
+from odoo import api, fields, models, _
 
 
 class AccountChartTemplate(models.Model):
@@ -61,10 +61,10 @@ class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     deduced_account_id = fields.Many2one(
-        'account.account', string="Conta de Dedução da Venda")
+        'account.account', string=_("Conta de Dedução da Venda"))
     refund_deduced_account_id = fields.Many2one(
-        'account.account', string="Conta de Dedução do Reembolso")
-    domain = fields.Selection([('icms', 'ICMS'),
+        'account.account', string=_("Conta de Dedução do Reembolso"))
+    domain = fields.Selection([('icms', "ICMS"),
                                ('icmsst', 'ICMS ST'),
                                ('pis', 'PIS'),
                                ('cofins', 'COFINS'),
@@ -78,8 +78,8 @@ class AccountTax(models.Model):
                                ('irrf', 'IRRF'),
                                ('inss', 'INSS'),
                                ('outros', 'Outros')], string="Tipo")
-    amount_type = fields.Selection(selection_add=[('icmsst', 'ICMS ST')])
-    difal_por_dentro = fields.Boolean(string="Calcular Difal por Dentro?")
+    amount_type = fields.Selection(selection_add=[('icmsst', _("ICMS ST"))])
+    difal_por_dentro = fields.Boolean(string=_("Calcular Difal por Dentro?"))
     icms_st_incluso = fields.Boolean(
         string="Incluir ICMS ST na Base de Calculo?")
 

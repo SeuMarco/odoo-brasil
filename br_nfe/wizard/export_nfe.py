@@ -13,8 +13,8 @@ class ExportNfe(models.TransientModel):
     _name = 'wizard.export.nfe'
     _description = "Exporta NF-e"
 
-    start_date = fields.Date(string=u"Data Inicial", required=True)
-    end_date = fields.Date(string=u"Data Final", required=True)
+    start_date = fields.Date(string="Data Inicial", required=True)
+    end_date = fields.Date(string="Data Final", required=True)
     model = fields.Many2one(
         'br_account.fiscal.document', string='Documento')
     zip_file = fields.Binary('Arquivo', readonly=True)

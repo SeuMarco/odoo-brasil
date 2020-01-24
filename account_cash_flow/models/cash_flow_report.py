@@ -3,13 +3,12 @@
 
 import datetime
 from datetime import date
-import openerp.addons.decimal_precision as dp
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class CashFlowReport(models.TransientModel):
     _name = 'account.cash.flow'
-    _description = u'Cash Flow Report'
+    _description = 'Cash Flow Report'
 
     def _compute_final_amount(self):
         for item in self:
@@ -39,28 +38,28 @@ class CashFlowReport(models.TransientModel):
     ignore_outstanding = fields.Boolean(string="Ignorar Vencidos?")
     account_ids = fields.Many2many('account.account', string="Filtrar Contas")
     end_date = fields.Date(
-        string=u"End Date", required=True,
+        string="End Date", required=True,
         default=fields.date.today()+datetime.timedelta(6*365/12))
-    start_amount = fields.Float(string=u"Initial Value",
-                                digits=dp.get_precision('Account'))
-    start_balance = fields.Float(string=u"Saldo Inicial",
+    start_amount = fields.Float(string="Initial Value",
+                                digits=('Account'))
+    start_balance = fields.Float(string="Saldo Inicial",
                                  compute="_compute_final_amount",
-                                 digits=dp.get_precision('Account'))
-    total_receivables = fields.Float(string=u"Total de Recebimentos",
+                                 digits=('Account'))
+    total_receivables = fields.Float(string="Total de Recebimentos",
                                      compute="_compute_final_amount",
-                                     digits=dp.get_precision('Account'))
-    total_payables = fields.Float(string=u"Total de Despesas",
+                                     digits=('Account'))
+    total_payables = fields.Float(string="Total de Despesas",
                                   compute="_compute_final_amount",
-                                  digits=dp.get_precision('Account'))
-    period_balance = fields.Float(string=u"Saldo do Período",
+                                  digits=('Account'))
+    period_balance = fields.Float(string="Saldo do Período",
                                   compute="_compute_final_amount",
-                                  digits=dp.get_precision('Account'))
-    final_amount = fields.Float(string=u"Saldo Final",
+                                  digits=('Account'))
+    final_amount = fields.Float(string="Saldo Final",
                                 compute="_compute_final_amount",
-                                digits=dp.get_precision('Account'))
+                                digits=('Account'))
     line_ids = fields.One2many(
         "account.cash.flow.line", "cashflow_id",
-        string=u"Cash Flow Lines")
+        string="Cash Flow Lines")
 
     @api.multi
     def draw_chart(self):
@@ -229,23 +228,23 @@ class CashFlowReport(models.TransientModel):
 
 class CashFlowReportLine(models.TransientModel):
     _name = 'account.cash.flow.line'
-    _description = u'Cash flow lines'
+    _description = 'Cash flow lines'
 
-    name = fields.Char(string=u"Description", required=True)
-    liquidity = fields.Boolean(strign=u"Liquidez?")
+    name = fields.Char(string="Description", required=True)
+    liquidity = fields.Boolean(strign="Liquidez?")
     line_type = fields.Selection(
-        [('receivable', u'Recebível'), ('payable', u'Pagável')], string="Tipo")
+        [('receivable', 'Recebível'), ('payable', 'Pagável')], string="Tipo")
     date = fields.Date(string="Date")
-    partner_id = fields.Many2one("res.partner", string=u"Partner")
-    account_id = fields.Many2one("account.account", string=u"Account")
-    journal_id = fields.Many2one("account.journal", string=u"Journal")
-    invoice_id = fields.Many2one("account.invoice", string=u"Invoice")
-    debit = fields.Float(string=u"Debit",
-                         digits=dp.get_precision('Account'))
-    credit = fields.Float(string=u"Credit",
-                          digits=dp.get_precision('Account'))
-    amount = fields.Float(string=u"Balance(C-D)",
-                          digits=dp.get_precision('Account'))
-    balance = fields.Float(string=u"Accumulated Balance",
-                           digits=dp.get_precision('Account'))
-    cashflow_id = fields.Many2one("account.cash.flow", string=u"Cash Flow")
+    partner_id = fields.Many2one("res.partner", string="Partner")
+    account_id = fields.Many2one("account.account", string="Account")
+    journal_id = fields.Many2one("account.journal", string="Journal")
+    invoice_id = fields.Many2one("account.invoice", string="Invoice")
+    debit = fields.Float(string="Debit",
+                         digits=('Account'))
+    credit = fields.Float(string="Credit",
+                          digits=('Account'))
+    amount = fields.Float(string="Balance(C-D)",
+                          digits=('Account'))
+    balance = fields.Float(string="Accumulated Balance",
+                           digits=('Account'))
+    cashflow_id = fields.Many2one("account.cash.flow", string="Cash Flow")

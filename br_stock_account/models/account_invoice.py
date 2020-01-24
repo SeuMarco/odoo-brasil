@@ -2,7 +2,6 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo import api, fields, models
-from odoo.addons import decimal_precision as dp
 
 
 class AccountInvoice(models.Model):
@@ -32,13 +31,13 @@ class AccountInvoice(models.Model):
         self.amount_total_signed = self.amount_total * sign
 
     total_seguro = fields.Float(
-        string='Seguro ( + )', digits=dp.get_precision('Account'),
+        string='Seguro ( + )', digits=('Account'),
         compute="_compute_amount")
     total_despesas = fields.Float(
-        string='Despesas ( + )', digits=dp.get_precision('Account'),
+        string='Despesas ( + )', digits=('Account'),
         compute="_compute_amount")
     total_frete = fields.Float(
-        string='Frete ( + )', digits=dp.get_precision('Account'),
+        string='Frete ( + )', digits=('Account'),
         compute="_compute_amount")
 
     # Transporte
@@ -51,9 +50,9 @@ class AccountInvoice(models.Model):
          ('3', '3 - Transporte Próprio por conta do Remetente'),
          ('4', '4 - Transporte Próprio por conta do Destinatário'),
          ('9', '9 - Sem Ocorrência de Transporte')],
-        u'Modalidade do frete', default="9")
+        'Modalidade do frete', default="9")
     shipping_supplier_id = fields.Many2one('res.partner', 'Transportadora')
-    vehicle_plate = fields.Char(u'Placa do Veículo', size=7)
+    vehicle_plate = fields.Char('Placa do Veículo', size=7)
     vehicle_state_id = fields.Many2one('res.country.state', 'UF da Placa')
     vehicle_rntc = fields.Char('RNTC', size=20)
 
@@ -63,16 +62,16 @@ class AccountInvoice(models.Model):
     tow_rntc = fields.Char('RNTC Reboque', size=20)
 
     weight = fields.Float(string='Peso Bruto', help="O peso bruto em Kg.")
-    weight_net = fields.Float(u'Peso Líquido', help=u"O peso líquido em Kg.")
-    number_of_packages = fields.Integer(u'Nº Volumes')
-    kind_of_packages = fields.Char(u'Espécie', size=60)
+    weight_net = fields.Float('Peso Líquido', help="O peso líquido em Kg.")
+    number_of_packages = fields.Integer('Nº Volumes')
+    kind_of_packages = fields.Char('Espécie', size=60)
     brand_of_packages = fields.Char('Marca', size=60)
-    notation_of_packages = fields.Char(u'Numeração', size=60)
+    notation_of_packages = fields.Char('Numeração', size=60)
 
     # Exportação
     uf_saida_pais_id = fields.Many2one(
         'res.country.state', domain=[('country_id.code', '=', 'BR')],
-        string=u"UF Saída do País")
+        string="UF Saída do País")
     local_embarque = fields.Char('Local de Embarque', size=60)
     local_despacho = fields.Char('Local de Despacho', size=60)
 
@@ -122,11 +121,11 @@ class AccountInvoiceLine(models.Model):
     _inherit = 'account.invoice.line'
 
     valor_frete = fields.Float(
-        '(+) Frete', digits=dp.get_precision('Account'), default=0.00)
+        '(+) Frete', digits=('Account'), default=0.00)
     valor_seguro = fields.Float(
-        '(+) Seguro', digits=dp.get_precision('Account'), default=0.00)
+        '(+) Seguro', digits=('Account'), default=0.00)
     outras_despesas = fields.Float(
-        '(+) Despesas', digits=dp.get_precision('Account'), default=0.00)
+        '(+) Despesas', digits=('Account'), default=0.00)
 
     def _prepare_tax_context(self):
         res = super(AccountInvoiceLine, self)._prepare_tax_context()

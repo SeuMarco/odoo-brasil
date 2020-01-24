@@ -41,11 +41,11 @@ class PaymentInformation(models.Model):
         ], string='Finalidade do Movimento')
 
     operation_code = fields.Selection([     # G14
-        ('018', u'TED CIP'),
-        ('810', u'TED STR'),
-        ('700', u'DOC'),
-        ('000', u'CC')
-    ], string=u'Operation Code')
+        ('018', 'TED CIP'),
+        ('810', 'TED STR'),
+        ('700', 'DOC'),
+        ('000', 'CC')
+    ], string='Operation Code')
 
     payment_type = fields.Selection(
         [('01', 'TED - Transferência Bancária'),
@@ -59,10 +59,10 @@ class PaymentInformation(models.Model):
         string="Tipo de Operação")
 
     warning_code = fields.Selection([
-        ('0', u'No Warning'),
-        ('2', u'Warning only for addresser'),
-        ('5', u'Warning only for receiver'),
-        ('6', u'Warning for both, addresser and receiver')
+        ('0', 'No Warning'),
+        ('2', 'Warning only for addresser'),
+        ('5', 'Warning only for receiver'),
+        ('6', 'Warning for both, addresser and receiver')
     ], string='Warning Code', default='0')
 
     mode_payment_indication = fields.Selection([  # sicoob only

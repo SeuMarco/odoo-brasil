@@ -9,8 +9,8 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
-    @api.depends('invoice_line_ids.price_subtotal', 'line_ids',
-                 'currency_id', 'company_id')
+    @api.depends('invoice_line_ids.price_subtotal', 'line_ids', 'currency_id',
+                 'company_id')
     def _compute_amount(self):
         for rec in self:
             lines = rec.line_ids
@@ -103,7 +103,7 @@ class AccountMove(models.Model):
 
     product_serie_id = fields.Many2one(
         'br_account.document.serie',
-        string=u'Série produtos',
+        string='Série produtos',
         domain="[('fiscal_document_id', '=', product_document_id),\
         ('company_id','=',company_id)]",
         readonly=True,
@@ -115,7 +115,7 @@ class AccountMove(models.Model):
         states={'draft': [('readonly', False)]})
     service_serie_id = fields.Many2one(
         'br_account.document.serie',
-        string=u'Série serviços',
+        string='Série serviços',
         domain="[('fiscal_document_id', '=', service_document_id),\
         ('company_id','=',company_id)]",
         readonly=True,
@@ -133,10 +133,10 @@ class AccountMove(models.Model):
         states={'draft': [('readonly', False)]})
     fiscal_observation_ids = fields.Many2many(
         'br_account.fiscal.observation',
-        string=u"Observações Fiscais",
+        string="Observações Fiscais",
         readonly=True,
         states={'draft': [('readonly', False)]})
-    fiscal_comment = fields.Text(u'Observação Fiscal',
+    fiscal_comment = fields.Text('Observação Fiscal',
                                  readonly=True,
                                  states={'draft': [('readonly', False)]})
 
@@ -169,7 +169,7 @@ class AccountMove(models.Model):
         string="Total ICMS FCP",
         store=True,
         compute='_compute_amount',
-        help=u'Total total do ICMS relativo Fundo de Combate à Pobreza (FCP) \
+        help='Total total do ICMS relativo Fundo de Combate à Pobreza (FCP) \
         da UF de destino')
     valor_icms_uf_dest = fields.Float(
         string="ICMS Destino",
@@ -318,7 +318,7 @@ class AccountMove(models.Model):
                          ['proforma2', 'draft', 'open', 'paid']):
             raise UserError(
                 _("Invoice must be in draft, Pro-forma or open \
-                              state in order to be cancelled."))
+                  state in order to be cancelled."))
 
         return self.action_cancel()
 

@@ -30,7 +30,7 @@ class AccountInvoice(models.Model):
 
     invoice_eletronic_ids = fields.One2many(
         'invoice.eletronic', 'invoice_id',
-        u'Documentos Eletrônicos', readonly=True)
+        'Documentos Eletrônicos', readonly=True)
     invoice_model = fields.Char(
         string="Modelo de Fatura", related="product_document_id.code",
         readonly=True, store=True)
@@ -39,7 +39,7 @@ class AccountInvoice(models.Model):
     internal_number = fields.Integer(
         'Invoice Number', readonly=True,
         states={'draft': [('readonly', False)]},
-        help=u"""Unique number of the invoice, computed
+        help="""Unique number of the invoice, computed
             automatically when the invoice is created.""")
 
     @api.multi
@@ -50,8 +50,8 @@ class AccountInvoice(models.Model):
             dummy, view_id = self.env['ir.model.data'].get_object_reference(
                 'br_account_einvoice', 'br_account_invoice_eletronic_form')
             vals = self.env['ir.actions.act_window'].browse(act_id).read()[0]
-            vals['view_id'] = (view_id, u'sped.eletronic.doc.form')
-            vals['views'][1] = (view_id, u'form')
+            vals['view_id'] = (view_id, 'sped.eletronic.doc.form')
+            vals['views'][1] = (view_id, 'form')
             vals['views'] = [vals['views'][1], vals['views'][0]]
             edoc = self.env['invoice.eletronic'].search(
                 [('invoice_id', '=', self.id)], limit=1)
@@ -308,4 +308,4 @@ class AccountInvoiceLine(models.Model):
         help="Se setado aqui sobrescreve o pedido de compra da fatura")
     item_pedido_compra = fields.Char(
         string="Item de compra", size=20,
-        help=u'Item do pedido de compra do cliente')
+        help='Item do pedido de compra do cliente')

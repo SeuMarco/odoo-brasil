@@ -20,7 +20,7 @@ class CieloController(http.Controller):
         methods=['GET', 'POST'], csrf=False)
     def cielo_notify(self, **post):
         """ Cielo Notificação"""
-        _logger.info(u'Iniciando retorno de notificação cielo post-data: %s',
+        _logger.info('Iniciando retorno de notificação cielo post-data: %s',
                      pprint.pformat(post))
 
         request.env['payment.transaction'].sudo().form_feedback(post, 'cielo')
@@ -44,7 +44,7 @@ class CieloController(http.Controller):
             8 - Chargeback (somente para Cartão de Crédito)
         """
         _logger.info(
-            u'Iniciando mudança de status de transação post-data: %s',
+            'Iniciando mudança de status de transação post-data: %s',
             pprint.pformat(post))  # debug
         self.cielo_validate_data(**post)
         return "<status>OK</status>"

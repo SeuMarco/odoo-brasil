@@ -55,10 +55,10 @@ class TestCnabSicoob(TestCnab):
         cnab = cnab.decode('utf-8').split('\r\n')
         cnab.pop()
 
-        self.assertEquals(len(cnab), 7)  # 8 linhas
+        self.assertEqual(len(cnab), 7)  # 8 linhas
 
         for line in cnab:
-            self.assertEquals(len(line), 240)  # 8 linhas
+            self.assertEqual(len(line), 240)  # 8 linhas
 
         # TODO Descomentar e implementar teste
 

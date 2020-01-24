@@ -35,7 +35,7 @@ class PaymentOrderLine(models.Model):
     journal_id = fields.Many2one('account.journal', string="Diário")
     move_id = fields.Many2one('account.move', string="Lançamento de Diário",
                               related='move_line_id.move_id', readonly=True)
-    nosso_numero = fields.Char(string=u"Nosso Número", size=20)
+    nosso_numero = fields.Char(string="Nosso Número", size=20)
     payment_mode_id = fields.Many2one(
         'l10n_br.payment.mode', string="Modo de pagamento")
     date_maturity = fields.Date(string="Vencimento")
@@ -90,7 +90,7 @@ class PaymentOrder(models.Model):
     type = fields.Selection(
         [('receivable', 'Recebível'), ('payable', 'Pagável')],
         string="Tipo de Ordem", default='receivable')
-    user_id = fields.Many2one('res.users', string=u'Responsável',
+    user_id = fields.Many2one('res.users', string='Responsável',
                               required=True)
     payment_mode_id = fields.Many2one('l10n_br.payment.mode',
                                       string='Modo de Pagamento',
@@ -108,12 +108,12 @@ class PaymentOrder(models.Model):
         compute="_compute_state",
         store=True)
     line_ids = fields.One2many('payment.order.line', 'payment_order_id',
-                               required=True, string=u'Linhas de Cobrança')
+                               required=True, string='Linhas de Cobrança')
     currency_id = fields.Many2one('res.currency', string='Moeda')
     amount_total = fields.Float(string="Total",
                                 compute='_compute_amount_total')
     cnab_file = fields.Binary('CNAB File', readonly=True)
-    file_number = fields.Integer(u'Número sequencial do arquivo', readonly=1)
+    file_number = fields.Integer('Número sequencial do arquivo', readonly=1)
     data_emissao_cnab = fields.Datetime('Data de Emissão do CNAB')
 
     def _get_next_code(self):

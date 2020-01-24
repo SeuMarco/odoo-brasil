@@ -2,8 +2,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 import datetime
-import openerp.addons.decimal_precision as dp
-from openerp import api, fields, models
+from odoo import api, fields, models
 
 
 class CashFlowWizard(models.TransientModel):
@@ -14,7 +13,7 @@ class CashFlowWizard(models.TransientModel):
         string="End Date", required=True,
         default=fields.date.today() + datetime.timedelta(6 * 365 / 12))
     start_amount = fields.Float(string="Initial value",
-                                digits=dp.get_precision('Account'))
+                                digits=('Account'))
     account_ids = fields.Many2many('account.account', string="Filtrar Contas")
     print_report = fields.Boolean(string="Imprimir")
     ignore_outstanding = fields.Boolean(string="Ignorar Vencidos?")

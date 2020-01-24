@@ -8,8 +8,8 @@ from odoo.exceptions import UserError
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    boleto_emitido = fields.Boolean(string=u"Emitido")
-    nosso_numero = fields.Char(string=u"Nosso Número", size=30)
+    boleto_emitido = fields.Boolean(string="Emitido")
+    nosso_numero = fields.Char(string="Nosso Número", size=30)
 
     @api.multi
     def unlink(self):

@@ -81,7 +81,7 @@ class Cnab240(Cnab):
             # DV ag e conta
             'cedente_dv_ag_cc': self.order.src_bank_account_id.bra_number_dig,
             'arquivo_codigo': 1,  # Remessa/Retorno
-            'servico_operacao': u'R',
+            'servico_operacao': 'R',
             'nome_banco': self.order.src_bank_account_id.bank_name
         }
 
@@ -146,8 +146,8 @@ class Cnab240(Cnab):
             'cedente_nome': self.order.company_id.legal_name,
             # DV ag e cc
             'cedente_dv_ag_cc': self.order.src_bank_account_id.bra_number_dig,
-            'identificacao_titulo': u'0000000',  # TODO
-            'identificacao_titulo_banco': u'0000000',  # TODO
+            'identificacao_titulo': '0000000',  # TODO
+            'identificacao_titulo_banco': '0000000',  # TODO
             'identificacao_titulo_empresa': (' ' * 25),
             'numero_documento': line.identifier,
             'vencimento_titulo': self.format_date(

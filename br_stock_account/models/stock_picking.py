@@ -43,7 +43,7 @@ class StockPicking(models.Model):
         line._onchange_product_id()
         linevals = line._convert_to_write(
             {name: line[name] for name in line._cache})
-        vals = {k: v for k, v in linevals.items() if v}
+        vals = {k: v for k, v in list(linevals.items()) if v}
         vals.update({
             'quantity': move_line_id.qty_done,
             'price_unit': move_line_id.product_id.lst_price,
