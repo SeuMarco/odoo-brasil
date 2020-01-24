@@ -41,7 +41,6 @@ class ExportNfe(models.TransientModel):
         zip_base64.seek(0)
         return base64.b64encode(zip_base64.getvalue())
 
-    @api.multi
     def nfse_export(self):
         search_vals = []
         search_vals.append(('data_emissao', '>=', self.start_date))
@@ -75,7 +74,6 @@ class ExportNfe(models.TransientModel):
             'type': 'ir.actions.act_window',
             'res_model': self._name,
             'view_mode': 'form',
-            'view_type': 'form',
             'res_id': self.id,
             'views': [(mod_obj.res_id, 'form')],
             'target': 'new',

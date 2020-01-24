@@ -18,7 +18,6 @@ class AccountJournal(models.Model):
             'context': dict(
                 self.env.context,
                 journal_id=self.id),
-            'view_type': 'form',
             'view_mode': 'form',
             'res_model': 'l10n_br.payment.cnab.import',
             'type': 'ir.actions.act_window',

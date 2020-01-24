@@ -135,7 +135,6 @@
         <field name="name">Recurring Vouchers</field>
         <field name="res_model">account.voucher</field>
         <field name="view_mode">tree,form</field>
-        <field name="view_type">form</field>
         <field name="domain">[('l10n_br_recurring', '=', True)]</field>
         <field name="context">{'default_l10n_br_recurring': True}</field>
     </record>
