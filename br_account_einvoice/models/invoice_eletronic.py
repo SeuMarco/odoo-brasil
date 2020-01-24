@@ -99,7 +99,10 @@ class InvoiceEletronic(models.Model):
         string='Data emissão', readonly=True, states=STATE)
 =======
         string=u'Data emissão', readonly=True, states=STATE)
+<<<<<<< HEAD
 >>>>>>> 387baaed... [ADD] Implementa data de entrada e saida de mercadorias
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     data_autorizacao = fields.Char(
         string='Data de autorização', size=30, readonly=True, states=STATE)
     ambiente = fields.Selection(
@@ -595,10 +598,14 @@ class InvoiceEletronicItem(models.Model):
     item_pedido_compra = fields.Char(
         string="Item de compra", size=20,
 <<<<<<< HEAD
+<<<<<<< HEAD
         help='Item do pedido de compra do cliente')
 =======
         help=u'Item do pedido de compra do cliente')
 >>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
+=======
+        help=u'Item do pedido de compra do cliente')
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     frete = fields.Monetary(
         string='Frete', digits=('Account'),

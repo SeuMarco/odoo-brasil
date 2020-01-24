@@ -30,10 +30,14 @@ class InvoiceEletronicItem(models.Model):
 
     codigo_tributacao_municipio = fields.Char(
 <<<<<<< HEAD
+<<<<<<< HEAD
         string="Cód. Tribut. Munic.", size=20, readonly=True,
 =======
         string=u"Cód. Tribut. Munic.", size=20, readonly=True,
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+        string=u"Cód. Tribut. Munic.", size=20, readonly=True,
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         help="Código de Tributação no Munípio", states=STATE)
 
 
@@ -57,15 +61,20 @@ class InvoiceEletronic(models.Model):
         string="Retenções Federais", compute=_compute_total_retencoes)
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @api.multi
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+    @api.multi
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def _hook_validation(self):
         errors = super(InvoiceEletronic, self)._hook_validation()
         if self.model != '016':
             return errors
         issqn_codigo = ''
         if not self.company_id.inscr_mun:
+<<<<<<< HEAD
 <<<<<<< HEAD
             errors.append('Inscrição municipal obrigatória')
         if not self.company_id.cnae_main_id.code:
@@ -87,6 +96,8 @@ class InvoiceEletronic(models.Model):
         return errors
 
 =======
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
             errors.append(u'Inscrição municipal obrigatória')
         if not self.company_id.cnae_main_id.code:
             errors.append(u'CNAE Principal da empresa obrigatório')
@@ -107,7 +118,10 @@ class InvoiceEletronic(models.Model):
         return errors
 
     @api.multi
+<<<<<<< HEAD
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def _prepare_eletronic_invoice_values(self):
         res = super(InvoiceEletronic, self)._prepare_eletronic_invoice_values()
         if self.model != '016':
@@ -207,9 +221,13 @@ class InvoiceEletronic(models.Model):
         return res
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @api.multi
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+    @api.multi
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def action_post_validate(self):
         super(InvoiceEletronic, self).action_post_validate()
         if self.model not in ('016'):
@@ -255,9 +273,13 @@ class InvoiceEletronic(models.Model):
         return atts
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @api.multi
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+    @api.multi
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def action_send_eletronic_invoice(self):
         super(InvoiceEletronic, self).action_send_eletronic_invoice()
         if self.model != '016' or self.state in ('done', 'cancel'):
@@ -340,9 +362,13 @@ class InvoiceEletronic(models.Model):
                 consulta_lote['received_xml'])
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @api.multi
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+    @api.multi
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def action_cancel_document(self, context=None, justificativa=None):
         if self.model not in ('016'):
             return super(InvoiceEletronic, self).action_cancel_document(
@@ -373,10 +399,14 @@ class InvoiceEletronic(models.Model):
             self.state = 'cancel'
             self.codigo_retorno = '100'
 <<<<<<< HEAD
+<<<<<<< HEAD
             self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
 =======
             self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         else:
             # E79 - Nota já está cancelada
             if retorno.ListaMensagemRetorno.MensagemRetorno.Codigo != 'E79':
@@ -389,10 +419,14 @@ class InvoiceEletronic(models.Model):
             self.state = 'cancel'
             self.codigo_retorno = '100'
 <<<<<<< HEAD
+<<<<<<< HEAD
             self.mensagem_retorno = 'Nota Fiscal de Serviço Cancelada'
 =======
             self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+            self.mensagem_retorno = u'Nota Fiscal de Serviço Cancelada'
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
         self.env['invoice.eletronic.event'].create({
             'code': self.codigo_retorno,

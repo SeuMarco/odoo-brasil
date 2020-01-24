@@ -305,7 +305,11 @@ class AccountInvoiceLine(models.Model):
     item_pedido_compra = fields.Char(
         string="Item de compra", size=20,
 <<<<<<< HEAD
+<<<<<<< HEAD
         help='Item do pedido de compra do cliente')
 =======
         help=u'Item do pedido de compra do cliente')
 >>>>>>> 481dd379... [FIX] Correção dos campos de pedido de compra e item da compra
+=======
+        help=u'Item do pedido de compra do cliente')
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30

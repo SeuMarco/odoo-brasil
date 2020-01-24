@@ -82,6 +82,7 @@ class ResCompany(models.Model):
     def _compute_expiry_date(self):
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
         try:
             pfx = base64.decodestring(
                 self.with_context(bin_size=False).nfe_a1_file)
@@ -107,6 +108,8 @@ class ResCompany(models.Model):
 =======
 =======
 >>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         for rec in self:
             try:
                 pfx = base64.decodestring(
@@ -131,9 +134,12 @@ class ResCompany(models.Model):
                     _('Unknown error when validating certificate. %s', exc),
                     exc_info=True)
 <<<<<<< HEAD
+<<<<<<< HEAD
 >>>>>>> 321d714c... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
 =======
 >>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     cnpj_cpf = fields.Char(
         compute=_get_br_data, inverse=_set_br_cnpj_cpf, size=18,
@@ -159,6 +165,7 @@ class ResCompany(models.Model):
         compute=_get_address_data, inverse='_set_city_id',
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
         comodel_name='res.state.city', string=_("City ID"), multi='address')
@@ -168,6 +175,9 @@ class ResCompany(models.Model):
 =======
         comodel_name='res.state.city', string=_("City ID"), multi='address')
 >>>>>>> aa9c86b8... In version 13.0 all methods of the models are multi-record by default. We need to adapt the code to the behavior change.
+=======
+        comodel_name='res.state.city', string=_("City ID"), multi='address')
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     district = fields.Char(
         compute=_get_address_data, inverse='_set_br_district', size=32,

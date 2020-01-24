@@ -7,10 +7,14 @@
     Mantido por Trustcode""",
     'description': 'Envio de NFS-e - Aparecida-SP',
 <<<<<<< HEAD
+<<<<<<< HEAD
     'version': '13.0.1.0.0',
 =======
     'version': '12.0.1.0.0',
 >>>>>>> 48ca78e2... [IMP] Implementação parcial NFSe aparecida e correçaõ NFSe Simpliss
+=======
+    'version': '12.0.1.0.0',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     'category': 'account',
     'author': 'Trustcode',
     'website': 'http://www.trustcode.com.br',

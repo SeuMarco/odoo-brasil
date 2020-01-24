@@ -17,7 +17,10 @@ class CashFlowWizard(models.TransientModel):
                                 digits=('Account'))
 =======
                                 digits=dp.get_precision('Account'))
+<<<<<<< HEAD
 >>>>>>> 93be34d4... [WIP] Filtro de contas no fluxo de caixa e melhoria da tabela de visualização
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     account_ids = fields.Many2many('account.account', string="Filtrar Contas")
     print_report = fields.Boolean(string="Imprimir")
     ignore_outstanding = fields.Boolean(string="Ignorar Vencidos?")
@@ -31,9 +34,13 @@ class CashFlowWizard(models.TransientModel):
         }
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
     @api.multi
 >>>>>>> 93be34d4... [WIP] Filtro de contas no fluxo de caixa e melhoria da tabela de visualização
+=======
+    @api.multi
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def button_calculate(self):
         vals = self._prepare_vals()
         cashflow_id = self.env['account.cash.flow'].create(vals)

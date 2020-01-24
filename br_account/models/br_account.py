@@ -13,23 +13,36 @@ class BrAccountCFOP(models.Model):
     _name = 'br_account.cfop'
     _description = 'CFOP'
 
-    code = fields.Char(u'Código', size=4, required=True)
+    code = fields.Char('Código', size=4, required=True)
     name = fields.Char('Nome', size=256, required=True)
     small_name = fields.Char('Nome Reduzido', size=32, required=True)
+<<<<<<< HEAD
     description = fields.Text(u'Descrição')
     type = fields.Selection([('input', u'Entrada'), ('output', u'Saída')],
+=======
+    description = fields.Text('Descrição')
+    type = fields.Selection([('input', 'Entrada'), ('output', 'Saída')],
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                             'Tipo',
                             required=True)
     parent_id = fields.Many2one('br_account.cfop', 'CFOP Pai')
     child_ids = fields.One2many('br_account.cfop', 'parent_id', 'CFOP Filhos')
+<<<<<<< HEAD
     internal_type = fields.Selection([('view', u'Visualização'),
+=======
+    internal_type = fields.Selection([('view', 'Visualização'),
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                       ('normal', 'Normal')],
                                      'Tipo Interno',
                                      required=True,
                                      default='normal')
 
     _sql_constraints = [('br_account_cfop_code_uniq', 'unique (code)',
+<<<<<<< HEAD
                          u'Já existe um CFOP com esse código !')]
+=======
+                         'Já existe um CFOP com esse código !')]
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
@@ -56,6 +69,7 @@ class BrAccountCFOP(models.Model):
 class BrAccountServiceType(models.Model):
     _name = 'br_account.service.type'
 <<<<<<< HEAD
+<<<<<<< HEAD
     _description = u'Cadastro de Operações Fiscais de Serviço'
 
     code = fields.Char(u'Código', size=16, required=True)
@@ -74,6 +88,8 @@ class BrAccountServiceType(models.Model):
     estadual_imposto = fields.Float(u'Imposto Estadual')
     municipal_imposto = fields.Float(u'Imposto Municipal')
 =======
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     _description = _("Cadastro de Operações Fiscais de Serviço")
 
     code = fields.Char(_("Código"), size=16, required=True)
@@ -92,7 +108,10 @@ class BrAccountServiceType(models.Model):
         _("Imposto Fed. Sobre Serviço Importado", ))
     estadual_imposto = fields.Float(_("Imposto Estadual"))
     municipal_imposto = fields.Float(_("Imposto Municipal"))
+<<<<<<< HEAD
 >>>>>>> 2614df42... A pasos agigantados
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     @api.model
     def name_search(self, name, args=None, operator='ilike', limit=100):
@@ -121,20 +140,27 @@ class BrAccountFiscalDocument(models.Model):
     _description = _("Tipo de Documento Fiscal")
 
 <<<<<<< HEAD
+<<<<<<< HEAD
     code = fields.Char(u'Codigo', size=8, required=True)
     name = fields.Char(u'Descrição', size=64)
     electronic = fields.Boolean(u'Eletrônico')
     nfse_eletronic = fields.Boolean('Emite NFS-e?')
 =======
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     code = fields.Char(_("Codigo"), size=8, required=True)
     name = fields.Char(_("Descrição"), size=64)
     electronic = fields.Boolean(_("Eletrônico"))
     nfse_eletronic = fields.Boolean(_("Emite NFS-e?"))
+<<<<<<< HEAD
 >>>>>>> 2614df42... A pasos agigantados
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
 
 class BrAccountDocumentSerie(models.Model):
     _name = 'br_account.document.serie'
+<<<<<<< HEAD
 <<<<<<< HEAD
     _description = u'Série de documentos fiscais'
 
@@ -145,6 +171,8 @@ class BrAccountDocumentSerie(models.Model):
                                     ('product', 'Produto')],
                                    'Tipo Fiscal',
 =======
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     _description = _("Série de documentos fiscais")
 
     code = fields.Char(_("Código"), size=3, required=True)
@@ -153,11 +181,15 @@ class BrAccountDocumentSerie(models.Model):
     fiscal_type = fields.Selection([('service', _("Serviço")),
                                     ('product', _("Produto"))],
                                    _("Tipo Fiscal"),
+<<<<<<< HEAD
 >>>>>>> 2614df42... A pasos agigantados
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                    default='service')
     fiscal_document_id = fields.Many2one('br_account.fiscal.document',
                                          _("Documento Fiscal"),
                                          required=True)
+<<<<<<< HEAD
 <<<<<<< HEAD
     company_id = fields.Many2one('res.company', 'Empresa', required=True)
     internal_sequence_id = fields.Many2one(
@@ -169,6 +201,11 @@ class BrAccountDocumentSerie(models.Model):
     internal_sequence_id = fields.Many2one('ir.sequence',
                                            _("Sequência Interna"))
 >>>>>>> 2614df42... A pasos agigantados
+=======
+    company_id = fields.Many2one('res.company', _("Empresa"), required=True)
+    internal_sequence_id = fields.Many2one('ir.sequence',
+                                           _("Sequência Interna"))
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     @api.model
     def _create_sequence(self, vals):
@@ -200,6 +237,7 @@ class BrAccountDocumentSerie(models.Model):
 class BrAccountCNAE(models.Model):
     _name = 'br_account.cnae'
 <<<<<<< HEAD
+<<<<<<< HEAD
     _description = 'Cadastro de CNAE'
 
     code = fields.Char(u'Código', size=16, required=True)
@@ -211,6 +249,8 @@ class BrAccountCNAE(models.Model):
                                       ('normal', 'Normal')],
                                      'Tipo Interno',
 =======
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     _description = _("Cadastro de CNAE")
 
     code = fields.Char(_("Código"), size=16, required=True)
@@ -222,7 +262,10 @@ class BrAccountCNAE(models.Model):
     internal_type = fields.Selection([('view', _("Visualização")),
                                       ('normal', _("Normal"))],
                                      _("Tipo Interno"),
+<<<<<<< HEAD
 >>>>>>> 2614df42... A pasos agigantados
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                      required=True,
                                      default='normal')
 
@@ -253,6 +296,7 @@ class ImportDeclaration(models.Model):
     _description = "Declaração de Importação"
 
     invoice_id = fields.Many2one('account.move',
+<<<<<<< HEAD
                                  'Fatura',
                                  ondelete='cascade',
                                  index=True)
@@ -278,25 +322,66 @@ class ImportDeclaration(models.Model):
         ('10', u'10 - Entrada / Saída ficta'),
     ],
         u'Transporte Internacional',
+=======
+                                 _("Fatura"),
+                                 ondelete='cascade',
+                                 index=True)
+
+    name = fields.Char('Número da DI', size=10, required=True)
+    date_registration = fields.Date('Data de Registro', required=True)
+    state_id = fields.Many2one('res.country.state',
+                               'Estado',
+                               domain="[('country_id.code', '=', 'BR')]",
+                               required=True)
+    location = fields.Char('Local', required=True, size=60)
+    date_release = fields.Date('Data de Liberação', required=True)
+    type_transportation = fields.Selection([
+        ('1', '1 - Marítima'),
+        ('2', '2 - Fluvial'),
+        ('3', '3 - Lacustre'),
+        ('4', '4 - Aérea'),
+        ('5', '5 - Postal'),
+        ('6', '6 - Ferroviária'),
+        ('7', '7 - Rodoviária'),
+        ('8', '8 - Conduto / Rede Transmissão'),
+        ('9', '9 - Meios Próprios'),
+        ('10', '10 - Entrada / Saída ficta'),
+    ],
+        'Transporte Internacional',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         required=True,
         default="1")
     afrmm_value = fields.Float('Valor da AFRMM',
                                digits=('Account'),
                                default=0.00)
     type_import = fields.Selection([
+<<<<<<< HEAD
         ('1', u'1 - Importação por conta própria'),
         ('2', u'2 - Importação por conta e ordem'),
         ('3', u'3 - Importação por encomenda'),
     ],
         u'Tipo de Importação',
+=======
+        ('1', '1 - Importação por conta própria'),
+        ('2', '2 - Importação por conta e ordem'),
+        ('3', '3 - Importação por encomenda'),
+    ],
+        'Tipo de Importação',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         default='1',
         required=True)
     thirdparty_cnpj = fields.Char('CNPJ', size=18)
     thirdparty_state_id = fields.Many2one(
         'res.country.state',
+<<<<<<< HEAD
         u'Estado',
         domain="[('country_id.code', '=', 'BR')]")
     exporting_code = fields.Char(u'Código do Exportador',
+=======
+        'Estado',
+        domain="[('country_id.code', '=', 'BR')]")
+    exporting_code = fields.Char('Código do Exportador',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  required=True,
                                  size=60)
     line_ids = fields.One2many('br_account.import.declaration.line',
@@ -308,6 +393,7 @@ class ImportDeclarationLine(models.Model):
     _description = "Linha da declaração de importação"
 
     import_declaration_id = fields.Many2one('br_account.import.declaration',
+<<<<<<< HEAD
                                             u'DI',
                                             ondelete='cascade')
     sequence = fields.Integer(u'Sequência', default=1, required=True)
@@ -324,11 +410,27 @@ class ImportDeclarationLine(models.Model):
 >>>>>>> 2614df42... A pasos agigantados
                                    default=0.00)
     drawback_number = fields.Char(u'Número Drawback', size=11)
+=======
+                                            'DI',
+                                            ondelete='cascade')
+    sequence = fields.Integer('Sequência', default=1, required=True)
+    name = fields.Char('Adição', size=3, required=True)
+    manufacturer_code = fields.Char('Código do Fabricante',
+                                    size=60,
+                                    required=True)
+    amount_discount = fields.Float(string='Valor',
+                                   digits=('Account'),
+                                   default=0.00)
+    drawback_number = fields.Char('Número Drawback', size=11)
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
 
 class AccountDocumentRelated(models.Model):
     _name = 'br_account.document.related'
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     _description = _("Documentos Relacionados")
 
     move_id = fields.Many2one('account.move',
@@ -343,6 +445,7 @@ class AccountDocumentRelated(models.Model):
                                       ('cf', _("Cupom Fiscal"))],
                                      _("Tipo Documento"),
                                      required=True)
+<<<<<<< HEAD
 <<<<<<< HEAD
 =======
     _description = "Documentos Relacionados"
@@ -364,6 +467,11 @@ class AccountDocumentRelated(models.Model):
     serie = fields.Char(_("Série"), size=12)
     internal_number = fields.Char(_("Número"), size=32)
 >>>>>>> 2614df42... A pasos agigantados
+=======
+    access_key = fields.Char(_("Chave de Acesso"), size=44)
+    serie = fields.Char(_("Série"), size=12)
+    internal_number = fields.Char(_("Número"), size=32)
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     state_id = fields.Many2one('res.country.state',
                                _("Estado"),
                                domain="[('country_id.code', '=', 'BR')]")
@@ -387,6 +495,7 @@ class AccountDocumentRelated(models.Model):
                         check_cnpj_cpf = False
                 elif not fiscal.validate_cpf(rec.cnpj_cpf):
                     check_cnpj_cpf = False
+<<<<<<< HEAD
 
 <<<<<<< HEAD
         if not check_cnpj_cpf:
@@ -400,6 +509,13 @@ class AccountDocumentRelated(models.Model):
                     _('CNPJ/CPF do documento relacionado é invalido!', ))
 >>>>>>> 2614df42... A pasos agigantados
 
+=======
+
+            if not check_cnpj_cpf:
+                raise UserError(
+                    _('CNPJ/CPF do documento relacionado é invalido!', ))
+
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     @api.constrains('inscr_est')
     def _check_ie(self):
         check_ie = True
@@ -460,6 +576,7 @@ class AccountDocumentRelated(models.Model):
 class BrAccountFiscalObservation(models.Model):
     _name = 'br_account.fiscal.observation'
 <<<<<<< HEAD
+<<<<<<< HEAD
     _description = u'Mensagen Documento Eletrônico'
     _order = 'sequence'
 
@@ -473,13 +590,21 @@ class BrAccountFiscalObservation(models.Model):
     _description = _("Mensagen Documento Eletrônico")
     _order = 'sequence'
 
+=======
+    _description = _("Mensagen Documento Eletrônico")
+    _order = 'sequence'
+
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     sequence = fields.Integer(_("Sequência"), default=1, required=True)
     name = fields.Char(_("Descrição"), required=True, size=50)
     message = fields.Text(_("Mensagem"), required=True)
     tipo = fields.Selection([('fiscal', _("Observação Fiscal")),
                              ('observacao', _("Observação"))],
                             string=_("Tipo"))
+<<<<<<< HEAD
 >>>>>>> 2614df42... A pasos agigantados
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     document_id = fields.Many2one('br_account.fiscal.document',
                                   string=_("Documento Fiscal"))
 

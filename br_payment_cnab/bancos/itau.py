@@ -79,11 +79,15 @@ class Itau240(Cnab240):
 <<<<<<< HEAD
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
             segmento.update({
                 'codigo_de_barras': int(line.barcode[20:]),
                 'codigo_de_barras_dv': self.get_dv_digitable_line(
                     self._just_numbers(line.linha_digitavel))
             })
+<<<<<<< HEAD
 =======
             segmento.update({'codigo_de_barras': line.barcode[20:]})
 >>>>>>> 5c041dab... [FIX] barcode information (#863)
@@ -97,6 +101,8 @@ class Itau240(Cnab240):
                     self._just_numbers(line.linha_digitavel))
             })
 >>>>>>> c0f24cd3... [ADD] Remaining info to barcode payment (#870)
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         segmento.update({
             'numero_parcela': int(segmento.get('numero_parcela')[:13]),
             'divida_ativa_etiqueta': int(
@@ -123,6 +129,7 @@ class Itau240(Cnab240):
             'favorecido_banco': int(line.bank_account_id.bank_id.bic) or
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
                 int(line.barcode[:3]),
 =======
                 line.barcode[:3],
@@ -130,6 +137,9 @@ class Itau240(Cnab240):
 =======
                 int(line.barcode[:3]),
 >>>>>>> d4833305... [FIX] bank type (#875)
+=======
+                int(line.barcode[:3]),
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
             'finalidade_ted': get_ted_doc_finality(
                 'itau', segmento.get('finalidade_doc_ted'), '01', ignore),
             'finalidade_doc': get_ted_doc_finality(
@@ -145,6 +155,7 @@ class Itau240(Cnab240):
         if len(linha_digitavel) == 47:
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
             return int(linha_digitavel[4])
         elif len(linha_digitavel) == 48:
             return int(linha_digitavel[3])  # confirmar info
@@ -158,6 +169,11 @@ class Itau240(Cnab240):
         elif len(linha_digitavel) == 48:
             return int(linha_digitavel[3])  # confirmar info
 >>>>>>> 3429ae44...  [FIX] DV barcode type  (#877)
+=======
+            return int(linha_digitavel[4])
+        elif len(linha_digitavel) == 48:
+            return int(linha_digitavel[3])  # confirmar info
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
     # NOTA 11 do manual: se houverem dois digitos no dac da agencia/conta
     # o campo 42 (inicialmente vazio) deve ser utilizado

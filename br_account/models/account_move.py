@@ -4,6 +4,7 @@
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
+<<<<<<< HEAD
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
@@ -490,6 +491,8 @@ class AccountMove(models.Model):
 
 <<<<<<< HEAD
 =======
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 from odoo import _, api, fields, models
 from odoo.exceptions import UserError
 
@@ -497,8 +500,13 @@ from odoo.exceptions import UserError
 class AccountMove(models.Model):
     _inherit = 'account.move'
 
+<<<<<<< HEAD
     @api.depends('invoice_line_ids.price_subtotal', 'line_ids', 'currency_id',
                  'company_id')
+=======
+    @api.depends('invoice_line_ids.price_subtotal', 'line_ids',
+                 'currency_id', 'company_id')
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
     def _compute_amount(self):
         for rec in self:
             lines = rec.line_ids
@@ -591,7 +599,11 @@ class AccountMove(models.Model):
 
     product_serie_id = fields.Many2one(
         'br_account.document.serie',
+<<<<<<< HEAD
         string='Série produtos',
+=======
+        string=u'Série produtos',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         domain="[('fiscal_document_id', '=', product_document_id),\
         ('company_id','=',company_id)]",
         readonly=True,
@@ -603,7 +615,11 @@ class AccountMove(models.Model):
         states={'draft': [('readonly', False)]})
     service_serie_id = fields.Many2one(
         'br_account.document.serie',
+<<<<<<< HEAD
         string='Série serviços',
+=======
+        string=u'Série serviços',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         domain="[('fiscal_document_id', '=', service_document_id),\
         ('company_id','=',company_id)]",
         readonly=True,
@@ -621,10 +637,17 @@ class AccountMove(models.Model):
         states={'draft': [('readonly', False)]})
     fiscal_observation_ids = fields.Many2many(
         'br_account.fiscal.observation',
+<<<<<<< HEAD
         string="Observações Fiscais",
         readonly=True,
         states={'draft': [('readonly', False)]})
     fiscal_comment = fields.Text('Observação Fiscal',
+=======
+        string=u"Observações Fiscais",
+        readonly=True,
+        states={'draft': [('readonly', False)]})
+    fiscal_comment = fields.Text(u'Observação Fiscal',
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                  readonly=True,
                                  states={'draft': [('readonly', False)]})
 
@@ -657,7 +680,11 @@ class AccountMove(models.Model):
         string="Total ICMS FCP",
         store=True,
         compute='_compute_amount',
+<<<<<<< HEAD
         help='Total total do ICMS relativo Fundo de Combate à Pobreza (FCP) \
+=======
+        help=u'Total total do ICMS relativo Fundo de Combate à Pobreza (FCP) \
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         da UF de destino')
     valor_icms_uf_dest = fields.Float(
         string="ICMS Destino",
@@ -806,7 +833,11 @@ class AccountMove(models.Model):
                          ['proforma2', 'draft', 'open', 'paid']):
             raise UserError(
                 _("Invoice must be in draft, Pro-forma or open \
+<<<<<<< HEAD
                   state in order to be cancelled."))
+=======
+                              state in order to be cancelled."))
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
 
         return self.action_cancel()
 
@@ -975,4 +1006,7 @@ class AccountMove(models.Model):
             related_vals.append(related)
 
         return related_vals
+<<<<<<< HEAD
 >>>>>>> 79d6053a... First steps and save to cloud
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30

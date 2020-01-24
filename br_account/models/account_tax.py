@@ -15,7 +15,7 @@ class AccountChartTemplate(models.Model):
 
         tax_tmpl_obj = self.env['account.tax.template']
         tax_obj = self.env['account.tax']
-        for key, value in tax_ref.items():
+        for key, value in list(tax_ref.items()):
             tax_tmpl_id = tax_tmpl_obj.browse(key)
             tax_obj.browse(value).write({
                 'deduced_account_id': acc_ref.get(
@@ -30,9 +30,9 @@ class AccountTaxTemplate(models.Model):
     _inherit = 'account.tax.template'
 
     deduced_account_id = fields.Many2one(
-        'account.account.template', string=u"Conta de Dedução da Venda")
+        'account.account.template', string="Conta de Dedução da Venda")
     refund_deduced_account_id = fields.Many2one(
-        'account.account.template', string=u"Conta de Dedução do Reembolso")
+        'account.account.template', string="Conta de Dedução do Reembolso")
     domain = fields.Selection([('icms', 'ICMS'),
                                ('icmsst', 'ICMS ST'),
                                ('pis', 'PIS'),
@@ -40,8 +40,8 @@ class AccountTaxTemplate(models.Model):
                                ('ipi', 'IPI'),
                                ('issqn', 'ISSQN'),
                                ('ii', 'II'),
-                               ('icms_inter', u'Difal - Alíquota Inter'),
-                               ('icms_intra', u'Difal - Alíquota Intra'),
+                               ('icms_inter', 'Difal - Alíquota Inter'),
+                               ('icms_intra', 'Difal - Alíquota Intra'),
                                ('fcp', 'FCP'),
                                ('csll', 'CSLL'),
                                ('irrf', 'IRRF'),
@@ -61,18 +61,25 @@ class AccountTax(models.Model):
     _inherit = 'account.tax'
 
     deduced_account_id = fields.Many2one(
+<<<<<<< HEAD
         'account.account', string=_("Conta de Dedução da Venda"))
     refund_deduced_account_id = fields.Many2one(
         'account.account', string=_("Conta de Dedução do Reembolso"))
     domain = fields.Selection([('icms', "ICMS"),
+=======
+        'account.account', string="Conta de Dedução da Venda")
+    refund_deduced_account_id = fields.Many2one(
+        'account.account', string="Conta de Dedução do Reembolso")
+    domain = fields.Selection([('icms', 'ICMS'),
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
                                ('icmsst', 'ICMS ST'),
                                ('pis', 'PIS'),
                                ('cofins', 'COFINS'),
                                ('ipi', 'IPI'),
                                ('issqn', 'ISSQN'),
                                ('ii', 'II'),
-                               ('icms_inter', u'Difal - Alíquota Inter'),
-                               ('icms_intra', u'Difal - Alíquota Intra'),
+                               ('icms_inter', 'Difal - Alíquota Inter'),
+                               ('icms_intra', 'Difal - Alíquota Intra'),
                                ('fcp', 'FCP'),
                                ('csll', 'CSLL'),
                                ('irrf', 'IRRF'),

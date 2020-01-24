@@ -438,12 +438,15 @@ class InvoiceEletronic(models.Model):
 <<<<<<< HEAD
 <<<<<<< HEAD
         dt_emissao = datetime.now(tz).replace(microsecond=0).isoformat()
+<<<<<<< HEAD
 =======
         dt_emissao = datetime.now(tz).isoformat(timespec='seconds')
 >>>>>>> 387baaed... [ADD] Implementa data de entrada e saida de mercadorias
 =======
         dt_emissao = datetime.now(tz).replace(microsecond=0).isoformat()
 >>>>>>> 90d64bd7... [FIX] Timespec is added to python 3.6 only
+=======
+>>>>>>> 2614df42964d4858c2816b3e0adb82b10261ed30
         dt_saida = fields.Datetime.from_string(self.data_entrada_saida)
         if dt_saida:
             dt_saida = tz.localize(dt_saida).replace(microsecond=0).isoformat()
